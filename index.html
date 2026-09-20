@@ -100,6 +100,44 @@ canvas#sparkle-canvas{position:fixed;inset:0;z-index:3;pointer-events:none;}
 }
 .landing-date .dot{color:rgba(212,175,55,0.6);margin:0 8px;}
 
+/* ══ COUNTDOWN ══ */
+#countdown{
+  display:flex;align-items:flex-start;justify-content:center;
+  gap:clamp(10px,2.4vw,22px);
+  margin-top:clamp(18px,3vh,28px);
+}
+.cd-unit{display:flex;flex-direction:column;align-items:center;min-width:38px;}
+.cd-num{
+  font-family:'Cinzel',serif;font-weight:600;
+  font-size:clamp(22px,3.8vw,34px);
+  font-variant-numeric:tabular-nums;
+  background:linear-gradient(180deg,#FFF3D4 0%,#F5D078 55%,#C9A05C 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  line-height:1;
+  filter:drop-shadow(0 0 8px rgba(255,200,80,0.3));
+}
+.cd-label{
+  font-family:'Cinzel',serif;font-size:clamp(8px,1vw,10px);
+  letter-spacing:0.18em;text-transform:uppercase;
+  color:rgba(232,205,160,0.55);margin-top:5px;
+}
+.cd-sep{
+  font-family:'Cinzel',serif;font-size:clamp(16px,2.6vw,24px);
+  color:rgba(212,175,55,0.32);
+  align-self:center;
+  transform:translateY(-7px);
+}
+.cd-done{
+  font-family:'Cinzel',serif;font-size:clamp(13px,1.8vw,16px);
+  letter-spacing:0.14em;text-transform:uppercase;
+  color:#F5D078;
+  text-shadow:0 0 12px rgba(255,200,80,0.5);
+}
+@media (max-width:420px){
+  #countdown{gap:8px;}
+  .cd-unit{min-width:30px;}
+}
+
 /* ══ PORTAL CARDS ══ */
 .portal-row{
   display:flex;
@@ -229,6 +267,17 @@ a:focus-visible, [tabindex]:focus-visible{
   <p class="eyebrow">Together with their families</p>
   <h1 class="couple-names">Shankar Prasad<span class="amp">&amp;</span>Haripriya</h1>
   <p class="landing-date">FRIDAY <span class="dot">·</span> 20 NOVEMBER 2026 <span class="dot">·</span> COIMBATORE</p>
+
+  <div id="countdown">
+    <div class="cd-unit"><span class="cd-num" id="cd-days">00</span><span class="cd-label">Days</span></div>
+    <div class="cd-sep">:</div>
+    <div class="cd-unit"><span class="cd-num" id="cd-hours">00</span><span class="cd-label">Hrs</span></div>
+    <div class="cd-sep">:</div>
+    <div class="cd-unit"><span class="cd-num" id="cd-mins">00</span><span class="cd-label">Min</span></div>
+    <div class="cd-sep">:</div>
+    <div class="cd-unit"><span class="cd-num" id="cd-secs">00</span><span class="cd-label">Sec</span></div>
+  </div>
+
   <button class="share-btn" onclick="shareInvite()">⤴ Share this invitation</button>
 
   <div class="portal-row">
@@ -272,6 +321,41 @@ a:focus-visible, [tabindex]:focus-visible{
 <script src="js/features.js"></script>
 <script>
 initLoader();
+
+/* Countdown to the wedding muhurtham — reuses the same UTC timestamp
+   stored in config.js for the calendar export, so the two never drift. */
+(function(){
+  function parseICSUTC(s){
+    const y=+s.slice(0,4), mo=+s.slice(4,6)-1, d=+s.slice(6,8);
+    const h=+s.slice(9,11), mi=+s.slice(11,13), se=+s.slice(13,15);
+    return Date.UTC(y,mo,d,h,mi,se);
+  }
+  const target = parseICSUTC(WEDDING_CONFIG.wedding.icsStartUTC);
+  const cd = document.getElementById('countdown');
+  const els = {
+    d: document.getElementById('cd-days'),
+    h: document.getElementById('cd-hours'),
+    m: document.getElementById('cd-mins'),
+    s: document.getElementById('cd-secs')
+  };
+  function pad(n){ return String(n).padStart(2,'0'); }
+  let iv;
+  function tick(){
+    const diff = target - Date.now();
+    if(diff <= 0){
+      cd.innerHTML = '<div class="cd-done">✦ They&rsquo;re Married! ✦</div>';
+      clearInterval(iv);
+      return;
+    }
+    const totalSec = Math.floor(diff/1000);
+    els.d.textContent = Math.floor(totalSec/86400);
+    els.h.textContent = pad(Math.floor((totalSec%86400)/3600));
+    els.m.textContent = pad(Math.floor((totalSec%3600)/60));
+    els.s.textContent = pad(totalSec%60);
+  }
+  tick();
+  iv = setInterval(tick, 1000);
+})();
 
 const cv = document.getElementById('sparkle-canvas');
 const cx = cv.getContext('2d');
