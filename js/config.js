@@ -10,7 +10,7 @@
 const WEDDING_CONFIG = {
   site: {
     title: "Shankar Prasad & Haripriya",
-    url: "https://shankarprasadk.github.io/ShaHaWeddingInvite/" // update after deploying
+    url: "https://shankar-prasad-k.github.io/ShaHaWeddingInvite/"
   },
 
   couple: {
