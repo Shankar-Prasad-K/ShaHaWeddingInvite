@@ -1,0 +1,487 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Reception — Shankar & Haripriya</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html,body{width:100%;height:100%;overflow:hidden;background:#08080a;font-family:'Cormorant Garamond',Georgia,serif;color:#F5EFE4;-webkit-font-smoothing:antialiased;}
+
+.scene{position:fixed;inset:0;transition:opacity 1.3s ease;}
+.scene.out{opacity:0;pointer-events:none;}
+
+.back-link{
+  position:fixed;top:18px;left:20px;z-index:50;
+  font-family:'Cinzel',serif;font-size:11px;letter-spacing:0.18em;
+  color:rgba(232,195,158,0.8);text-decoration:none;text-transform:uppercase;
+  padding:8px 14px;border:1px solid rgba(212,175,55,0.28);border-radius:2px;
+  background:rgba(8,8,10,0.4);backdrop-filter:blur(4px);
+  transition:all 0.3s;
+}
+.back-link:hover{color:#F5D078;border-color:rgba(212,175,55,0.65);background:rgba(16,15,18,0.6);}
+
+/* ═══════════ DOOR SCENE ═══════════ */
+#scene-doors{
+  z-index:1;
+  background:
+    radial-gradient(ellipse at 50% 38%, rgba(60,45,20,0.28) 0%, transparent 55%),
+    linear-gradient(180deg,#0d0c10 0%,#131217 45%,#0a0a0d 100%);
+  display:flex;flex-direction:column;
+  overflow:hidden;
+}
+
+canvas#bokeh-c{position:fixed;inset:0;z-index:2;pointer-events:none;}
+
+.beam{
+  position:absolute;top:-10%;width:38%;height:130%;
+  background:linear-gradient(180deg, rgba(255,225,170,0.10) 0%, transparent 70%);
+  transform-origin:top center;
+  pointer-events:none;
+  z-index:1;
+}
+.beam-l{left:6%;transform:rotate(12deg);}
+.beam-r{right:6%;transform:rotate(-12deg);}
+
+#stage{
+  position:relative;flex:1;
+  display:flex;align-items:flex-end;justify-content:center;
+  z-index:3;
+  padding-bottom:0;
+}
+
+.pillar{
+  position:absolute;bottom:0;
+  width:clamp(10px,1.4vw,16px);
+  height:62%;
+  background:linear-gradient(180deg,#3a3630 0%,#1c1a18 100%);
+  border-radius:2px;
+}
+.pillar.l{left:14%;}
+.pillar.r{right:14%;}
+.pillar-glow{
+  position:absolute;bottom:0;left:50%;transform:translateX(-50%);
+  width:80px;height:140px;
+  background:radial-gradient(ellipse at 50% 100%, rgba(255,200,120,0.55) 0%, transparent 70%);
+  filter:blur(4px);
+}
+.pillar-bloom{
+  position:absolute;top:-22px;left:50%;transform:translateX(-50%);
+  width:46px;height:46px;
+}
+.pillar-bloom span{
+  position:absolute;border-radius:50%;
+  background:radial-gradient(circle at 35% 30%, #fff7e6, #E8C39E 60%, #C9A05C 100%);
+  box-shadow:0 0 10px rgba(255,220,170,0.5);
+}
+
+.doorframe{
+  position:relative;
+  width:min(300px,58vw);
+  height:74%;
+  margin:0 auto;
+  display:flex;flex-direction:column;align-items:center;
+}
+.marquee{
+  position:absolute;top:-22px;left:-14px;right:-14px;
+  height:14px;
+  display:flex;justify-content:space-between;
+  padding:0 2px;
+}
+.marquee span{
+  width:5px;height:5px;border-radius:50%;
+  background:radial-gradient(circle,#FFF3C8,#E8B94A);
+  box-shadow:0 0 6px 2px rgba(255,210,110,0.7);
+  animation:bulb 1.8s ease-in-out infinite;
+}
+@keyframes bulb{0%,100%{opacity:0.35;}50%{opacity:1;}}
+
+.frame-outer{
+  position:relative;
+  width:100%;height:100%;
+  border:3px solid;
+  border-image:linear-gradient(180deg,#F5D078,#B8862A,#F5D078) 1;
+  box-shadow:0 0 30px rgba(212,175,55,0.2), inset 0 0 30px rgba(212,175,55,0.08);
+  display:flex;overflow:hidden;
+  background:#050505;
+  cursor:pointer;
+}
+
+#glass-glow{
+  position:absolute;inset:-20%;
+  background:radial-gradient(ellipse at 50% 55%, rgba(255,225,170,0.9) 0%, rgba(255,180,90,0.45) 35%, transparent 72%);
+  opacity:0.55;
+  transition:opacity 0.7s ease;
+  pointer-events:none;
+  z-index:0;
+}
+#glass-glow.lit{opacity:1;}
+
+.gdoor{
+  position:relative;
+  width:50%;height:100%;
+  transition:transform 1.5s cubic-bezier(.4,0,.2,1);
+  z-index:1;
+  overflow:hidden;
+}
+.gdoor-l{transform:translateX(0);border-right:1px solid rgba(212,175,55,0.5);}
+.gdoor-r{transform:translateX(0);border-left:1px solid rgba(212,175,55,0.5);}
+.gdoor-l.open{transform:translateX(-102%);}
+.gdoor-r.open{transform:translateX(102%);}
+
+.glass-fill{
+  position:absolute;inset:0;
+  background:linear-gradient(155deg,
+    rgba(255,248,232,0.14) 0%,
+    rgba(255,240,210,0.05) 30%,
+    rgba(255,230,190,0.16) 55%,
+    rgba(255,244,220,0.04) 78%,
+    rgba(255,235,200,0.12) 100%);
+}
+.glass-streak{
+  position:absolute;top:-10%;height:130%;width:18%;
+  background:linear-gradient(180deg, rgba(255,255,255,0.14), transparent);
+  transform:skewX(-14deg);
+}
+.gdoor-l .glass-streak{left:18%;}
+.gdoor-r .glass-streak{right:28%;}
+
+.handle{
+  position:absolute;top:50%;transform:translateY(-50%);
+  width:5px;height:34%;
+  background:linear-gradient(180deg,#F5D078,#8a6a1e);
+  border-radius:3px;
+  box-shadow:0 0 6px rgba(212,175,55,0.5);
+}
+.gdoor-l .handle{right:10%;}
+.gdoor-r .handle{left:10%;}
+
+#enter-prompt-r{
+  position:absolute;left:50%;bottom:calc(100% + 30px);transform:translateX(-50%);
+  white-space:nowrap;z-index:4;
+  font-family:'Cinzel',serif;font-size:clamp(10px,1.2vw,12px);letter-spacing:0.24em;text-transform:uppercase;
+  color:rgba(245,208,120,0.85);text-shadow:0 0 12px rgba(255,190,90,0.5);
+  animation:pulse 2.6s ease-in-out infinite;
+}
+@keyframes pulse{0%,100%{opacity:0.4;}50%{opacity:1;}}
+
+.carpet{
+  position:absolute;bottom:0;left:50%;transform:translateX(-50%);
+  width:70%;height:100%;
+  background:linear-gradient(180deg,#5c0e1a 0%,#3a0810 100%);
+  clip-path:polygon(38% 0%,62% 0%,88% 100%,12% 100%);
+  border-left:1px solid rgba(212,175,55,0.25);
+  border-right:1px solid rgba(212,175,55,0.25);
+  opacity:0.85;
+  z-index:0;
+}
+
+.floor{
+  position:relative;flex:0 0 auto;height:9%;
+  background:linear-gradient(180deg,#0c0b0d,#020202);
+  z-index:3;
+}
+.floor::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 50% 0%, rgba(255,200,120,0.12) 0%, transparent 70%);
+}
+
+/* ═══════════ INVITATION SCENE (modern) ═══════════ */
+#scene-invite{
+  z-index:40;
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(120,90,40,0.16) 0%, transparent 55%),
+    linear-gradient(180deg,#0a090c 0%,#121014 50%,#0a090c 100%);
+  display:flex;flex-direction:column;align-items:center;
+  overflow-y:auto;padding:72px 20px 60px;
+}
+canvas#bokeh-c2{position:fixed;inset:0;pointer-events:none;z-index:0;}
+
+#rcard{
+  position:relative;z-index:3;
+  width:min(600px,90vw);
+  background:linear-gradient(165deg,#141216 0%,#0d0c0f 100%);
+  border:1px solid rgba(212,175,55,0.35);
+  padding:clamp(34px,5vw,58px) clamp(24px,5vw,50px) clamp(30px,4vw,46px);
+  text-align:center;
+  box-shadow:0 20px 60px rgba(0,0,0,0.6), 0 0 60px rgba(212,175,55,0.06);
+}
+#rcard::before{
+  content:'';position:absolute;inset:8px;
+  border:1px solid rgba(212,175,55,0.16);
+  pointer-events:none;
+}
+.r-eyebrow{
+  font-family:'Cinzel',serif;font-size:clamp(10px,1.2vw,12px);
+  letter-spacing:0.32em;text-transform:uppercase;
+  color:rgba(232,195,158,0.65);margin-bottom:10px;
+}
+.r-heading{
+  font-family:'Great Vibes',cursive;font-size:clamp(32px,5.5vw,50px);
+  background:linear-gradient(180deg,#FFF3D4,#E8C39E 55%,#C9A05C 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  line-height:1.15;filter:drop-shadow(0 2px 14px rgba(212,175,55,0.25));
+}
+.r-div{width:46%;height:1px;background:linear-gradient(90deg,transparent,rgba(212,175,55,0.4),transparent);margin:18px auto;}
+.r-body{font-size:clamp(12px,1.4vw,14.5px);color:rgba(240,228,205,0.72);line-height:1.9;}
+.r-name{
+  font-family:'Great Vibes',cursive;font-size:clamp(30px,5vw,44px);
+  color:#F0D9A8;display:block;line-height:1.15;
+  filter:drop-shadow(0 0 10px rgba(212,175,55,0.3));
+}
+.r-date{font-family:'Cinzel',serif;font-size:clamp(13px,1.6vw,16px);letter-spacing:0.06em;color:#F5D078;margin:4px 0 2px;}
+.r-venue-name{font-family:'Cinzel',serif;font-size:1.15em;letter-spacing:0.04em;color:#F0D9A8;}
+
+.r-sched{
+  margin:18px 0 4px;
+  border-top:1px solid rgba(212,175,55,0.22);
+  border-bottom:1px solid rgba(212,175,55,0.22);
+  padding:16px 4px;
+}
+.r-sched-row{
+  display:flex;justify-content:space-between;gap:14px;
+  font-size:clamp(10.5px,1.25vw,12.5px);
+  color:rgba(235,222,198,0.75);
+  line-height:2.1;
+  text-align:left;
+}
+.r-sched-row .ev{
+  font-family:'Cinzel',serif;letter-spacing:0.06em;color:#E8C39E;
+  min-width:110px;flex:0 0 auto;
+}
+
+.map-link{
+  display:inline-block;margin-top:12px;
+  font-size:clamp(10.5px,1.2vw,12px);letter-spacing:0.08em;
+  color:rgba(232,195,158,0.7);text-decoration:none;
+  border-bottom:1px solid rgba(212,175,55,0.35);
+  transition:color 0.3s,border-color 0.3s;
+}
+.map-link:hover{color:#F5D078;border-color:rgba(212,175,55,0.75);}
+.nav-links{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:26px;position:relative;z-index:3;}
+.nav-btn{
+  padding:12px 26px;background:transparent;border:1px solid rgba(212,175,55,0.35);
+  color:rgba(232,195,158,0.85);text-decoration:none;
+  font-family:'Cinzel',serif;font-size:clamp(10px,1.2vw,12px);letter-spacing:0.12em;
+  cursor:pointer;transition:all 0.3s;display:inline-block;text-transform:uppercase;
+}
+.nav-btn:hover{background:rgba(212,175,55,0.1);color:#F5D078;border-color:rgba(212,175,55,0.6);}
+
+/* focus visibility for keyboard users */
+a:focus-visible, [tabindex]:focus-visible, button:focus-visible{
+  outline:2px solid rgba(245,208,120,0.85);
+  outline-offset:3px;
+  border-radius:2px;
+}
+
+#loader{
+  position:fixed;inset:0;z-index:200;
+  background:#08080a;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  transition:opacity 0.5s ease;
+}
+#loader .l-mark{
+  font-family:'Great Vibes',cursive;font-size:44px;
+  background:linear-gradient(180deg,#FFF3D4,#E8C39E 55%,#C9A05C 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  animation:loaderPulse 1.6s ease-in-out infinite;
+}
+#loader .l-names{font-family:'Cinzel',serif;font-size:11px;letter-spacing:0.3em;color:rgba(232,205,160,0.6);margin-top:14px;text-transform:uppercase;}
+@keyframes loaderPulse{0%,100%{opacity:0.5;transform:scale(1);}50%{opacity:1;transform:scale(1.06);}}
+
+@media (prefers-reduced-motion: reduce){
+  .marquee span, #enter-prompt-r, #loader .l-mark{animation:none !important;}
+  .scene{transition:opacity 0.25s linear;}
+  .gdoor{transition:transform 0.25s linear;}
+}
+</style>
+</head>
+<body>
+
+<div id="loader"><div class="l-mark">S &amp; H</div><div class="l-names">Wedding Reception</div></div>
+
+<a class="back-link" href="index.html">← Home</a>
+
+<!-- ══ DOOR SCENE ══ -->
+<div id="scene-doors" class="scene">
+  <canvas id="bokeh-c"></canvas>
+  <div class="beam beam-l"></div>
+  <div class="beam beam-r"></div>
+
+  <div id="stage">
+    <div class="pillar l"></div>
+    <div class="pillar-glow" style="left:14%;bottom:0;"></div>
+    <div class="pillar r"></div>
+    <div class="pillar-glow" style="right:14%;left:auto;bottom:0;"></div>
+
+    <div class="doorframe">
+      <p id="enter-prompt-r">✦ &nbsp;Touch the doors to enter&nbsp; ✦</p>
+      <div class="marquee" id="marquee"></div>
+      <div class="carpet"></div>
+      <div class="frame-outer" id="door-stage-r">
+        <div id="glass-glow"></div>
+        <div class="gdoor gdoor-l" id="gdoor-l">
+          <div class="glass-fill"></div>
+          <div class="glass-streak"></div>
+          <div class="handle"></div>
+        </div>
+        <div class="gdoor gdoor-r" id="gdoor-r">
+          <div class="glass-fill"></div>
+          <div class="glass-streak"></div>
+          <div class="handle"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="floor"></div>
+</div>
+
+<!-- ══ INVITATION SCENE ══ -->
+<div id="scene-invite" class="scene out">
+  <canvas id="bokeh-c2"></canvas>
+
+  <div id="rcard">
+    <div class="r-eyebrow">You Are Cordially Invited</div>
+    <div class="r-heading">Wedding Reception</div>
+    <div class="r-div"></div>
+
+    <div class="r-body">
+      Mrs. Devi Kumaravel &amp; Mr. V. Kumaravel<br/>
+      joyfully invite you to celebrate the marriage reception of
+    </div>
+
+    <div style="margin:20px 0 2px;"><span class="r-name">Shankar Prasad K</span></div>
+    <div class="r-body" style="font-size:0.82em;opacity:0.65;margin-bottom:10px;">with</div>
+    <div style="margin-bottom:20px;"><span class="r-name">Haripriya V</span></div>
+
+    <div class="r-div"></div>
+
+    <div class="r-date">FRIDAY · 20 NOVEMBER 2026</div>
+    <div class="r-body" style="margin-bottom:16px;">6:00 PM – 9:00 PM</div>
+
+    <div class="r-body"><span class="r-venue-name">GP Grand Galaxy</span><br/>
+      Near G.P. Signal, Ganthipuram<br/>Sathy Road, Coimbatore
+    </div>
+    <a class="map-link" data-cfg="reception.mapLink" href="https://share.google/MLjErDc9WtHHSo3wP" target="_blank" rel="noopener">📍 Get Directions</a>
+
+    <div class="r-sched">
+      <div class="r-sched-row"><span class="ev">Betrothal</span><span>18 Nov 2026 (Wed) · 4:30 – 6:00 AM</span></div>
+      <div class="r-sched-row"><span class="ev">Muhurtham</span><span>20 Nov 2026 (Fri) · 6:00 – 7:30 AM</span></div>
+      <div class="r-sched-row"><span class="ev">Reception</span><span>20 Nov 2026 (Fri) · 6:00 PM onwards</span></div>
+    </div>
+
+    <div class="r-body" style="font-style:italic;font-size:0.85em;color:rgba(212,175,55,0.55);margin-top:14px;">
+      With best compliments from Friends &amp; Relatives
+    </div>
+  </div>
+
+  <div class="nav-links">
+    <button class="nav-btn" onclick="addReceptionToCalendar()">🗓 Add to Calendar</button>
+    <a class="nav-btn" id="rsvp-btn-r" href="#" target="_blank" rel="noopener">💬 RSVP</a>
+    <button class="nav-btn" onclick="shareInvite()">⤴ Share</button>
+  </div>
+  <div class="nav-links">
+    <a class="nav-btn" href="index.html">← Home</a>
+    <a class="nav-btn" href="wedding.html">← Wedding Invitation</a>
+  </div>
+</div>
+
+<script src="js/config.js"></script>
+<script src="js/features.js"></script>
+<script>
+initLoader();
+hydrateConfig();
+document.getElementById('rsvp-btn-r').href = rsvpLink();
+</script>
+<script>
+// marquee bulbs
+const mq = document.getElementById('marquee');
+for(let i=0;i<16;i++){
+  const b=document.createElement('span');
+  b.style.animationDelay=(i*0.1)+'s';
+  mq.appendChild(b);
+}
+// pillar blooms
+document.querySelectorAll('.pillar').forEach(p=>{
+  const bloom=document.createElement('div');
+  bloom.className='pillar-bloom';
+  for(let i=0;i<6;i++){
+    const petal=document.createElement('span');
+    const ang=(i/6)*Math.PI*2, rad=12;
+    petal.style.width=petal.style.height=(10+Math.random()*6)+'px';
+    petal.style.left=(18+Math.cos(ang)*rad)+'px';
+    petal.style.top=(18+Math.sin(ang)*rad)+'px';
+    bloom.appendChild(petal);
+  }
+  p.appendChild(bloom);
+});
+
+const sceneDoors = document.getElementById('scene-doors');
+const sceneInvite = document.getElementById('scene-invite');
+const gL = document.getElementById('gdoor-l');
+const gR = document.getElementById('gdoor-r');
+const glow = document.getElementById('glass-glow');
+const stage = document.getElementById('door-stage-r');
+const prompt = document.getElementById('enter-prompt-r');
+let entered=false;
+
+stage.addEventListener('click', enterReception);
+stage.addEventListener('touchend', e=>{e.preventDefault();enterReception();});
+makeKeyboardActivatable(stage, enterReception, 'Open the doors to view the reception invitation');
+
+function enterReception(){
+  if(entered) return;
+  entered=true;
+  gL.classList.add('open');
+  gR.classList.add('open');
+  glow.classList.add('lit');
+  prompt.style.opacity='0';
+  const delay = prefersReducedMotion ? 100 : 950;
+  setTimeout(()=>{
+    sceneDoors.classList.add('out');
+    sceneInvite.classList.remove('out');
+  }, delay);
+}
+
+// Bokeh particle field (shared pattern for both canvases)
+function initBokeh(canvasId){
+  const c = document.getElementById(canvasId);
+  const x = c.getContext('2d');
+  function mk(rand){
+    return{
+      x:Math.random(), y:rand?Math.random():1.08,
+      vy:0.00018+Math.random()*0.00042,
+      vx:(Math.random()-0.5)*0.00012,
+      r:6+Math.random()*22,
+      a:0.06+Math.random()*0.18,
+      hue: Math.random()<0.7 ? 42 : 28,
+      ph:Math.random()*Math.PI*2, sp:0.3+Math.random()*0.6
+    };
+  }
+  const P = Array.from({length:34},()=>mk(true));
+  let t=0;
+  function loop(){
+    c.width=innerWidth; c.height=innerHeight;
+    const W=c.width,H=c.height; t+=0.01;
+    for(const p of P){
+      p.y-=p.vy; p.x+=p.vx+Math.sin(t*p.sp+p.ph)*0.00012;
+      if(p.y<-0.08) Object.assign(p, mk(false));
+      const tw=0.7+0.3*Math.sin(t*p.sp*2+p.ph);
+      const grad = x.createRadialGradient(p.x*W,p.y*H,0,p.x*W,p.y*H,p.r);
+      grad.addColorStop(0, `hsla(${p.hue},70%,72%,${p.a*tw})`);
+      grad.addColorStop(1, `hsla(${p.hue},70%,60%,0)`);
+      x.beginPath(); x.arc(p.x*W,p.y*H,p.r,0,Math.PI*2);
+      x.fillStyle=grad; x.fill();
+    }
+    if(!prefersReducedMotion) requestAnimationFrame(loop);
+  }
+  loop();
+}
+initBokeh('bokeh-c');
+initBokeh('bokeh-c2');
+</script>
+</body>
+</html>

@@ -1,0 +1,720 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Wedding Ceremony — Shankar & Haripriya</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html,body{width:100%;height:100%;overflow:hidden;background:#06020a;font-family:'Cormorant Garamond',Georgia,serif;color:#FFF8E7;-webkit-font-smoothing:antialiased;}
+
+.scene{position:fixed;inset:0;transition:opacity 1.3s ease;}
+.scene.out{opacity:0;pointer-events:none;}
+
+.back-link{
+  position:fixed;top:18px;left:20px;z-index:50;
+  font-family:'Cinzel',serif;font-size:11px;letter-spacing:0.18em;
+  color:rgba(255,225,170,0.75);text-decoration:none;text-transform:uppercase;
+  padding:8px 14px;border:1px solid rgba(212,175,55,0.3);border-radius:2px;
+  background:rgba(10,5,5,0.35); backdrop-filter:blur(4px);
+  transition:all 0.3s;
+}
+.back-link:hover{color:#FFD875;border-color:rgba(212,175,55,0.7);background:rgba(20,10,8,0.55);}
+
+/* ═══════════ OUTSIDE (TEMPLE) SCENE ═══════════ */
+#scene-temple{
+  z-index:1;
+  display:flex;flex-direction:column;
+}
+
+/* full-scene grain overlay unifies photo + built doorway into one "material" */
+#grain-overlay{
+  position:absolute;inset:0;z-index:15;
+  background-size:180px 180px;
+  opacity:0.05;
+  mix-blend-mode:overlay;
+  pointer-events:none;
+}
+
+#photo-wrap{
+  position:relative;
+  flex:1 1 auto;
+  min-height:0;
+  overflow:hidden;
+  background:#0a0e14;
+}
+#photo-wrap img{
+  position:absolute;inset:0;
+  width:100%;height:100%;
+  object-fit:cover;
+  object-position:center bottom;
+  filter:saturate(1.18) contrast(1.1) brightness(0.88) sepia(0.12) hue-rotate(-6deg);
+  transform:scale(1.16);
+  transform-origin:center bottom;
+}
+.photo-tint{
+  position:absolute;inset:0;
+  background:
+    linear-gradient(180deg,
+      rgba(20,8,28,0.42) 0%,
+      rgba(60,20,30,0.22) 32%,
+      rgba(120,50,20,0.20) 62%,
+      rgba(150,70,20,0.38) 85%,
+      rgba(90,40,20,0.62) 100%);
+  mix-blend-mode:multiply;
+}
+.photo-tint2{
+  position:absolute;inset:0;
+  background:radial-gradient(ellipse at 50% 30%, rgba(255,180,90,0.10) 0%, transparent 60%);
+  mix-blend-mode:screen;
+}
+.photo-vignette{
+  position:absolute;inset:0;
+  background:radial-gradient(ellipse at 50% 40%, transparent 45%, rgba(0,0,0,0.62) 100%);
+}
+.photo-fade{
+  position:absolute;left:0;right:0;bottom:0;height:42%;
+  background:linear-gradient(180deg, transparent 0%, rgba(20,10,5,0.75) 55%, #1a0d05 100%);
+}
+
+.sky-star{position:absolute;border-radius:50%;background:#fff8e0;animation:tw 3s ease-in-out infinite;}
+@keyframes tw{0%,100%{opacity:0.25;}50%{opacity:0.95;}}
+.moon-el{
+  position:absolute;top:6%;right:9%;
+  width:clamp(20px,3vw,34px);height:clamp(20px,3vw,34px);
+  border-radius:50%;
+  background:radial-gradient(circle at 35% 32%, #fffdf2, #ffedb0 60%, #f5c968 100%);
+  box-shadow:0 0 22px 6px rgba(255,220,140,0.45), 0 0 60px 18px rgba(255,180,80,0.15);
+}
+
+/* ── DOORWAY BAND ── */
+#doorway-band{
+  position:relative;
+  flex:0 0 auto;
+  height:clamp(280px,34vh,430px);
+  background:linear-gradient(180deg,#1a0d05 0%,#0c0603 100%);
+  display:flex;align-items:flex-end;justify-content:center;
+  overflow:visible;
+}
+#doorway-band::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:14px;
+  background:linear-gradient(180deg, rgba(150,70,20,0.35), transparent);
+}
+.lamp-pool{
+  position:absolute;bottom:0;width:46%;height:80%;
+  background:radial-gradient(ellipse at bottom, rgba(255,175,70,0.32) 0%, rgba(255,140,40,0.12) 35%, transparent 72%);
+  pointer-events:none;z-index:5;
+  animation:lampPoolFlicker 2.4s ease-in-out infinite;
+}
+.lamp-pool.l{left:-4%;}
+.lamp-pool.r{right:-4%;}
+@keyframes lampPoolFlicker{0%,100%{opacity:0.85;}50%{opacity:1;}}
+@keyframes doorShake{
+  0%{transform:translate(0,0);} 20%{transform:translate(-3px,1.5px);}
+  40%{transform:translate(3px,-1.5px);} 60%{transform:translate(-2px,1px);}
+  80%{transform:translate(1.5px,-1px);} 100%{transform:translate(0,0);}
+}
+#doorway-band.shake{animation:doorShake 0.42s ease;}
+
+.structure{position:relative;width:min(360px,72vw);height:100%;display:flex;flex-direction:column;align-items:center;}
+
+.lintel{
+  position:relative;width:100%;height:15%;
+  border:1px solid rgba(255,210,140,0.35);border-bottom:none;
+  clip-path:polygon(4% 100%,4% 30%,50% 0%,96% 30%,96% 100%);
+  box-shadow:0 -2px 20px rgba(255,150,40,0.1);
+  background-size:cover;
+  filter:brightness(0.4) saturate(0.85);
+}
+.finial{
+  position:absolute;top:-16px;left:50%;transform:translateX(-50%);
+  width:14px;height:20px;
+  background:linear-gradient(180deg,#FFE9A8,#C8960A);
+  clip-path:polygon(50% 0%,100% 40%,80% 100%,20% 100%,0% 40%);
+  filter:drop-shadow(0 0 8px rgba(255,200,80,0.6));
+}
+
+.opening{position:relative;width:100%;flex:1;display:flex;background:#150b04;padding:0 9%;}
+.pilaster{width:9%;flex:0 0 auto;background-size:cover;filter:brightness(0.34) saturate(0.85);border-left:1px solid rgba(255,210,140,0.22);border-right:1px solid rgba(20,10,4,0.5);position:relative;}
+.pilaster::after{
+  content:'';position:absolute;top:0;bottom:0;left:0;width:3px;
+  background:linear-gradient(180deg, transparent, rgba(255,190,110,0.55) 60%, rgba(255,190,110,0.2));
+}
+
+.door-stage-w{position:relative;flex:1;perspective:800px;cursor:pointer;background:#0a0503;overflow:hidden;}
+
+#light-shaft{
+  position:absolute;top:0;bottom:0;left:50%;
+  width:0%;transform:translateX(-50%);
+  background:linear-gradient(90deg, transparent 0%, rgba(255,225,150,0.95) 50%, transparent 100%);
+  filter:blur(7px);
+  opacity:0;pointer-events:none;z-index:2;
+  mix-blend-mode:screen;
+}
+#dust-canvas{position:absolute;inset:0;pointer-events:none;z-index:6;}
+
+#door-glow-w{
+  position:absolute;inset:-30% -60%;border-radius:50%;
+  background:radial-gradient(ellipse at center, rgba(255,205,90,0.95) 0%, rgba(255,130,20,0.7) 30%, rgba(200,60,0,0.35) 58%, transparent 100%);
+  opacity:0;transition:opacity 0.7s ease;pointer-events:none;z-index:1;
+}
+#door-glow-w.lit{opacity:1;}
+
+.tdoor{position:absolute;top:0;width:50%;height:100%;transform-style:preserve-3d;transition:transform 1.5s cubic-bezier(.4,0,.2,1);z-index:3;}
+.tdoor-l{left:0;transform-origin:left center;}
+.tdoor-r{right:0;transform-origin:right center;}
+.tdoor-l.open{transform:rotateY(-80deg);}
+.tdoor-r.open{transform:rotateY(80deg);}
+
+.tdoor-face{position:absolute;inset:0;background-size:cover;background-position:center;box-shadow:inset 0 0 50px rgba(0,0,0,0.55);filter:brightness(0.46) saturate(0.9);}
+.tdoor-face.right-flip{transform:scaleX(-1);}
+
+.tdoor-highlight{
+  position:absolute;inset:0;
+  background:linear-gradient(90deg, transparent 0%, rgba(255,225,160,0.5) var(--hl,50%), transparent calc(var(--hl, 50%) + 30%));
+  mix-blend-mode:overlay;
+  opacity:0;pointer-events:none;
+}
+.tdoor-shadow-edge{
+  position:absolute;top:0;bottom:0;width:22%;
+  background:linear-gradient(90deg, rgba(0,0,0,0.55), transparent);
+  pointer-events:none;
+}
+.tdoor-l .tdoor-shadow-edge{right:0;}
+.tdoor-r .tdoor-shadow-edge{left:0;transform:scaleX(-1);}
+
+.tdoor-ring{
+  position:absolute;top:50%;width:20px;height:20px;border-radius:50%;
+  border:3px solid #E8C158;
+  box-shadow:0 0 8px rgba(255,210,100,0.5), inset 0 0 4px rgba(0,0,0,0.4);
+  z-index:2;
+}
+.tdoor-l .tdoor-ring{right:14px;transform:translateY(-50%);}
+.tdoor-r .tdoor-ring{left:14px;transform:translateY(-50%);}
+
+.lamp-w{position:absolute;bottom:6%;width:16px;height:64px;z-index:4;}
+.lamp-w.l{left:1%;} .lamp-w.r{right:1%;}
+.lamp-stem{position:absolute;bottom:0;left:50%;width:3px;height:70%;background:#8B6914;transform:translateX(-50%);}
+.lamp-bowl{position:absolute;bottom:64%;left:50%;width:16px;height:9px;border-radius:50% 50% 40% 40%;background:#C8960A;transform:translateX(-50%);}
+.lamp-flame{
+  position:absolute;bottom:74%;left:50%;width:7px;height:12px;
+  background:radial-gradient(ellipse at 50% 70%,#FFF6C8,#FFC93C 55%,#FF8A1E 100%);
+  border-radius:50% 50% 50% 50% / 65% 65% 35% 35%;
+  transform:translateX(-50%);
+  animation:flicker 1.6s ease-in-out infinite;
+  box-shadow:0 0 16px 5px rgba(255,180,60,0.5);
+}
+@keyframes flicker{0%,100%{transform:translateX(-50%) scaleY(1) rotate(-2deg);}50%{transform:translateX(-50%) scaleY(1.15) rotate(2deg);}}
+
+#enter-prompt-w{
+  position:absolute;left:50%;bottom:calc(100% + 10px);transform:translateX(-50%);
+  white-space:nowrap;
+  font-size:clamp(10px,1.3vw,13px);font-style:italic;letter-spacing:0.14em;
+  color:rgba(255,225,170,0.9);text-shadow:0 0 12px rgba(255,170,50,0.6);
+  animation:pulse 2.6s ease-in-out infinite;
+}
+@keyframes pulse{0%,100%{opacity:0.45;}50%{opacity:1;}}
+
+.ground{position:absolute;bottom:0;left:0;right:0;height:6%;background:linear-gradient(180deg,#1c0e06,#100704);}
+
+/* ═══════════ INSIDE — INVITATION SCENE ═══════════ */
+#scene-invite{
+  z-index:30;
+  background:
+    radial-gradient(ellipse at 50% 100%,rgba(180,60,0,0.2) 0%,transparent 60%),
+    linear-gradient(to bottom,#050101 0%,#160505 30%,#22070a 60%,#120404 100%);
+  display:flex;flex-direction:column;align-items:center;
+  overflow-y:auto;padding:70px 20px 60px;
+}
+canvas#in-atm{position:fixed;inset:0;pointer-events:none;z-index:0;}
+canvas#petals-c{position:fixed;inset:0;pointer-events:none;z-index:60;}
+
+#invite-scroll{
+  position:relative;z-index:3;
+  width:min(620px,90vw);
+  background:
+    radial-gradient(ellipse at 30% 20%,rgba(100,20,8,0.5) 0%,transparent 55%),
+    radial-gradient(ellipse at 70% 80%,rgba(80,10,4,0.5) 0%,transparent 55%),
+    linear-gradient(160deg,#3c0a05 0%,#520e06 40%,#3a0904 100%);
+  border:1px solid rgba(212,175,55,0.38);
+  padding:clamp(30px,5vw,52px) clamp(22px,5vw,46px) clamp(26px,4vw,40px);
+  text-align:center;
+  box-shadow:0 0 80px rgba(255,100,0,0.12),0 0 160px rgba(180,50,0,0.07),inset 0 0 50px rgba(200,80,0,0.08);
+}
+#invite-scroll::before{content:'';position:absolute;inset:7px;border:1px solid rgba(212,175,55,0.18);pointer-events:none;}
+
+.s-om{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(36px,6vw,52px);line-height:1;margin-bottom:2px;
+  background:linear-gradient(180deg,#FFE8A0,#F5D078 55%,#C9A05C 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  filter:drop-shadow(0 0 10px rgba(255,200,80,0.6));
+}
+.s-sloka{font-size:clamp(9px,1.2vw,12px);letter-spacing:0.16em;color:rgba(212,175,55,0.65);margin-bottom:18px;}
+.s-div{width:55%;height:1px;background:linear-gradient(90deg,transparent,rgba(212,175,55,0.45),transparent);margin:14px auto;}
+.s-heading{font-family:'Cinzel',serif;font-weight:500;font-size:clamp(15px,2vw,18px);letter-spacing:0.16em;text-transform:uppercase;color:#F5D078;}
+.s-sub{font-size:clamp(8px,1vw,11px);letter-spacing:0.2em;text-transform:uppercase;color:rgba(212,175,55,0.5);margin-bottom:16px;}
+.s-hosts{font-size:clamp(12px,1.5vw,15px);color:rgba(255,232,178,0.82);line-height:1.75;font-style:italic;}
+.s-body{font-size:clamp(11px,1.35vw,14px);color:rgba(255,215,155,0.72);line-height:1.9;}
+.s-name{font-family:'Great Vibes',cursive;display:block;line-height:1.05;filter:drop-shadow(0 0 12px rgba(255,200,80,0.5));}
+.s-groom{font-size:clamp(30px,5.5vw,50px);color:#FFE8A0;}
+.s-bride{font-size:clamp(30px,5.5vw,50px);color:#F5D078;}
+.s-role{font-size:clamp(10px,1.2vw,12px);color:rgba(255,205,130,0.65);letter-spacing:0.1em;}
+.s-date-blk{margin:16px 0;font-size:clamp(13px,1.6vw,16px);color:rgba(255,228,165,0.88);line-height:2;}
+.s-date-blk strong{display:block;font-size:clamp(15px,2vw,21px);color:#FFD875;font-weight:600;}
+.s-venue{font-size:clamp(11px,1.3vw,13px);color:rgba(255,208,138,0.75);line-height:1.75;}
+.map-link{
+  display:inline-block;margin-top:10px;
+  font-size:clamp(10.5px,1.2vw,12px);letter-spacing:0.08em;
+  color:rgba(255,208,138,0.7);text-decoration:none;
+  border-bottom:1px solid rgba(212,175,55,0.35);
+  transition:color 0.3s,border-color 0.3s;
+}
+.map-link:hover{color:#FFD875;border-color:rgba(212,175,55,0.75);}
+
+.nav-links{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:26px;position:relative;z-index:3;}
+.nav-btn{
+  padding:12px 26px;background:transparent;border:1px solid rgba(212,175,55,0.4);
+  color:rgba(255,220,140,0.85);text-decoration:none;
+  font-family:'Cormorant Garamond',serif;font-size:clamp(11px,1.3vw,13px);
+  letter-spacing:0.14em;cursor:pointer;transition:all 0.3s;display:inline-block;
+}
+.nav-btn:hover{background:rgba(212,175,55,0.1);color:#FFD875;border-color:rgba(212,175,55,0.65);}
+
+/* focus visibility for keyboard users */
+a:focus-visible, [tabindex]:focus-visible, button:focus-visible{
+  outline:2px solid rgba(255,220,150,0.85);
+  outline-offset:3px;
+  border-radius:2px;
+}
+
+#loader{
+  position:fixed;inset:0;z-index:200;
+  background:#06020a;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  transition:opacity 0.5s ease;
+}
+#loader .l-om{
+  font-family:'Cormorant Garamond',serif;font-size:44px;
+  background:linear-gradient(180deg,#FFF3D4,#D4AF37);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  animation:loaderPulse 1.6s ease-in-out infinite;
+}
+#loader .l-names{font-family:'Cinzel',serif;font-size:11px;letter-spacing:0.3em;color:rgba(232,205,160,0.6);margin-top:14px;text-transform:uppercase;}
+@keyframes loaderPulse{0%,100%{opacity:0.5;transform:scale(1);}50%{opacity:1;transform:scale(1.08);}}
+
+@media (prefers-reduced-motion: reduce){
+  .sky-star, #enter-prompt-w, .lamp-flame, .lamp-pool, #loader .l-om{animation:none !important;}
+  .scene{transition:opacity 0.25s linear;}
+  .tdoor{transition:transform 0.25s linear;}
+}
+</style>
+</head>
+<body>
+
+<div id="loader"><div class="l-om">ௐ</div><div class="l-names">Shankar &amp; Haripriya</div></div>
+
+<a class="back-link" href="index.html">← Home</a>
+
+<!-- ══ TEMPLE SCENE ══ -->
+<div id="scene-temple" class="scene">
+  <div id="photo-wrap">
+    <img src="assets/temple-tower.jpg" alt="Madurai Meenakshi Amman Temple gopuram"/>
+    <div class="photo-tint"></div>
+    <div class="photo-tint2"></div>
+    <div class="photo-vignette"></div>
+    <div class="photo-fade"></div>
+    <div class="moon-el"></div>
+  </div>
+
+  <div id="doorway-band">
+    <div class="structure">
+      <p id="enter-prompt-w">✦ &nbsp;Touch the doors to enter&nbsp; ✦</p>
+      <div class="lintel" id="lintel-el"><div class="finial"></div></div>
+      <div class="opening">
+        <div class="lamp-pool l"></div>
+        <div class="lamp-pool r"></div>
+        <div class="pilaster" id="pilaster-l"></div>
+        <div class="door-stage-w" id="door-stage-w">
+          <div id="light-shaft"></div>
+          <canvas id="dust-canvas"></canvas>
+          <div id="door-glow-w"></div>
+          <div class="tdoor tdoor-l" id="tdoor-l">
+            <div class="tdoor-face" id="tdoor-face-l"></div>
+            <div class="tdoor-highlight" id="tdoor-hl-l"></div>
+            <div class="tdoor-shadow-edge"></div>
+            <div class="tdoor-ring"></div>
+          </div>
+          <div class="tdoor tdoor-r" id="tdoor-r">
+            <div class="tdoor-face right-flip" id="tdoor-face-r"></div>
+            <div class="tdoor-highlight" id="tdoor-hl-r"></div>
+            <div class="tdoor-shadow-edge"></div>
+            <div class="tdoor-ring"></div>
+          </div>
+        </div>
+        <div class="pilaster" id="pilaster-r"></div>
+      </div>
+      <div class="lamp-w l"><div class="lamp-stem"></div><div class="lamp-bowl"></div><div class="lamp-flame"></div></div>
+      <div class="lamp-w r"><div class="lamp-stem"></div><div class="lamp-bowl"></div><div class="lamp-flame"></div></div>
+    </div>
+    <div class="ground"></div>
+  </div>
+
+  <div id="grain-overlay"></div>
+</div>
+
+<!-- ══ INVITATION SCENE ══ -->
+<div id="scene-invite" class="scene out">
+  <canvas id="in-atm"></canvas>
+
+  <div id="invite-scroll">
+    <div class="s-om">ௐ</div>
+    <div class="s-sloka">ஸ்ரீ பச்சையம்மன் துணை &nbsp;·&nbsp; ஸ்ரீ முருகன் துணை</div>
+    <div class="s-div"></div>
+    <div class="s-heading">Wedding Invitation</div>
+    <div class="s-sub">திருமண விழா அழைப்பிதழ்</div>
+    <div class="s-div"></div>
+
+    <div class="s-hosts">Mrs. Devi Kumaravel &amp; Mr. V. Kumaravel</div>
+    <div class="s-body" style="margin:6px 0 18px;">
+      cordially solicit your esteemed presence<br/>
+      on the auspicious occasion of the marriage of their beloved son
+    </div>
+
+    <span class="s-name s-groom">Shankar Prasad K</span>
+    <div class="s-role" style="margin:4px 0 6px;">Selvan &nbsp;·&nbsp; Manager, Deloitte Chennai</div>
+    <div class="s-body" style="font-size:clamp(14px,1.8vw,18px);color:rgba(255,220,160,0.7);margin:10px 0;">with</div>
+    <span class="s-name s-bride">Haripriya V</span>
+    <div class="s-role" style="margin:4px 0 4px;">Selvi &nbsp;·&nbsp; Senior HR, eClerx, Coimbatore</div>
+    <div class="s-body" style="font-size:0.82em;opacity:0.6;margin-bottom:18px;">D/o Mr. V. Venkatesh (Late) – Mrs. V. Shanthi</div>
+
+    <div class="s-div"></div>
+    <div class="s-date-blk">
+      <strong>Friday, 20th November 2026</strong>
+      Subha Muhurtham &nbsp;·&nbsp; 6:00 AM – 7:30 AM
+    </div>
+    <div class="s-venue">
+      Sri Aadhi Sivalayam &nbsp;·&nbsp; Murugan Sannidhanam<br/>
+      Near Vinayagapuram K.G. Bakery Bus Stop<br/>
+      Sivaram Nagar, Coimbatore
+    </div>
+    <a class="map-link" data-cfg="wedding.mapLink" href="https://share.google/5LpDdYQeVHZ9qTApS" target="_blank" rel="noopener">📍 Get Directions</a>
+    <div class="s-div" style="margin-top:20px;"></div>
+    <div class="s-body" style="font-size:0.9em;font-style:italic;color:rgba(212,175,55,0.6);">
+      With best compliments from Friends &amp; Relatives
+    </div>
+  </div>
+
+  <div class="nav-links">
+    <button class="nav-btn" onclick="addWeddingToCalendar()">🗓 Add to Calendar</button>
+    <a class="nav-btn" id="rsvp-btn-w" href="#" target="_blank" rel="noopener">💬 RSVP</a>
+    <button class="nav-btn" onclick="shareInvite()">⤴ Share</button>
+  </div>
+  <div class="nav-links">
+    <a class="nav-btn" href="index.html">← Home</a>
+    <a class="nav-btn" href="reception.html">Reception Invitation →</a>
+  </div>
+
+  <canvas id="petals-c"></canvas>
+</div>
+
+<script src="js/config.js"></script>
+<script src="js/features.js"></script>
+<script>
+initLoader();
+hydrateConfig();
+document.getElementById('rsvp-btn-w').href = rsvpLink();
+
+/* ═══════════════════════════════════════════════
+   PROCEDURAL TEXTURES — wood grain & carved stone
+   (canvas-generated noise, not flat CSS gradients)
+═══════════════════════════════════════════════ */
+function clamp255(v){return v<0?0:v>255?255:v;}
+
+function makeWoodTexture(w,h){
+  const c=document.createElement('canvas'); c.width=w; c.height=h;
+  const x=c.getContext('2d');
+  const g=x.createLinearGradient(0,0,w*0.3,h);
+  g.addColorStop(0,'#8a5426'); g.addColorStop(0.16,'#5c3410'); g.addColorStop(0.34,'#96602e');
+  g.addColorStop(0.54,'#704118'); g.addColorStop(0.72,'#603210'); g.addColorStop(0.9,'#835020'); g.addColorStop(1,'#4c2a0c');
+  x.fillStyle=g; x.fillRect(0,0,w,h);
+
+  // plank seams
+  const plankH=h/9;
+  for(let i=1;i<9;i++){
+    const y=i*plankH;
+    x.fillStyle='rgba(0,0,0,0.24)'; x.fillRect(0,y-1,w,2.4);
+    x.fillStyle='rgba(255,200,140,0.05)'; x.fillRect(0,y+1.6,w,1);
+  }
+
+  // grain streaks
+  x.globalCompositeOperation='multiply';
+  for(let i=0;i<80;i++){
+    const yBase=Math.random()*h, amp=2+Math.random()*6, freq=0.008+Math.random()*0.02;
+    x.strokeStyle=`rgba(90,55,20,${0.05+Math.random()*0.11})`;
+    x.lineWidth=0.6+Math.random()*1.5;
+    x.beginPath();
+    for(let px=0;px<=w;px+=6){
+      const yy=yBase+Math.sin(px*freq+i)*amp;
+      px===0?x.moveTo(px,yy):x.lineTo(px,yy);
+    }
+    x.stroke();
+  }
+  x.globalCompositeOperation='source-over';
+
+  // fine speckle noise
+  const id=x.getImageData(0,0,w,h), d=id.data;
+  for(let i=0;i<d.length;i+=4){
+    const n=(Math.random()-0.5)*20;
+    d[i]=clamp255(d[i]+n); d[i+1]=clamp255(d[i+1]+n*0.85); d[i+2]=clamp255(d[i+2]+n*0.6);
+  }
+  x.putImageData(id,0,0);
+
+  // brass studs grid
+  const cols=Math.max(2,Math.floor(w/34)), rows=Math.max(3,Math.floor(h/34));
+  for(let r=0;r<rows;r++){
+    for(let cx=0;cx<cols;cx++){
+      const sx=20+cx*((w-40)/(cols-1||1));
+      const sy=20+r*((h-40)/(rows-1||1));
+      const rad=4.2;
+      const rg=x.createRadialGradient(sx-1.2,sy-1.4,0.4,sx,sy,rad);
+      rg.addColorStop(0,'#FFF3C0'); rg.addColorStop(0.35,'#E8C158'); rg.addColorStop(0.7,'#A87A1E'); rg.addColorStop(1,'rgba(80,50,10,0.25)');
+      x.beginPath(); x.arc(sx,sy,rad,0,Math.PI*2); x.fillStyle=rg; x.fill();
+    }
+  }
+  // vertical vignette for depth
+  const vg=x.createLinearGradient(0,0,w,0);
+  vg.addColorStop(0,'rgba(0,0,0,0.32)'); vg.addColorStop(0.12,'rgba(0,0,0,0)');
+  vg.addColorStop(0.88,'rgba(0,0,0,0)'); vg.addColorStop(1,'rgba(0,0,0,0.32)');
+  x.fillStyle=vg; x.fillRect(0,0,w,h);
+
+  return c.toDataURL();
+}
+
+function makeStoneTexture(w,h){
+  const c=document.createElement('canvas'); c.width=w; c.height=h;
+  const x=c.getContext('2d');
+  const g=x.createLinearGradient(0,0,0,h);
+  g.addColorStop(0,'#C89040'); g.addColorStop(0.5,'#9c6a26'); g.addColorStop(1,'#6e4818');
+  x.fillStyle=g; x.fillRect(0,0,w,h);
+
+  const id=x.getImageData(0,0,w,h), d=id.data;
+  for(let i=0;i<d.length;i+=4){
+    const n=(Math.random()-0.5)*34;
+    d[i]=clamp255(d[i]+n); d[i+1]=clamp255(d[i+1]+n*0.85); d[i+2]=clamp255(d[i+2]+n*0.55);
+  }
+  x.putImageData(id,0,0);
+
+  x.globalCompositeOperation='multiply';
+  for(let y=0;y<h;y+=Math.max(8,h/14)){
+    x.fillStyle='rgba(60,35,10,0.16)'; x.fillRect(0,y,w,1.6);
+  }
+  x.globalCompositeOperation='source-over';
+  // subtle carved diamond motif speckle
+  for(let i=0;i<Math.floor((w*h)/900);i++){
+    x.fillStyle=`rgba(60,35,10,${0.05+Math.random()*0.08})`;
+    const sx=Math.random()*w, sy=Math.random()*h, sr=1+Math.random()*2.5;
+    x.beginPath(); x.arc(sx,sy,sr,0,Math.PI*2); x.fill();
+  }
+  return c.toDataURL();
+}
+
+function makeGrainTile(size){
+  const c=document.createElement('canvas'); c.width=size; c.height=size;
+  const x=c.getContext('2d');
+  const id=x.createImageData(size,size);
+  for(let i=0;i<id.data.length;i+=4){
+    const v=Math.random()*255;
+    id.data[i]=v; id.data[i+1]=v; id.data[i+2]=v; id.data[i+3]=255;
+  }
+  x.putImageData(id,0,0);
+  return c.toDataURL();
+}
+
+// Apply textures
+const doorTexL = makeWoodTexture(320,760);
+document.getElementById('tdoor-face-l').style.backgroundImage = `url(${doorTexL})`;
+document.getElementById('tdoor-face-r').style.backgroundImage = `url(${doorTexL})`;
+const stoneTexV = makeStoneTexture(80,600);
+document.getElementById('pilaster-l').style.backgroundImage = `url(${stoneTexV})`;
+document.getElementById('pilaster-r').style.backgroundImage = `url(${stoneTexV})`;
+document.getElementById('lintel-el').style.backgroundImage = `url(${makeStoneTexture(420,100)})`;
+document.getElementById('grain-overlay').style.backgroundImage = `url(${makeGrainTile(180)})`;
+
+/* ═══════════════════════════════════════════════
+   REAL-TIME DOOR-OPENING ANIMATION
+   JS-driven per-frame lighting, dust, and impact —
+   not a passive CSS transition.
+═══════════════════════════════════════════════ */
+const sceneTemple = document.getElementById('scene-temple');
+const sceneInvite = document.getElementById('scene-invite');
+const doorL = document.getElementById('tdoor-l');
+const doorR = document.getElementById('tdoor-r');
+const hlL = document.getElementById('tdoor-hl-l');
+const hlR = document.getElementById('tdoor-hl-r');
+const doorGlow = document.getElementById('door-glow-w');
+const doorStage = document.getElementById('door-stage-w');
+const doorwayBand = document.getElementById('doorway-band');
+const enterPrompt = document.getElementById('enter-prompt-w');
+const lightShaft = document.getElementById('light-shaft');
+let entered = false;
+
+// Dust / light-mote particle system (spawned during the opening)
+const dustCanvas = document.getElementById('dust-canvas');
+const dustCtx = dustCanvas.getContext('2d');
+let dustParticles = [];
+function spawnDust(n, burst){
+  const w = doorStage.clientWidth, h = doorStage.clientHeight;
+  for(let i=0;i<n;i++){
+    dustParticles.push({
+      x: w/2 + (Math.random()-0.5)*w*0.15,
+      y: h*0.3 + Math.random()*h*0.5,
+      vx: (Math.random()-0.5)*(burst?1.4:0.5),
+      vy: -(0.3+Math.random()*(burst?1.6:0.7)),
+      r: 1+Math.random()*(burst?2.6:1.8),
+      life: 1,
+      decay: 0.012+Math.random()*0.018
+    });
+  }
+}
+function dustLoop(){
+  dustCanvas.width = doorStage.clientWidth;
+  dustCanvas.height = doorStage.clientHeight;
+  dustCtx.clearRect(0,0,dustCanvas.width,dustCanvas.height);
+  dustParticles = dustParticles.filter(p=>p.life>0);
+  for(const p of dustParticles){
+    p.x+=p.vx; p.y+=p.vy; p.vy-=0.006; p.life-=p.decay;
+    dustCtx.beginPath();
+    dustCtx.arc(p.x,p.y,p.r,0,Math.PI*2);
+    dustCtx.fillStyle=`rgba(255,225,160,${Math.max(p.life,0)*0.8})`;
+    dustCtx.fill();
+  }
+  if(!prefersReducedMotion) requestAnimationFrame(dustLoop);
+}
+if(!prefersReducedMotion) dustLoop();
+
+function easeOutCubic(t){ return 1-Math.pow(1-t,3); }
+
+function enterTemple(){
+  if(entered) return;
+  entered = true;
+  doorL.classList.add('open');
+  doorR.classList.add('open');
+  doorGlow.classList.add('lit');
+  enterPrompt.style.opacity = '0';
+
+  if(prefersReducedMotion){
+    sceneTemple.classList.add('out');
+    sceneInvite.classList.remove('out');
+    return;
+  }
+
+  const DUR = 1500;
+  const start = performance.now();
+
+  function frame(now){
+    const t = Math.min((now-start)/DUR, 1);
+    const eased = easeOutCubic(t);
+
+    // raking highlight sweeps across each door face as it turns
+    const hlPos = 12 + eased*72;
+    const hlOpacity = Math.sin(eased*Math.PI) * 0.85;
+    hlL.style.setProperty('--hl', hlPos+'%');
+    hlR.style.setProperty('--hl', hlPos+'%');
+    hlL.style.opacity = hlOpacity;
+    hlR.style.opacity = hlOpacity;
+
+    // growing light shaft through the gap
+    lightShaft.style.width = (eased*46)+'%';
+    lightShaft.style.opacity = Math.min(eased*1.7,1);
+
+    // dust drifting up out of the gap while it opens
+    if(Math.random() < 0.5) spawnDust(1,false);
+
+    if(t < 1){
+      requestAnimationFrame(frame);
+    } else {
+      // impact settle: brief shake + dust puff
+      doorwayBand.classList.add('shake');
+      spawnDust(14, true);
+      setTimeout(()=>doorwayBand.classList.remove('shake'), 420);
+      setTimeout(()=>{
+        sceneTemple.classList.add('out');
+        sceneInvite.classList.remove('out');
+      }, 480);
+    }
+  }
+  requestAnimationFrame(frame);
+}
+
+doorStage.addEventListener('click', enterTemple);
+doorStage.addEventListener('touchend', e=>{e.preventDefault();enterTemple();});
+makeKeyboardActivatable(doorStage, enterTemple, 'Open the temple doors to view the wedding invitation');
+
+// stars over open sky area of photo
+const photoWrap = document.getElementById('photo-wrap');
+for(let i=0;i<26;i++){
+  const s = document.createElement('div');
+  s.className='sky-star';
+  const size = 0.6 + Math.random()*1.6;
+  s.style.width = size+'px'; s.style.height = size+'px';
+  s.style.left = (Math.random()*100)+'%';
+  s.style.top = (Math.random()*55)+'%';
+  s.style.animationDelay = (Math.random()*3)+'s';
+  s.style.animationDuration = (2.2+Math.random()*2.2)+'s';
+  photoWrap.insertBefore(s, photoWrap.firstChild.nextSibling);
+}
+
+// Inside ambience canvas (lamp glow + incense smoke)
+const inC = document.getElementById('in-atm');
+const inX = inC.getContext('2d');
+const LAMPS = [{x:.1,y:.4},{x:.9,y:.4},{x:.04,y:.2},{x:.96,y:.2}];
+const SMOKE = Array.from({length:30},()=>({x:0.35+Math.random()*0.3,y:0.75+Math.random()*0.25,vy:-(0.0007+Math.random()*0.0011),life:Math.random(),wobble:Math.random()*Math.PI*2,sz:2.2+Math.random()*3.2}));
+let inT=0;
+function drawInside(){
+  inC.width=innerWidth; inC.height=innerHeight;
+  const W=inC.width,H=inC.height; inT+=0.018;
+  const atm = inX.createRadialGradient(W/2,H*.8,0,W/2,H*.8,H*0.9);
+  atm.addColorStop(0,'rgba(140,30,0,0.16)'); atm.addColorStop(1,'transparent');
+  inX.fillStyle=atm; inX.fillRect(0,0,W,H);
+  for(const l of LAMPS){
+    const fl = 0.8+0.2*Math.sin(inT*3.8+l.x*12+l.y*7);
+    const gr = inX.createRadialGradient(l.x*W,l.y*H,0,l.x*W,l.y*H,Math.min(W,H)*0.26*fl);
+    gr.addColorStop(0,`rgba(255,210,60,${0.2*fl})`); gr.addColorStop(0.4,`rgba(255,110,0,${0.09*fl})`); gr.addColorStop(1,'transparent');
+    inX.beginPath(); inX.arc(l.x*W,l.y*H,Math.min(W,H)*0.26*fl,0,Math.PI*2); inX.fillStyle=gr; inX.fill();
+  }
+  for(const p of SMOKE){
+    p.y+=p.vy; p.life+=0.0035;
+    if(p.y<0||p.life>1){p.y=0.82+Math.random()*0.18;p.x=0.3+Math.random()*0.4;p.life=0;}
+    const wobX=Math.sin(inT*1.1+p.wobble)*0.018;
+    const al=(1-p.life)*0.09*(0.5+0.5*Math.sin(inT+p.wobble));
+    inX.beginPath(); inX.arc((p.x+wobX)*W,p.y*H,p.sz*(1+p.life*0.8),0,Math.PI*2);
+    inX.fillStyle=`rgba(255,240,200,${al})`; inX.fill();
+  }
+  if(!prefersReducedMotion) requestAnimationFrame(drawInside);
+}
+drawInside();
+
+// Petals drifting over invite scene
+const ptC=document.getElementById('petals-c'), ptX=ptC.getContext('2d');
+function mkPetal(rand){return{x:Math.random(),y:rand?Math.random():-0.04,vx:(Math.random()-0.42)*0.0022,vy:0.0008+Math.random()*0.0018,r:3+Math.random()*5,rot:Math.random()*Math.PI*2,rv:(Math.random()-0.5)*0.04,hue:8+Math.random()*26,a:0.35+Math.random()*0.5,wb:Math.random()*Math.PI*2,ws:0.016+Math.random()*0.018};}
+const PETALS=Array.from({length:16},()=>mkPetal(true));
+let ptT=0;
+function petalLoop(){
+  ptC.width=innerWidth; ptC.height=innerHeight;
+  const W=ptC.width,H=ptC.height; ptT+=0.014;
+  for(const p of PETALS){
+    p.x+=p.vx+Math.sin(ptT*p.ws+p.wb)*0.0008; p.y+=p.vy; p.rot+=p.rv;
+    if(p.y>1.08) Object.assign(p,mkPetal(false));
+    ptX.save(); ptX.translate(p.x*W,p.y*H); ptX.rotate(p.rot);
+    ptX.beginPath(); ptX.ellipse(0,0,p.r*0.45,p.r,0,0,Math.PI*2);
+    ptX.fillStyle=`hsla(${p.hue},85%,60%,${p.a})`; ptX.fill(); ptX.restore();
+  }
+  if(!prefersReducedMotion) requestAnimationFrame(petalLoop);
+}
+petalLoop();
+</script>
+</body>
+</html>
