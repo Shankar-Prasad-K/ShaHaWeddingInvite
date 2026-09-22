@@ -399,6 +399,34 @@ function buildFinial(container, idx){
    accents and curl terminals, built once per corner. */
 function buildCorner(container){
   container.innerHTML = `
+    <defs>
+      <linearGradient id="frameGold" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#FFF6D8"/>
+        <stop offset="30%" stop-color="#E8C158"/>
+        <stop offset="60%" stop-color="#C8960A"/>
+        <stop offset="100%" stop-color="#5c3e0c"/>
+      </linearGradient>
+    </defs>
+
+    <rect x="0" y="0" width="140" height="15" rx="2" fill="url(#frameGold)"/>
+    <rect x="0" y="0" width="140" height="4" rx="2" fill="rgba(255,255,255,0.4)"/>
+    <rect x="0" y="11" width="140" height="4" fill="rgba(0,0,0,0.32)"/>
+    <rect x="0" y="0" width="140" height="15" rx="2" fill="none" stroke="#3a2506" stroke-width="0.8" opacity="0.6"/>
+
+    <rect x="0" y="0" width="15" height="140" rx="2" fill="url(#frameGold)"/>
+    <rect x="0" y="0" width="4" height="140" rx="2" fill="rgba(255,255,255,0.4)"/>
+    <rect x="11" y="0" width="4" height="140" fill="rgba(0,0,0,0.32)"/>
+    <rect x="0" y="0" width="15" height="140" rx="2" fill="none" stroke="#3a2506" stroke-width="0.8" opacity="0.6"/>
+
+    <circle cx="45" cy="7.5" r="1.6" fill="#FFF6D8" opacity="0.85"/>
+    <circle cx="72" cy="7.5" r="1.6" fill="#FFF6D8" opacity="0.85"/>
+    <circle cx="99" cy="7.5" r="1.6" fill="#FFF6D8" opacity="0.85"/>
+    <circle cx="126" cy="7.5" r="1.6" fill="#FFF6D8" opacity="0.85"/>
+    <circle cx="7.5" cy="45" r="1.6" fill="#FFF6D8" opacity="0.85"/>
+    <circle cx="7.5" cy="72" r="1.6" fill="#FFF6D8" opacity="0.85"/>
+    <circle cx="7.5" cy="99" r="1.6" fill="#FFF6D8" opacity="0.85"/>
+    <circle cx="7.5" cy="126" r="1.6" fill="#FFF6D8" opacity="0.85"/>
+
     <path d="M0,95 Q3,42 38,24 Q75,4 118,18" fill="none" stroke="#D4AF37" stroke-width="2.2"/>
     <path d="M0,68 Q5,36 30,26 Q55,17 68,30" fill="none" stroke="#D4AF37" stroke-width="1.1" opacity="0.7"/>
     <path d="M95,0 Q42,3 24,38 Q4,75 18,118" fill="none" stroke="#D4AF37" stroke-width="2.2"/>
