@@ -11,18 +11,18 @@
 html,body{width:100%;font-family:'Cormorant Garamond',Georgia,serif;color:#FFF8E7;-webkit-font-smoothing:antialiased;}
 body{
   background:
-    repeating-linear-gradient(115deg, transparent 0 38px, rgba(212,175,55,0.05) 38px 40px),
-    repeating-linear-gradient(25deg, transparent 0 38px, rgba(212,175,55,0.05) 38px 40px),
-    linear-gradient(135deg, rgba(212,175,55,0.06) 25%, transparent 25%, transparent 75%, rgba(212,175,55,0.06) 75%),
-    linear-gradient(45deg, rgba(212,175,55,0.06) 25%, transparent 25%, transparent 75%, rgba(212,175,55,0.06) 75%),
     radial-gradient(ellipse at 50% 0%, rgba(150,25,35,0.4) 0%, transparent 58%),
     radial-gradient(ellipse at 8% 92%, rgba(150,25,35,0.28) 0%, transparent 50%),
     radial-gradient(ellipse at 94% 88%, rgba(150,25,35,0.28) 0%, transparent 50%),
     linear-gradient(180deg,#1c0709 0%,#0e0304 45%,#0a0203 100%);
-  background-size:auto,auto,34px 34px,34px 34px,auto,auto,auto,auto;
-  background-position:0 0,0 0,0 0,17px 17px,0 0,0 0,0 0,0 0;
   background-attachment:fixed;
   min-height:100vh;
+}
+#damask-layer{
+  position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:var(--damask-uri);
+  background-size:150px 150px;
+  background-attachment:fixed;
 }
 .grand-corner{
   position:fixed;width:min(220px,30vw);height:min(220px,30vw);pointer-events:none;z-index:1;opacity:0.68;
@@ -110,6 +110,12 @@ canvas#dust-canvas{position:fixed;inset:0;pointer-events:none;z-index:1;}
     linear-gradient(128deg, transparent 55%, rgba(255,255,255,0.16) 66%, transparent 76%),
     linear-gradient(210deg, transparent 60%, rgba(255,110,120,0.14) 76%, transparent 92%),
     linear-gradient(180deg,#8c1a28 0%,#6d1018 38%,#4a0a12 72%,#5c1018 100%);
+}
+.scroll-brocade{
+  position:absolute;inset:0;z-index:0;
+  background-image:var(--brocade-uri);
+  background-size:100px 100px;
+  mix-blend-mode:overlay;opacity:0.8;
 }
 .scroll-silk::after{
   content:'';position:absolute;inset:0;
@@ -243,6 +249,7 @@ a:focus-visible, [tabindex]:focus-visible, button:focus-visible{
 
 <div id="loader"><div class="l-om">ௐ</div><div class="l-names">Shankar &amp; Haripriya</div></div>
 
+<div id="damask-layer"></div>
 <a class="back-link" href="index.html">← Home</a>
 <canvas id="dust-canvas"></canvas>
 
@@ -262,6 +269,7 @@ a:focus-visible, [tabindex]:focus-visible, button:focus-visible{
       <div class="scroll-body" id="scroll-body">
         <div class="scroll-inner">
           <div class="scroll-silk">
+            <div class="scroll-brocade"></div>
             <div class="scroll-frame">
               <svg class="corner tl" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><path d="M2,20 L2,6 Q2,2 6,2 L20,2" fill="none" stroke="#D4AF37" stroke-width="1.6"/><circle cx="2" cy="2" r="3" fill="#D4AF37"/></svg>
               <svg class="corner tr" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><path d="M2,20 L2,6 Q2,2 6,2 L20,2" fill="none" stroke="#D4AF37" stroke-width="1.6"/><circle cx="2" cy="2" r="3" fill="#D4AF37"/></svg>
@@ -335,6 +343,35 @@ a:focus-visible, [tabindex]:focus-visible, button:focus-visible{
 initLoader();
 hydrateConfig();
 document.getElementById('rsvp-btn-w').href = rsvpLink();
+
+/* Real damask motif — a fleur medallion with curling fronds, tiled
+   seamlessly (transparent tile background so it layers cleanly over
+   whatever sits beneath it). One version for the page backdrop, a
+   denser one for the silk itself. */
+function makeDamaskTile(fg, size, scale){
+  const s = scale;
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 100 100">
+    <g fill="${fg}" transform="translate(50,50) scale(${s})">
+      <path d="M0,-38 Q14,-18 8,4 Q0,-8 0,4 Q0,-8 -8,4 Q-14,-18 0,-38 Z"/>
+      <path d="M0,4 Q-26,-4 -38,10 Q-18,16 -4,8 Q-16,18 -20,32 Q4,24 0,4 Z"/>
+      <path d="M0,4 Q26,-4 38,10 Q18,16 4,8 Q16,18 20,32 Q-4,24 0,4 Z"/>
+      <circle cx="0" cy="34" r="3.5"/>
+      <path d="M0,37 Q-13,46 -26,41" stroke="${fg}" stroke-width="2.4" fill="none"/>
+      <path d="M0,37 Q13,46 26,41" stroke="${fg}" stroke-width="2.4" fill="none"/>
+      <circle cx="-26" cy="41" r="2.4"/>
+      <circle cx="26" cy="41" r="2.4"/>
+    </g>
+    <circle cx="4" cy="4" r="1.6" fill="${fg}"/>
+    <circle cx="96" cy="4" r="1.6" fill="${fg}"/>
+    <circle cx="4" cy="96" r="1.6" fill="${fg}"/>
+    <circle cx="96" cy="96" r="1.6" fill="${fg}"/>
+  </svg>`;
+  return 'data:image/svg+xml;base64,' + btoa(svg);
+}
+document.documentElement.style.setProperty('--damask-uri',
+  `url("${makeDamaskTile('rgba(212,175,55,0.09)', 150, 0.95)}")`);
+document.documentElement.style.setProperty('--brocade-uri',
+  `url("${makeDamaskTile('rgba(60,8,14,0.55)', 100, 0.7)}")`);
 
 /* Ornate turned finials with hanging silk tassels that sway gently
    and independently (SMIL, additive — same technique proven on the
