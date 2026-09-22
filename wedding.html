@@ -11,15 +11,24 @@
 html,body{width:100%;font-family:'Cormorant Garamond',Georgia,serif;color:#FFF8E7;-webkit-font-smoothing:antialiased;}
 body{
   background:
-    linear-gradient(135deg, rgba(212,175,55,0.03) 25%, transparent 25%, transparent 75%, rgba(212,175,55,0.03) 75%),
-    linear-gradient(45deg, rgba(212,175,55,0.03) 25%, transparent 25%, transparent 75%, rgba(212,175,55,0.03) 75%),
-    radial-gradient(ellipse at 50% 0%, rgba(120,20,30,0.35) 0%, transparent 55%),
-    linear-gradient(180deg,#180608 0%,#0e0304 45%,#0a0203 100%);
-  background-size:30px 30px,30px 30px,auto,auto;
-  background-position:0 0,15px 15px,0 0,0 0;
+    repeating-linear-gradient(115deg, transparent 0 38px, rgba(212,175,55,0.05) 38px 40px),
+    repeating-linear-gradient(25deg, transparent 0 38px, rgba(212,175,55,0.05) 38px 40px),
+    linear-gradient(135deg, rgba(212,175,55,0.06) 25%, transparent 25%, transparent 75%, rgba(212,175,55,0.06) 75%),
+    linear-gradient(45deg, rgba(212,175,55,0.06) 25%, transparent 25%, transparent 75%, rgba(212,175,55,0.06) 75%),
+    radial-gradient(ellipse at 50% 0%, rgba(150,25,35,0.4) 0%, transparent 58%),
+    radial-gradient(ellipse at 8% 92%, rgba(150,25,35,0.28) 0%, transparent 50%),
+    radial-gradient(ellipse at 94% 88%, rgba(150,25,35,0.28) 0%, transparent 50%),
+    linear-gradient(180deg,#1c0709 0%,#0e0304 45%,#0a0203 100%);
+  background-size:auto,auto,34px 34px,34px 34px,auto,auto,auto,auto;
+  background-position:0 0,0 0,0 0,17px 17px,0 0,0 0,0 0,0 0;
   background-attachment:fixed;
   min-height:100vh;
 }
+.grand-corner{
+  position:fixed;width:min(180px,26vw);height:min(180px,26vw);pointer-events:none;z-index:1;opacity:0.5;
+}
+.grand-corner.tl{top:0;left:0;} .grand-corner.tr{top:0;right:0;transform:scaleX(-1);}
+.grand-corner.bl{bottom:0;left:0;transform:scaleY(-1);} .grand-corner.br{bottom:0;right:0;transform:scale(-1,-1);}
 
 .back-link{
   position:fixed;top:18px;left:20px;z-index:50;
@@ -59,20 +68,20 @@ canvas#dust-canvas{position:fixed;inset:0;pointer-events:none;z-index:1;}
 .scroll-wrap{position:relative;width:min(560px,88vw);display:flex;flex-direction:column;align-items:center;margin-bottom:56px;}
 
 /* ── Rods ── */
-.rod{position:relative;width:106%;height:14px;border-radius:8px;flex:0 0 auto;z-index:5;
-  background:linear-gradient(180deg,#F9E3A0 0%,#D4AF37 35%,#8a6a1e 70%,#5c4310 100%);
-  box-shadow:0 2px 8px rgba(0,0,0,0.55), inset 0 1px 1px rgba(255,255,255,0.4);
+.rod{position:relative;width:106%;height:16px;border-radius:9px;flex:0 0 auto;z-index:5;
+  background:linear-gradient(180deg,#3a2a08 0%,#8a6a1e 14%,#E8C158 30%,#FFF8E0 46%,#D4AF37 58%,#8a6a1e 80%,#3a2a08 100%);
+  box-shadow:0 3px 10px rgba(0,0,0,0.6);
 }
-.rod-bottom{height:17px;}
-.rod-finial{
-  position:absolute;top:50%;width:20px;height:20px;border-radius:50%;
-  background:radial-gradient(circle at 32% 28%,#FFF6D8,#E8C158 55%,#8a6a1e 100%);
-  transform:translateY(-50%);
-  box-shadow:0 0 9px rgba(212,175,55,0.65), inset -2px -2px 4px rgba(0,0,0,0.35);
+.rod-bottom{height:19px;}
+.finial-slot{
+  position:absolute;top:50%;width:34px;height:110px;
+  transform:translateY(-27px);
+  z-index:6;pointer-events:none;
 }
-.rod-finial.l{left:-10px;} .rod-finial.r{right:-10px;}
+.finial-slot svg{display:block;width:100%;height:100%;overflow:visible;}
+.finial-slot.l{left:-22px;} .finial-slot.r{right:-22px;transform:translateY(-27px) scaleX(-1);}
 .fringe-row{
-  position:absolute;left:3%;right:3%;top:100%;height:16px;
+  position:absolute;left:9%;right:9%;top:100%;height:16px;
   background-image:repeating-linear-gradient(90deg,#C8960A 0 2.5px, transparent 2.5px 11px);
 }
 .fringe-row::before{content:'';position:absolute;left:0;right:0;top:0;height:2px;background:#E8C158;}
@@ -90,8 +99,10 @@ canvas#dust-canvas{position:fixed;inset:0;pointer-events:none;z-index:1;}
 .scroll-silk::before{
   content:'';position:absolute;inset:0;
   background:
-    linear-gradient(115deg, transparent 0%, rgba(255,255,255,0.09) 32%, transparent 52%),
-    linear-gradient(180deg,#7c1420 0%,#5c0f18 45%,#3f0a11 100%);
+    linear-gradient(128deg, transparent 8%, rgba(255,255,255,0.30) 22%, rgba(255,255,255,0.08) 33%, transparent 44%),
+    linear-gradient(128deg, transparent 55%, rgba(255,255,255,0.16) 66%, transparent 76%),
+    linear-gradient(210deg, transparent 60%, rgba(255,110,120,0.14) 76%, transparent 92%),
+    linear-gradient(180deg,#8c1a28 0%,#6d1018 38%,#4a0a12 72%,#5c1018 100%);
 }
 .scroll-silk::after{
   content:'';position:absolute;inset:0;
@@ -108,10 +119,12 @@ canvas#dust-canvas{position:fixed;inset:0;pointer-events:none;z-index:1;}
 
 /* ── Closed-roll graphic (fades away when opened) ── */
 .scroll-closed{
-  position:absolute;top:0;left:0;right:0;height:76px;z-index:3;
-  border-radius:6px;overflow:hidden;
+  position:absolute;top:0;left:16px;right:16px;height:76px;z-index:3;
+  border-radius:38px;overflow:hidden;
   background:
-    linear-gradient(90deg,#3f0a11 0%,#8c1e2c 18%,#c94a52 48%,#8c1e2c 78%,#3f0a11 100%);
+    linear-gradient(125deg, transparent 20%, rgba(255,255,255,0.28) 34%, rgba(255,255,255,0.05) 46%, transparent 60%),
+    linear-gradient(200deg, transparent 55%, rgba(255,90,100,0.16) 74%, transparent 90%),
+    linear-gradient(90deg,#3f0a11 0%,#8c1e2c 12%,#c94a52 30%,#8c1e2c 55%,#c94a52 70%,#8c1e2c 88%,#3f0a11 100%);
   box-shadow:0 3px 12px rgba(0,0,0,0.55);
   transition:opacity 0.5s ease, transform 0.6s cubic-bezier(.6,0,.4,1);
   transform-origin:top center;
@@ -121,6 +134,13 @@ canvas#dust-canvas{position:fixed;inset:0;pointer-events:none;z-index:1;}
   background:repeating-linear-gradient(180deg, rgba(0,0,0,0.12) 0 2px, transparent 2px 5px);
 }
 .scroll-closed.hide{opacity:0;transform:scaleY(0.25);pointer-events:none;}
+.curl-cap{
+  position:absolute;top:0;width:38px;height:76px;z-index:4;
+  transition:opacity 0.5s ease;
+}
+.curl-cap.l{left:-3px;} .curl-cap.r{right:-3px;transform:scaleX(-1);}
+.curl-cap svg{display:block;width:100%;height:100%;}
+.scroll-stack.hide-curl .curl-cap{opacity:0;}
 
 /* ── Wax seal ── */
 .wax-seal{
@@ -215,12 +235,49 @@ a:focus-visible, [tabindex]:focus-visible, button:focus-visible{
 <a class="back-link" href="index.html">← Home</a>
 <canvas id="dust-canvas"></canvas>
 
+<svg class="grand-corner tl" viewBox="0 0 180 180" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <path d="M0,70 Q0,20 20,10 Q60,-8 90,20 M0,50 Q0,26 26,20 Q50,14 62,32" fill="none" stroke="#D4AF37" stroke-width="1.4"/>
+  <path d="M70,0 Q20,0 10,20 Q-8,60 20,90" fill="none" stroke="#D4AF37" stroke-width="1.4"/>
+  <circle cx="14" cy="14" r="4" fill="#D4AF37"/>
+  <circle cx="90" cy="20" r="2.6" fill="#D4AF37"/>
+  <circle cx="20" cy="90" r="2.6" fill="#D4AF37"/>
+  <path d="M40,6 Q46,16 40,26 Q34,16 40,6 Z" fill="#D4AF37" opacity="0.8"/>
+  <path d="M6,40 Q16,46 26,40 Q16,34 6,40 Z" fill="#D4AF37" opacity="0.8"/>
+</svg>
+<svg class="grand-corner tr" viewBox="0 0 180 180" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <path d="M0,70 Q0,20 20,10 Q60,-8 90,20 M0,50 Q0,26 26,20 Q50,14 62,32" fill="none" stroke="#D4AF37" stroke-width="1.4"/>
+  <path d="M70,0 Q20,0 10,20 Q-8,60 20,90" fill="none" stroke="#D4AF37" stroke-width="1.4"/>
+  <circle cx="14" cy="14" r="4" fill="#D4AF37"/>
+  <circle cx="90" cy="20" r="2.6" fill="#D4AF37"/>
+  <circle cx="20" cy="90" r="2.6" fill="#D4AF37"/>
+  <path d="M40,6 Q46,16 40,26 Q34,16 40,6 Z" fill="#D4AF37" opacity="0.8"/>
+  <path d="M6,40 Q16,46 26,40 Q16,34 6,40 Z" fill="#D4AF37" opacity="0.8"/>
+</svg>
+<svg class="grand-corner bl" viewBox="0 0 180 180" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <path d="M0,70 Q0,20 20,10 Q60,-8 90,20 M0,50 Q0,26 26,20 Q50,14 62,32" fill="none" stroke="#D4AF37" stroke-width="1.4"/>
+  <path d="M70,0 Q20,0 10,20 Q-8,60 20,90" fill="none" stroke="#D4AF37" stroke-width="1.4"/>
+  <circle cx="14" cy="14" r="4" fill="#D4AF37"/>
+  <circle cx="90" cy="20" r="2.6" fill="#D4AF37"/>
+  <circle cx="20" cy="90" r="2.6" fill="#D4AF37"/>
+  <path d="M40,6 Q46,16 40,26 Q34,16 40,6 Z" fill="#D4AF37" opacity="0.8"/>
+  <path d="M6,40 Q16,46 26,40 Q16,34 6,40 Z" fill="#D4AF37" opacity="0.8"/>
+</svg>
+<svg class="grand-corner br" viewBox="0 0 180 180" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <path d="M0,70 Q0,20 20,10 Q60,-8 90,20 M0,50 Q0,26 26,20 Q50,14 62,32" fill="none" stroke="#D4AF37" stroke-width="1.4"/>
+  <path d="M70,0 Q20,0 10,20 Q-8,60 20,90" fill="none" stroke="#D4AF37" stroke-width="1.4"/>
+  <circle cx="14" cy="14" r="4" fill="#D4AF37"/>
+  <circle cx="90" cy="20" r="2.6" fill="#D4AF37"/>
+  <circle cx="20" cy="90" r="2.6" fill="#D4AF37"/>
+  <path d="M40,6 Q46,16 40,26 Q34,16 40,6 Z" fill="#D4AF37" opacity="0.8"/>
+  <path d="M6,40 Q16,46 26,40 Q16,34 6,40 Z" fill="#D4AF37" opacity="0.8"/>
+</svg>
+
 <div id="scene-scroll">
   <div class="scroll-glow"></div>
   <p id="enter-prompt-w">✦ &nbsp;Break the seal to unfurl&nbsp; ✦</p>
 
   <div class="scroll-wrap">
-    <div class="rod rod-top"><div class="rod-finial l"></div><div class="rod-finial r"></div></div>
+    <div class="rod rod-top"><div class="finial-slot l" id="fin-tl"></div><div class="finial-slot r" id="fin-tr"></div></div>
 
     <div class="scroll-stack">
       <div class="scroll-body" id="scroll-body">
@@ -274,10 +331,46 @@ a:focus-visible, [tabindex]:focus-visible, button:focus-visible{
         </div>
       </div>
       <div class="scroll-closed" id="scroll-closed"></div>
+      <div class="curl-cap l">
+        <svg viewBox="0 0 38 76" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <defs>
+            <radialGradient id="curlG" cx="40%" cy="40%" r="65%">
+              <stop offset="0%" stop-color="#e8828c"/>
+              <stop offset="35%" stop-color="#a5303c"/>
+              <stop offset="70%" stop-color="#6d1018"/>
+              <stop offset="100%" stop-color="#3f0a11"/>
+            </radialGradient>
+          </defs>
+          <ellipse cx="19" cy="38" rx="17" ry="36" fill="url(#curlG)"/>
+          <ellipse cx="19" cy="38" rx="17" ry="36" fill="none" stroke="#D4AF37" stroke-width="1" opacity="0.5"/>
+          <ellipse cx="16" cy="38" rx="12.5" ry="27" fill="none" stroke="rgba(0,0,0,0.35)" stroke-width="1.6"/>
+          <ellipse cx="14" cy="38" rx="8.5" ry="19" fill="none" stroke="rgba(0,0,0,0.3)" stroke-width="1.4"/>
+          <ellipse cx="12.5" cy="38" rx="5" ry="12" fill="none" stroke="rgba(0,0,0,0.28)" stroke-width="1.2"/>
+          <ellipse cx="11.5" cy="38" rx="2" ry="5.5" fill="#2a0709"/>
+        </svg>
+      </div>
+      <div class="curl-cap r">
+        <svg viewBox="0 0 38 76" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <defs>
+            <radialGradient id="curlG2" cx="40%" cy="40%" r="65%">
+              <stop offset="0%" stop-color="#e8828c"/>
+              <stop offset="35%" stop-color="#a5303c"/>
+              <stop offset="70%" stop-color="#6d1018"/>
+              <stop offset="100%" stop-color="#3f0a11"/>
+            </radialGradient>
+          </defs>
+          <ellipse cx="19" cy="38" rx="17" ry="36" fill="url(#curlG2)"/>
+          <ellipse cx="19" cy="38" rx="17" ry="36" fill="none" stroke="#D4AF37" stroke-width="1" opacity="0.5"/>
+          <ellipse cx="16" cy="38" rx="12.5" ry="27" fill="none" stroke="rgba(0,0,0,0.35)" stroke-width="1.6"/>
+          <ellipse cx="14" cy="38" rx="8.5" ry="19" fill="none" stroke="rgba(0,0,0,0.3)" stroke-width="1.4"/>
+          <ellipse cx="12.5" cy="38" rx="5" ry="12" fill="none" stroke="rgba(0,0,0,0.28)" stroke-width="1.2"/>
+          <ellipse cx="11.5" cy="38" rx="2" ry="5.5" fill="#2a0709"/>
+        </svg>
+      </div>
     </div>
 
     <div class="rod rod-bottom" id="rod-bottom">
-      <div class="rod-finial l"></div><div class="rod-finial r"></div>
+      <div class="finial-slot l" id="fin-bl"></div><div class="finial-slot r" id="fin-br"></div>
       <div class="fringe-row"></div>
     </div>
 
@@ -334,9 +427,43 @@ initLoader();
 hydrateConfig();
 document.getElementById('rsvp-btn-w').href = rsvpLink();
 
+/* Ornate turned finials with hanging silk tassels — built once via JS
+   so all four corners stay pixel-identical (id-suffixed gradients avoid
+   collisions between the four copies). */
+function buildFinial(container, idx){
+  const NS = 'http://www.w3.org/2000/svg';
+  const gid = 'finGrad'+idx;
+  const threads = [-9,-6,-3,0,3,6,9].map(dx => {
+    const len = 34 + Math.random()*8;
+    const endX = 17+dx*1.15;
+    return `<path d="M${17+dx*0.5},34 Q${17+dx*0.8},${34+len*0.55} ${endX},${34+len}"
+              stroke="url(#${gid})" stroke-width="1.1" fill="none" stroke-linecap="round"/>
+            <circle cx="${endX}" cy="${34+len}" r="1.5" fill="url(#${gid})"/>`;
+  }).join('');
+  container.innerHTML = `<svg viewBox="0 0 34 110" xmlns="${NS}" aria-hidden="true">
+    <defs>
+      <linearGradient id="${gid}" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0%" stop-color="#6b4a10"/>
+        <stop offset="30%" stop-color="#E8C158"/>
+        <stop offset="50%" stop-color="#FFF6D8"/>
+        <stop offset="72%" stop-color="#C8960A"/>
+        <stop offset="100%" stop-color="#5c3e0c"/>
+      </linearGradient>
+    </defs>
+    <ellipse cx="17" cy="4" rx="5" ry="4" fill="url(#${gid})"/>
+    <path d="M13,7 L13,11 L21,11 L21,7 Z" fill="url(#${gid})"/>
+    <circle cx="17" cy="19" r="12.5" fill="url(#${gid})"/>
+    <ellipse cx="17" cy="30" rx="10" ry="3.2" fill="url(#${gid})"/>
+    <circle cx="17" cy="30" r="4.2" fill="url(#${gid})"/>
+    ${threads}
+  </svg>`;
+}
+['fin-tl','fin-tr','fin-bl','fin-br'].forEach((id,i)=>buildFinial(document.getElementById(id), i));
+
 const wax = document.getElementById('wax-seal');
 const scrollBody = document.getElementById('scroll-body');
 const scrollClosed = document.getElementById('scroll-closed');
+const scrollStack = document.querySelector('.scroll-stack');
 const enterPrompt = document.getElementById('enter-prompt-w');
 let opened = false;
 
@@ -346,6 +473,7 @@ function unfurl(){
   enterPrompt.style.opacity = '0';
   wax.classList.add('broken');
   scrollClosed.classList.add('hide');
+  scrollStack.classList.add('hide-curl');
   scrollBody.classList.add('open');
 }
 
