@@ -26,14 +26,6 @@ body{
   opacity:0.55;
   mix-blend-mode:screen;
 }
-#damask-layer-gold{
-  position:fixed;inset:0;z-index:0;pointer-events:none;
-  background-image:url('assets/patterns/damask-gold.jpeg');
-  background-size:320px 320px;
-  background-attachment:fixed;
-  opacity:0.22;
-  mix-blend-mode:screen;
-}
 .grand-corner{
   position:fixed;width:min(220px,30vw);height:min(220px,30vw);pointer-events:none;z-index:1;opacity:0.68;
 }
@@ -92,6 +84,13 @@ canvas#dust-canvas{position:fixed;inset:0;pointer-events:none;z-index:1;}
   background:
     repeating-linear-gradient(90deg, rgba(0,0,0,0.05) 0 1px, transparent 1px 3px),
     linear-gradient(90deg, rgba(0,0,0,0.4) 0%, transparent 6%, transparent 94%, rgba(0,0,0,0.4) 100%);
+}
+.rod::after{
+  content:'';position:absolute;inset:0;border-radius:inherit;
+  background-image:url('assets/patterns/damask-gold.jpeg');
+  background-size:36px 36px;
+  mix-blend-mode:soft-light;
+  opacity:0.6;
 }
 .rod-bottom{height:18px;}
 .finial-slot{
@@ -257,7 +256,6 @@ a:focus-visible, [tabindex]:focus-visible, button:focus-visible{
 <div id="loader"><div class="l-om">ௐ</div><div class="l-names">Shankar &amp; Haripriya</div></div>
 
 <div id="damask-layer"></div>
-<div id="damask-layer-gold"></div>
 <a class="back-link" href="index.html">← Home</a>
 <canvas id="dust-canvas"></canvas>
 
