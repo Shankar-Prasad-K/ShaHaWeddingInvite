@@ -183,6 +183,17 @@ canvas#dust-canvas{position:fixed;inset:0;pointer-events:none;z-index:1;}
 .tie-cord.pulled{opacity:0;transform:translateY(64px);pointer-events:none;}
 .tie-cord.pulled .cord-knot{transform:translateY(46px);}
 
+/* ── Petal shower: released the moment the thread is pulled ── */
+#petal-layer{position:fixed;inset:0;z-index:60;pointer-events:none;overflow:hidden;}
+.petal{position:absolute;top:0;left:0;will-change:transform,opacity;}
+.petal svg{display:block;width:100%;height:100%;}
+@keyframes petalFall{
+  0%{transform:translate(0,0) rotate(0deg);opacity:0;}
+  8%{opacity:0.92;}
+  85%{opacity:0.85;}
+  100%{transform:translate(var(--drift,40px),var(--fall,760px)) rotate(var(--spin,280deg));opacity:0;}
+}
+
 /* ═══════════ INVITATION TEXT (inside the scroll) ═══════════ */
 .s-om{
   font-family:'Cormorant Garamond',serif;
@@ -556,11 +567,49 @@ const tieCord = document.getElementById('tie-cord');
 const enterPrompt = document.getElementById('enter-prompt-w');
 let opened = false;
 
+function spawnPetals(){
+  if(prefersReducedMotion) return;
+  let layer = document.getElementById('petal-layer');
+  if(!layer){
+    layer = document.createElement('div');
+    layer.id = 'petal-layer';
+    document.body.appendChild(layer);
+  }
+  const rect = document.querySelector('.scroll-wrap').getBoundingClientRect();
+  const colors = ['#E8A33D','#F5C34D','#E8C158','#D68A3A','#F0D8A8','#c9784a'];
+  const NS = 'http://www.w3.org/2000/svg';
+  for(let i=0;i<22;i++){
+    const petal = document.createElement('div');
+    petal.className = 'petal';
+    const size = 9 + Math.random()*9;
+    const startX = rect.left + Math.random()*rect.width - size/2;
+    const startY = rect.top - 14 - Math.random()*20;
+    const fall = 560 + Math.random()*320;
+    const drift = Math.random()*180-90;
+    const spin = 160 + Math.random()*340;
+    const dur = (3.6 + Math.random()*2.6).toFixed(2);
+    const delay = (Math.random()*1.1).toFixed(2);
+    const color = colors[Math.floor(Math.random()*colors.length)];
+    petal.style.left = startX+'px';
+    petal.style.top = startY+'px';
+    petal.style.width = size+'px';
+    petal.style.height = size+'px';
+    petal.style.setProperty('--fall', fall+'px');
+    petal.style.setProperty('--drift', drift+'px');
+    petal.style.setProperty('--spin', spin+'deg');
+    petal.style.animation = `petalFall ${dur}s cubic-bezier(.45,0,.6,1) ${delay}s forwards`;
+    petal.innerHTML = `<svg viewBox="0 0 20 20" xmlns="${NS}"><path d="M10,1 C16,4.5 17.5,12 10,19 C2.5,12 4,4.5 10,1 Z" fill="${color}" opacity="0.9"/><path d="M10,5 C13,8 13.5,12 10,16" fill="none" stroke="rgba(255,255,255,0.35)" stroke-width="0.7"/></svg>`;
+    layer.appendChild(petal);
+    petal.addEventListener('animationend', ()=>petal.remove());
+  }
+}
+
 function unfurl(){
   if(opened) return;
   opened = true;
   enterPrompt.style.opacity = '0';
   tieCord.classList.add('pulled');
+  spawnPetals();
   const delay = prefersReducedMotion ? 0 : 420;
   setTimeout(()=>{
     scrollRoll.classList.add('open');
