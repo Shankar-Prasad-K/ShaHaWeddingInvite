@@ -20,9 +20,11 @@ body{
 }
 #damask-layer{
   position:fixed;inset:0;z-index:0;pointer-events:none;
-  background-image:var(--damask-uri);
-  background-size:150px 150px;
+  background-image:url('assets/patterns/damask-red-diamond.jpeg');
+  background-size:280px 280px;
   background-attachment:fixed;
+  opacity:0.55;
+  mix-blend-mode:screen;
 }
 .grand-corner{
   position:fixed;width:min(220px,30vw);height:min(220px,30vw);pointer-events:none;z-index:1;opacity:0.68;
@@ -113,9 +115,9 @@ canvas#dust-canvas{position:fixed;inset:0;pointer-events:none;z-index:1;}
 }
 .scroll-brocade{
   position:absolute;inset:0;z-index:0;
-  background-image:var(--brocade-uri);
-  background-size:100px 100px;
-  mix-blend-mode:overlay;opacity:0.8;
+  background-image:url('assets/patterns/damask-acanthus.jpg');
+  background-size:220px 220px;
+  mix-blend-mode:soft-light;opacity:0.85;
 }
 .scroll-silk::after{
   content:'';position:absolute;inset:0;
@@ -343,35 +345,6 @@ a:focus-visible, [tabindex]:focus-visible, button:focus-visible{
 initLoader();
 hydrateConfig();
 document.getElementById('rsvp-btn-w').href = rsvpLink();
-
-/* Real damask motif — a fleur medallion with curling fronds, tiled
-   seamlessly (transparent tile background so it layers cleanly over
-   whatever sits beneath it). One version for the page backdrop, a
-   denser one for the silk itself. */
-function makeDamaskTile(fg, size, scale){
-  const s = scale;
-  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 100 100">
-    <g fill="${fg}" transform="translate(50,50) scale(${s})">
-      <path d="M0,-38 Q14,-18 8,4 Q0,-8 0,4 Q0,-8 -8,4 Q-14,-18 0,-38 Z"/>
-      <path d="M0,4 Q-26,-4 -38,10 Q-18,16 -4,8 Q-16,18 -20,32 Q4,24 0,4 Z"/>
-      <path d="M0,4 Q26,-4 38,10 Q18,16 4,8 Q16,18 20,32 Q-4,24 0,4 Z"/>
-      <circle cx="0" cy="34" r="3.5"/>
-      <path d="M0,37 Q-13,46 -26,41" stroke="${fg}" stroke-width="2.4" fill="none"/>
-      <path d="M0,37 Q13,46 26,41" stroke="${fg}" stroke-width="2.4" fill="none"/>
-      <circle cx="-26" cy="41" r="2.4"/>
-      <circle cx="26" cy="41" r="2.4"/>
-    </g>
-    <circle cx="4" cy="4" r="1.6" fill="${fg}"/>
-    <circle cx="96" cy="4" r="1.6" fill="${fg}"/>
-    <circle cx="4" cy="96" r="1.6" fill="${fg}"/>
-    <circle cx="96" cy="96" r="1.6" fill="${fg}"/>
-  </svg>`;
-  return 'data:image/svg+xml;base64,' + btoa(svg);
-}
-document.documentElement.style.setProperty('--damask-uri',
-  `url("${makeDamaskTile('rgba(212,175,55,0.09)', 150, 0.95)}")`);
-document.documentElement.style.setProperty('--brocade-uri',
-  `url("${makeDamaskTile('rgba(60,8,14,0.55)', 100, 0.7)}")`);
 
 /* Ornate turned finials with hanging silk tassels that sway gently
    and independently (SMIL, additive — same technique proven on the
