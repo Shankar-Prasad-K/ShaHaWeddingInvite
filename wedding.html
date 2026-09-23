@@ -578,12 +578,12 @@ function spawnPetals(){
   const rect = document.querySelector('.scroll-wrap').getBoundingClientRect();
   const colors = ['#E8A33D','#F5C34D','#E8C158','#D68A3A','#F0D8A8','#c9784a'];
   const NS = 'http://www.w3.org/2000/svg';
-  for(let i=0;i<22;i++){
+  for(let i=0;i<30;i++){
     const petal = document.createElement('div');
     petal.className = 'petal';
     const size = 9 + Math.random()*9;
     const startX = rect.left + Math.random()*rect.width - size/2;
-    const startY = rect.top - 14 - Math.random()*20;
+    const startY = rect.top - 4 + Math.random()*14;
     const fall = 560 + Math.random()*320;
     const drift = Math.random()*180-90;
     const spin = 160 + Math.random()*340;
@@ -609,11 +609,11 @@ function unfurl(){
   opened = true;
   enterPrompt.style.opacity = '0';
   tieCord.classList.add('pulled');
-  spawnPetals();
   const delay = prefersReducedMotion ? 0 : 420;
   setTimeout(()=>{
     scrollRoll.classList.add('open');
     scrollBody.classList.add('open');
+    spawnPetals();
   }, delay);
 }
 
