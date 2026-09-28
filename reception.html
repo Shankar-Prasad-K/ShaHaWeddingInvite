@@ -8,328 +8,198 @@
 <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;500;600&display=swap" rel="stylesheet"/>
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
-html,body{width:100%;height:100%;overflow:hidden;background:#12081f;font-family:'Cormorant Garamond',Georgia,serif;color:#F5EFE4;-webkit-font-smoothing:antialiased;}
-
-.scene{position:fixed;inset:0;transition:opacity 1.3s ease;}
-.scene.out{opacity:0;pointer-events:none;}
+html,body{width:100%;font-family:'Cormorant Garamond',Georgia,serif;color:#5B3A52;-webkit-font-smoothing:antialiased;}
+body{
+  background:
+    linear-gradient(128deg, transparent 10%, rgba(255,255,255,0.55) 24%, rgba(255,255,255,0.16) 34%, transparent 46%),
+    linear-gradient(128deg, transparent 58%, rgba(255,255,255,0.32) 68%, transparent 78%),
+    radial-gradient(ellipse at 24% 0%, rgba(240,196,200,0.55) 0%, transparent 56%),
+    radial-gradient(ellipse at 84% 100%, rgba(201,160,187,0.4) 0%, transparent 55%),
+    linear-gradient(160deg,#F9EDE8 0%,#F3E3EC 45%,#F6ECDC 100%);
+  background-attachment:fixed;
+  min-height:100vh;
+}
+#pastel-pattern{
+  position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:url('assets/patterns/damask-red-diamond.jpeg');
+  background-size:260px 260px;
+  background-attachment:fixed;
+  opacity:0.09;
+  filter:saturate(0.45) brightness(2) hue-rotate(300deg);
+  mix-blend-mode:multiply;
+}
+canvas#bokeh-r{position:fixed;inset:0;z-index:0;pointer-events:none;}
 
 .back-link{
   position:fixed;top:18px;left:20px;z-index:50;
   font-family:'Cinzel',serif;font-size:11px;letter-spacing:0.18em;
-  color:rgba(232,195,158,0.8);text-decoration:none;text-transform:uppercase;
-  padding:8px 14px;border:1px solid rgba(212,175,55,0.28);border-radius:2px;
-  background:rgba(8,8,10,0.4);backdrop-filter:blur(4px);
+  color:rgba(139,90,107,0.85);text-decoration:none;text-transform:uppercase;
+  padding:8px 14px;border:1px solid rgba(200,138,110,0.4);border-radius:2px;
+  background:rgba(255,250,246,0.55); backdrop-filter:blur(4px);
   transition:all 0.3s;
 }
-.back-link:hover{color:#F5D078;border-color:rgba(212,175,55,0.65);background:rgba(30,15,45,0.6);}
+.back-link:hover{color:#7A2F4C;border-color:rgba(200,138,110,0.75);background:rgba(255,250,246,0.85);}
 
-/* ═══════════ DOOR SCENE ═══════════ */
-#scene-doors{
-  z-index:1;
-  background:
-    linear-gradient(135deg, rgba(255,255,255,0.025) 25%, transparent 25%, transparent 75%, rgba(255,255,255,0.025) 75%),
-    linear-gradient(45deg, rgba(255,255,255,0.025) 25%, transparent 25%, transparent 75%, rgba(255,255,255,0.025) 75%),
-    radial-gradient(ellipse at 50% 38%, rgba(150,80,190,0.28) 0%, transparent 55%),
-    linear-gradient(180deg,#1c0e30 0%,#241640 45%,#170b28 100%);
-  background-size:28px 28px,28px 28px,auto,auto;
-  background-position:0 0,14px 14px,0 0,0 0;
-  display:flex;flex-direction:column;
-  overflow:hidden;
-}
-
-canvas#bokeh-c{position:fixed;inset:0;z-index:2;pointer-events:none;}
-
-.beam{
-  position:absolute;top:-10%;width:38%;height:130%;
-  background:linear-gradient(180deg, rgba(255,225,170,0.10) 0%, transparent 70%);
-  transform-origin:top center;
-  pointer-events:none;
-  z-index:1;
-}
-.beam-l{left:6%;transform:rotate(12deg);}
-.beam-r{right:6%;transform:rotate(-12deg);}
-
-#stage{
-  position:relative;flex:1;
-  display:flex;align-items:flex-end;justify-content:center;
-  z-index:3;
-  padding-bottom:0;
-}
-
-.pillar{
-  position:absolute;bottom:0;
-  width:clamp(10px,1.4vw,16px);
-  height:62%;
-  background:linear-gradient(180deg,#5a3d78 0%,#241534 100%);
+/* focus visibility for keyboard users — plum outline reads on a light card */
+a:focus-visible, [tabindex]:focus-visible, button:focus-visible{
+  outline:2px solid rgba(139,58,82,0.85);
+  outline-offset:3px;
   border-radius:2px;
-  box-shadow:inset -2px 0 4px rgba(0,0,0,0.4), inset 2px 0 3px rgba(232,195,158,0.15);
-}
-.pillar.l{left:14%;}
-.pillar.r{right:14%;}
-.pillar-glow{
-  position:absolute;bottom:0;left:50%;transform:translateX(-50%);
-  width:80px;height:140px;
-  background:radial-gradient(ellipse at 50% 100%, rgba(255,200,120,0.55) 0%, transparent 70%);
-  filter:blur(4px);
-}
-.pillar-bloom{
-  position:absolute;top:-22px;left:50%;transform:translateX(-50%);
-  width:46px;height:46px;
-}
-.pillar-bloom span{
-  position:absolute;border-radius:50%;
-  background:radial-gradient(circle at 35% 30%, #fff7e6, #E8C39E 60%, #C9A05C 100%);
-  box-shadow:0 0 10px rgba(255,220,170,0.5);
 }
 
-.doorframe{
+#scene-r{
+  position:relative;z-index:2;min-height:100vh;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:70px 20px 56px;
+}
+
+/* ═══════════ THE CARD ═══════════ */
+.r-card{
   position:relative;
-  width:min(300px,58vw);
-  height:74%;
-  margin:0 auto;
-  display:flex;flex-direction:column;align-items:center;
-}
-.marquee{
-  position:absolute;top:-22px;left:-14px;right:-14px;
-  height:14px;
-  display:flex;justify-content:space-between;
-  padding:0 2px;
-}
-.marquee span{
-  width:5px;height:5px;border-radius:50%;
-  background:radial-gradient(circle,#FFF3C8,#E8B94A);
-  box-shadow:0 0 6px 2px rgba(255,210,110,0.7);
-  animation:bulb 1.8s ease-in-out infinite;
-}
-@keyframes bulb{0%,100%{opacity:0.35;}50%{opacity:1;}}
-
-.frame-outer{
-  position:relative;
-  width:100%;height:100%;
-  border:4px solid;
-  border-image:linear-gradient(180deg,#F5D078,#8a6a1e,#F5D078) 1;
-  box-shadow:0 0 34px rgba(212,175,55,0.22), inset 0 0 30px rgba(212,175,55,0.1);
-  display:flex;overflow:hidden;
-  background:#1a0e28;
-  cursor:pointer;
-}
-.frame-outer::before{
-  content:'';position:absolute;inset:5px;
-  border:1px solid rgba(212,175,55,0.35);
-  pointer-events:none;z-index:5;
-}
-
-#glass-glow{
-  position:absolute;inset:-20%;
-  background:radial-gradient(ellipse at 50% 55%, rgba(255,220,170,0.9) 0%, rgba(230,150,220,0.4) 35%, transparent 72%);
-  opacity:0.5;
-  transition:opacity 0.7s ease;
-  pointer-events:none;
-  z-index:0;
-}
-#glass-glow.lit{opacity:1;}
-
-.gdoor{
-  position:relative;
-  width:50%;height:100%;
-  transition:transform 1.5s cubic-bezier(.4,0,.2,1);
-  z-index:1;
-  overflow:hidden;
-  background:
-    repeating-linear-gradient(90deg,
-      rgba(0,0,0,0.22) 0px, rgba(0,0,0,0.22) 3px,
-      rgba(255,255,255,0.05) 3px, rgba(255,255,255,0.05) 5px,
-      transparent 5px, transparent 23px),
-    linear-gradient(180deg, #6b3690 4%, #4a1f6e 40%, #341552 70%, #220e3a 100%);
-  box-shadow:inset 0 0 70px rgba(0,0,0,0.55), inset 0 10px 30px rgba(0,0,0,0.4);
-}
-.gdoor-l{transform:translateX(0);}
-.gdoor-r{transform:translateX(0);}
-.gdoor-l.open{transform:translateX(-102%);}
-.gdoor-r.open{transform:translateX(102%);}
-
-/* soft sheen where light catches the velvet folds */
-.glass-fill{
-  position:absolute;inset:0;
-  background:linear-gradient(100deg,
-    transparent 0%, rgba(255,255,255,0.07) 22%, transparent 42%,
-    transparent 64%, rgba(255,255,255,0.05) 82%, transparent 100%);
-  mix-blend-mode:overlay;
-}
-/* gold braided cord along the inner edge where the drapes meet */
-.glass-streak{
-  position:absolute;top:0;bottom:0;width:6px;
-  background:repeating-linear-gradient(180deg,#F9E3A0 0px,#F9E3A0 6px,#B8862A 6px,#B8862A 12px);
-  box-shadow:0 0 7px rgba(212,175,55,0.55);
-}
-.gdoor-l .glass-streak{right:0;}
-.gdoor-r .glass-streak{left:0;}
-
-/* hanging gold tassel in place of a modern door handle */
-.handle{
-  position:absolute;top:50%;transform:translateY(-50%);
-  width:16px;height:64px;
-}
-.handle::before{
-  content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);
-  width:15px;height:15px;border-radius:50%;
-  background:radial-gradient(circle at 35% 30%,#FFF3C8,#E8B94A 55%,#8a6a1e 100%);
-  box-shadow:0 0 9px rgba(212,175,55,0.65);
-}
-.handle::after{
-  content:'';position:absolute;top:13px;left:50%;transform:translateX(-50%);
-  width:4px;height:50px;border-radius:2px;
-  background:repeating-linear-gradient(180deg,#E8B94A 0,#E8B94A 4px,#9c7420 4px,#9c7420 8px);
-  box-shadow:0 0 5px rgba(212,175,55,0.35);
-}
-.gdoor-l .handle{right:14%;}
-.gdoor-r .handle{left:14%;}
-
-#enter-prompt-r{
-  position:absolute;left:50%;bottom:calc(100% + 30px);transform:translateX(-50%);
-  white-space:nowrap;z-index:4;
-  font-family:'Cinzel',serif;font-size:clamp(10px,1.2vw,12px);letter-spacing:0.24em;text-transform:uppercase;
-  color:rgba(245,208,120,0.85);text-shadow:0 0 12px rgba(255,190,90,0.5);
-  animation:pulse 2.6s ease-in-out infinite;
-}
-@keyframes pulse{0%,100%{opacity:0.4;}50%{opacity:1;}}
-
-.carpet{
-  position:absolute;bottom:0;left:50%;transform:translateX(-50%);
-  width:70%;height:100%;
-  background:linear-gradient(180deg,#5c0e1a 0%,#3a0810 100%);
-  clip-path:polygon(38% 0%,62% 0%,88% 100%,12% 100%);
-  border-left:1px solid rgba(212,175,55,0.25);
-  border-right:1px solid rgba(212,175,55,0.25);
-  opacity:0.85;
-  z-index:0;
-}
-
-.floor{
-  position:relative;flex:0 0 auto;height:9%;
-  background:linear-gradient(180deg,#170c24,#0a0512);
-  z-index:3;
-}
-.floor::before{
-  content:'';position:absolute;inset:0;
-  background:radial-gradient(ellipse at 50% 0%, rgba(220,170,255,0.12) 0%, transparent 70%);
-}
-
-/* ═══════════ INVITATION SCENE (royal) ═══════════ */
-#scene-invite{
-  z-index:40;
-  background:
-    linear-gradient(135deg, rgba(255,255,255,0.02) 25%, transparent 25%, transparent 75%, rgba(255,255,255,0.02) 75%),
-    linear-gradient(45deg, rgba(255,255,255,0.02) 25%, transparent 25%, transparent 75%, rgba(255,255,255,0.02) 75%),
-    radial-gradient(ellipse at 50% 0%, rgba(160,90,190,0.2) 0%, transparent 55%),
-    linear-gradient(180deg,#180d28 0%,#22123c 50%,#180d28 100%);
-  background-size:28px 28px,28px 28px,auto,auto;
-  background-position:0 0,14px 14px,0 0,0 0;
-  display:flex;flex-direction:column;align-items:center;
-  overflow-y:auto;padding:72px 20px 60px;
-}
-canvas#bokeh-c2{position:fixed;inset:0;pointer-events:none;z-index:0;}
-
-#rcard{
-  position:relative;z-index:3;
   width:min(600px,90vw);
-  background:linear-gradient(165deg,#2c1548 0%,#1c0e30 100%);
-  border:1px solid rgba(212,175,55,0.4);
-  padding:clamp(34px,5vw,58px) clamp(24px,5vw,50px) clamp(30px,4vw,46px);
-  text-align:center;
-  box-shadow:0 20px 60px rgba(0,0,0,0.6), 0 0 70px rgba(160,90,200,0.12), inset 0 0 40px rgba(212,175,55,0.05);
-  overflow:hidden;
+  padding:clamp(10px,2vw,16px);
 }
-#rcard::before{
-  content:'';position:absolute;inset:8px;
-  border:1px solid rgba(212,175,55,0.18);
+.r-card-inner{
+  position:relative;display:grid;
+  background:linear-gradient(175deg,#FEFAF6 0%,#FBF1EC 100%);
+  border:1.5px solid rgba(200,138,110,0.55);
+  box-shadow:0 24px 60px rgba(122,47,76,0.16), 0 0 0 6px rgba(255,255,255,0.5), inset 0 0 30px rgba(233,180,160,0.1);
+  padding:clamp(38px,6vw,60px) clamp(22px,5vw,46px) clamp(30px,5vw,46px);
+}
+.r-card-inner::before{
+  content:'';position:absolute;inset:7px;
+  border:1px solid rgba(200,138,110,0.32);
   pointer-events:none;
 }
-.peacock-eye{position:absolute;width:70px;height:98px;opacity:0.24;pointer-events:none;z-index:-1;}
-.peacock-eye.tl{top:-14px;left:-10px;transform:rotate(-18deg);}
-.peacock-eye.tr{top:-14px;right:-10px;transform:rotate(18deg) scaleX(-1);}
+.r-corner{position:absolute;width:min(78px,20vw);height:min(78px,20vw);z-index:2;pointer-events:none;}
+.r-corner.tl{top:-4px;left:-4px;}
+.r-corner.tr{top:-4px;right:-4px;transform:scaleX(-1);}
+.r-corner.bl{bottom:-4px;left:-4px;transform:scaleY(-1);}
+.r-corner.br{bottom:-4px;right:-4px;transform:scale(-1,-1);}
+.r-corner svg{display:block;width:100%;height:100%;overflow:visible;}
+
+/* ── Veil: what covers the invitation before the seal is opened ── */
+.r-veil{
+  grid-area:1/1;z-index:3;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  min-height:clamp(280px,42vw,360px);
+  transition:opacity 0.9s ease, transform 0.9s cubic-bezier(.5,0,.5,1);
+}
+.r-veil.hide{opacity:0;transform:translateY(-18px) scale(1.05);pointer-events:none;}
+
+.r-seal-wrap{
+  width:clamp(112px,24vw,148px);cursor:pointer;
+  animation:sealBreathe 3.6s ease-in-out infinite;
+  transition:transform 0.6s cubic-bezier(.3,0,.4,1), opacity 0.6s ease;
+  filter:drop-shadow(0 8px 16px rgba(122,47,76,0.22));
+}
+.r-seal-wrap svg{display:block;width:100%;height:auto;overflow:visible;}
+@keyframes sealBreathe{0%,100%{transform:scale(1);}50%{transform:scale(1.025);}}
+.r-veil.hide .r-seal-wrap{transform:scale(1.16) rotate(9deg) translateY(-10px);opacity:0;animation:none;}
+
+.r-veil-prompt{
+  margin-top:16px;white-space:nowrap;
+  font-family:'Cinzel',serif;font-size:clamp(9.5px,1.2vw,11.5px);letter-spacing:0.2em;text-transform:uppercase;
+  color:rgba(139,90,107,0.8);
+  animation:promptPulse 2.6s ease-in-out infinite;
+}
+@keyframes promptPulse{0%,100%{opacity:0.45;}50%{opacity:1;}}
+
+/* ── Content: the real invitation, revealed once the seal lifts ── */
+.r-content{
+  grid-area:1/1;z-index:1;text-align:center;
+  opacity:0;transform:translateY(16px);
+  transition:opacity 1.1s ease 0.25s, transform 1.1s cubic-bezier(.2,.8,.2,1) 0.25s;
+}
+.r-content.show{opacity:1;transform:translateY(0);}
+
 .r-eyebrow{
   font-family:'Cinzel',serif;font-size:clamp(10px,1.2vw,12px);
   letter-spacing:0.32em;text-transform:uppercase;
-  color:rgba(232,195,158,0.65);margin-bottom:10px;
+  color:rgba(157,107,90,0.85);margin-bottom:10px;
 }
 .r-heading{
-  font-family:'Great Vibes',cursive;font-size:clamp(32px,5.5vw,50px);
-  background:linear-gradient(180deg,#FFF3D4,#E8C39E 55%,#C9A05C 100%);
+  font-family:'Great Vibes',cursive;font-size:clamp(34px,5.8vw,54px);
+  background:linear-gradient(180deg,#B4735A,#9C5B4C 55%,#7A3F42 100%);
   -webkit-background-clip:text;background-clip:text;color:transparent;
-  line-height:1.15;filter:drop-shadow(0 2px 14px rgba(212,175,55,0.25));
+  line-height:1.15;
 }
-.r-div{width:46%;height:1px;background:linear-gradient(90deg,transparent,rgba(212,175,55,0.4),transparent);margin:18px auto;}
-.r-body{font-size:clamp(12px,1.4vw,14.5px);color:rgba(240,228,205,0.72);line-height:1.9;}
+.r-div{width:46%;height:1px;background:linear-gradient(90deg,transparent,rgba(200,138,110,0.55),transparent);margin:18px auto;position:relative;}
+.r-div::before{
+  content:'';position:absolute;top:50%;left:50%;
+  width:6px;height:6px;transform:translate(-50%,-50%) rotate(45deg);
+  background:linear-gradient(135deg,#F3D9C8,#C88A6E 55%,#8B5A45 100%);
+  box-shadow:0 0 4px rgba(122,47,76,0.3);
+}
+.r-body{font-size:clamp(12px,1.4vw,14.5px);color:rgba(91,58,82,0.78);line-height:1.9;}
 .r-name{
-  font-family:'Great Vibes',cursive;font-size:clamp(30px,5vw,44px);
-  color:#F0D9A8;display:block;line-height:1.15;
-  filter:drop-shadow(0 0 10px rgba(212,175,55,0.3));
+  font-family:'Great Vibes',cursive;font-size:clamp(30px,5vw,46px);
+  background:linear-gradient(180deg,#9C5B4C,#7A3F42 65%,#5B3A52 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  display:block;line-height:1.15;
 }
-.r-date{font-family:'Cinzel',serif;font-size:clamp(13px,1.6vw,16px);letter-spacing:0.06em;color:#F5D078;margin:4px 0 2px;}
-.r-venue-name{font-family:'Cinzel',serif;font-size:1.15em;letter-spacing:0.04em;color:#F0D9A8;}
+.r-date{font-family:'Cinzel',serif;font-size:clamp(13px,1.6vw,16px);letter-spacing:0.06em;color:#8B4A5C;margin:4px 0 2px;}
+.r-venue-name{font-family:'Cinzel',serif;font-size:1.15em;letter-spacing:0.04em;color:#7A3F42;}
 
 .r-sched{
   margin:18px 0 4px;
-  border-top:1px solid rgba(212,175,55,0.22);
-  border-bottom:1px solid rgba(212,175,55,0.22);
+  border-top:1px solid rgba(200,138,110,0.4);
+  border-bottom:1px solid rgba(200,138,110,0.4);
   padding:16px 4px;
 }
 .r-sched-row{
   display:flex;justify-content:space-between;gap:14px;
   font-size:clamp(10.5px,1.25vw,12.5px);
-  color:rgba(235,222,198,0.75);
-  line-height:2.1;
-  text-align:left;
+  color:rgba(91,58,82,0.75);
+  line-height:2.1;text-align:left;
 }
 .r-sched-row .ev{
-  font-family:'Cinzel',serif;letter-spacing:0.06em;color:#E8C39E;
+  font-family:'Cinzel',serif;letter-spacing:0.06em;color:#8B4A5C;
   min-width:110px;flex:0 0 auto;
 }
 
 .map-link{
   display:inline-block;margin-top:12px;
   font-size:clamp(10.5px,1.2vw,12px);letter-spacing:0.08em;
-  color:rgba(232,195,158,0.7);text-decoration:none;
-  border-bottom:1px solid rgba(212,175,55,0.35);
+  color:rgba(139,74,92,0.78);text-decoration:none;
+  border-bottom:1px solid rgba(200,138,110,0.5);
   transition:color 0.3s,border-color 0.3s;
 }
-.map-link:hover{color:#F5D078;border-color:rgba(212,175,55,0.75);}
+.map-link:hover{color:#7A2F4C;border-color:rgba(200,138,110,0.9);}
+
 .nav-links{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:26px;position:relative;z-index:3;}
 .nav-btn{
-  padding:12px 26px;background:transparent;border:1px solid rgba(212,175,55,0.35);
-  color:rgba(232,195,158,0.85);text-decoration:none;
+  padding:12px 26px;background:rgba(255,250,246,0.6);border:1px solid rgba(200,138,110,0.45);
+  color:rgba(122,63,66,0.9);text-decoration:none;
   font-family:'Cinzel',serif;font-size:clamp(10px,1.2vw,12px);letter-spacing:0.12em;
   cursor:pointer;transition:all 0.3s;display:inline-block;text-transform:uppercase;
 }
-.nav-btn:hover{background:rgba(212,175,55,0.1);color:#F5D078;border-color:rgba(212,175,55,0.6);}
-
-/* focus visibility for keyboard users */
-a:focus-visible, [tabindex]:focus-visible, button:focus-visible{
-  outline:2px solid rgba(245,208,120,0.85);
-  outline-offset:3px;
-  border-radius:2px;
-}
+.nav-btn:hover{background:rgba(200,138,110,0.14);color:#5B2030;border-color:rgba(200,138,110,0.8);}
 
 #loader{
   position:fixed;inset:0;z-index:200;
-  background:#12081f;
+  background:linear-gradient(160deg,#F9EDE8,#F3E3EC);
   display:flex;flex-direction:column;align-items:center;justify-content:center;
   transition:opacity 0.5s ease;
 }
 #loader .l-mark{
-  font-family:'Great Vibes',cursive;font-size:44px;
-  background:linear-gradient(180deg,#FFF3D4,#E8C39E 55%,#C9A05C 100%);
+  font-family:'Great Vibes',cursive;font-size:46px;
+  background:linear-gradient(180deg,#B4735A,#7A3F42);
   -webkit-background-clip:text;background-clip:text;color:transparent;
   animation:loaderPulse 1.6s ease-in-out infinite;
 }
-#loader .l-names{font-family:'Cinzel',serif;font-size:11px;letter-spacing:0.3em;color:rgba(232,205,160,0.6);margin-top:14px;text-transform:uppercase;}
-@keyframes loaderPulse{0%,100%{opacity:0.5;transform:scale(1);}50%{opacity:1;transform:scale(1.06);}}
+#loader .l-names{font-family:'Cinzel',serif;font-size:11px;letter-spacing:0.3em;color:rgba(139,90,107,0.7);margin-top:14px;text-transform:uppercase;}
+@keyframes loaderPulse{0%,100%{opacity:0.5;transform:scale(1);}50%{opacity:1;transform:scale(1.08);}}
 
 @media (prefers-reduced-motion: reduce){
-  .marquee span, #enter-prompt-r, #loader .l-mark{animation:none !important;}
-  .scene{transition:opacity 0.25s linear;}
-  .gdoor{transition:transform 0.25s linear;}
+  .r-seal-wrap, .r-veil-prompt, #loader .l-mark{animation:none !important;}
+  .r-veil, .r-content, .r-seal-wrap{transition-duration:0.25s;}
+}
+@media (max-width:480px){
+  .r-card-inner{padding:34px 18px 30px;}
+  .r-sched-row{flex-direction:column;gap:1px;line-height:1.7;margin-bottom:6px;}
+  .r-sched-row .ev{min-width:0;}
+  .r-sched-row:last-child{margin-bottom:0;}
 }
 </style>
 </head>
@@ -337,91 +207,57 @@ a:focus-visible, [tabindex]:focus-visible, button:focus-visible{
 
 <div id="loader"><div class="l-mark">S &amp; H</div><div class="l-names">Wedding Reception</div></div>
 
+<div id="pastel-pattern"></div>
+<canvas id="bokeh-r"></canvas>
 <a class="back-link" href="index.html">← Home</a>
 
-<!-- ══ DOOR SCENE ══ -->
-<div id="scene-doors" class="scene">
-  <canvas id="bokeh-c"></canvas>
-  <div class="beam beam-l"></div>
-  <div class="beam beam-r"></div>
+<div id="scene-r">
+  <div class="r-card">
+    <div class="r-corner tl" id="rc-tl"></div>
+    <div class="r-corner tr" id="rc-tr"></div>
+    <div class="r-corner bl" id="rc-bl"></div>
+    <div class="r-corner br" id="rc-br"></div>
 
-  <div id="stage">
-    <div class="pillar l"></div>
-    <div class="pillar-glow" style="left:14%;bottom:0;"></div>
-    <div class="pillar r"></div>
-    <div class="pillar-glow" style="right:14%;left:auto;bottom:0;"></div>
+    <div class="r-card-inner">
+      <div class="r-veil" id="r-veil">
+        <div class="r-seal-wrap" id="r-seal" role="button" tabindex="0" aria-label="Touch the seal to reveal the reception invitation"></div>
+        <p class="r-veil-prompt">✦ &nbsp;Touch the seal to reveal&nbsp; ✦</p>
+      </div>
 
-    <div class="doorframe">
-      <p id="enter-prompt-r">✦ &nbsp;Touch the doors to enter&nbsp; ✦</p>
-      <div class="marquee" id="marquee"></div>
-      <div class="carpet"></div>
-      <div class="frame-outer" id="door-stage-r">
-        <div id="glass-glow"></div>
-        <div class="gdoor gdoor-l" id="gdoor-l">
-          <div class="glass-fill"></div>
-          <div class="glass-streak"></div>
-          <div class="handle"></div>
+      <div class="r-content" id="r-content">
+        <div class="r-eyebrow">You Are Cordially Invited</div>
+        <div class="r-heading">Wedding Reception</div>
+        <div class="r-div"></div>
+
+        <div class="r-body">
+          Mrs. Devi Kumaravel &amp; Mr. V. Kumaravel<br/>
+          joyfully invite you to celebrate the marriage reception of
         </div>
-        <div class="gdoor gdoor-r" id="gdoor-r">
-          <div class="glass-fill"></div>
-          <div class="glass-streak"></div>
-          <div class="handle"></div>
+
+        <div style="margin:20px 0 2px;"><span class="r-name">Shankar Prasad K</span></div>
+        <div class="r-body" style="font-size:0.82em;opacity:0.7;margin-bottom:10px;">with</div>
+        <div style="margin-bottom:20px;"><span class="r-name">Haripriya V</span></div>
+
+        <div class="r-div"></div>
+
+        <div class="r-date">FRIDAY · 20 NOVEMBER 2026</div>
+        <div class="r-body" style="margin-bottom:16px;">6:00 PM – 9:00 PM</div>
+
+        <div class="r-body"><span class="r-venue-name">GP Grand Galaxy</span><br/>
+          Near G.P. Signal, Ganthipuram<br/>Sathy Road, Coimbatore
+        </div>
+        <a class="map-link" data-cfg="reception.mapLink" href="https://share.google/MLjErDc9WtHHSo3wP" target="_blank" rel="noopener">📍 Get Directions</a>
+
+        <div class="r-sched">
+          <div class="r-sched-row"><span class="ev">Betrothal</span><span>18 Nov 2026 (Wed) · 4:30 – 6:00 AM</span></div>
+          <div class="r-sched-row"><span class="ev">Muhurtham</span><span>20 Nov 2026 (Fri) · 6:00 – 7:30 AM</span></div>
+          <div class="r-sched-row"><span class="ev">Reception</span><span>20 Nov 2026 (Fri) · 6:00 PM onwards</span></div>
+        </div>
+
+        <div class="r-body" style="font-style:italic;font-size:0.85em;color:rgba(157,107,90,0.85);margin-top:14px;">
+          With best compliments from Friends &amp; Relatives
         </div>
       </div>
-    </div>
-  </div>
-
-  <div class="floor"></div>
-</div>
-
-<!-- ══ INVITATION SCENE ══ -->
-<div id="scene-invite" class="scene out">
-  <canvas id="bokeh-c2"></canvas>
-
-  <div id="rcard">
-    <svg class="peacock-eye tl" viewBox="0 0 100 140" xmlns="http://www.w3.org/2000/svg">
-      <ellipse cx="50" cy="72" rx="44" ry="64" fill="none" stroke="#D4AF37" stroke-width="2" opacity="0.6"/>
-      <ellipse cx="50" cy="72" rx="33" ry="49" fill="none" stroke="#7a4bb0" stroke-width="1.6" opacity="0.6"/>
-      <ellipse cx="50" cy="66" rx="20" ry="30" fill="#2d7d6e" opacity="0.7"/>
-      <ellipse cx="50" cy="60" rx="10" ry="16" fill="#16233f" opacity="0.85"/>
-    </svg>
-    <svg class="peacock-eye tr" viewBox="0 0 100 140" xmlns="http://www.w3.org/2000/svg">
-      <ellipse cx="50" cy="72" rx="44" ry="64" fill="none" stroke="#D4AF37" stroke-width="2" opacity="0.6"/>
-      <ellipse cx="50" cy="72" rx="33" ry="49" fill="none" stroke="#7a4bb0" stroke-width="1.6" opacity="0.6"/>
-      <ellipse cx="50" cy="66" rx="20" ry="30" fill="#2d7d6e" opacity="0.7"/>
-      <ellipse cx="50" cy="60" rx="10" ry="16" fill="#16233f" opacity="0.85"/>
-    </svg>
-    <div class="r-eyebrow">You Are Cordially Invited</div>
-    <div class="r-heading">Wedding Reception</div>
-    <div class="r-div"></div>
-
-    <div class="r-body">
-      Mrs. Devi Kumaravel &amp; Mr. V. Kumaravel<br/>
-      joyfully invite you to celebrate the marriage reception of
-    </div>
-
-    <div style="margin:20px 0 2px;"><span class="r-name">Shankar Prasad K</span></div>
-    <div class="r-body" style="font-size:0.82em;opacity:0.65;margin-bottom:10px;">with</div>
-    <div style="margin-bottom:20px;"><span class="r-name">Haripriya V</span></div>
-
-    <div class="r-div"></div>
-
-    <div class="r-date">FRIDAY · 20 NOVEMBER 2026</div>
-    <div class="r-body" style="margin-bottom:16px;">6:00 PM – 9:00 PM</div>
-
-    <div class="r-body"><span class="r-venue-name">GP Grand Galaxy</span><br/>
-      Near G.P. Signal, Ganthipuram<br/>Sathy Road, Coimbatore
-    </div>
-    <a class="map-link" data-cfg="reception.mapLink" href="https://share.google/MLjErDc9WtHHSo3wP" target="_blank" rel="noopener">📍 Get Directions</a>
-
-    <div class="r-sched">
-      <div class="r-sched-row"><span class="ev">Betrothal</span><span>18 Nov 2026 (Wed) · 4:30 – 6:00 AM</span></div>
-      <div class="r-sched-row"><span class="ev">Muhurtham</span><span>20 Nov 2026 (Fri) · 6:00 – 7:30 AM</span></div>
-      <div class="r-sched-row"><span class="ev">Reception</span><span>20 Nov 2026 (Fri) · 6:00 PM onwards</span></div>
-    </div>
-
-    <div class="r-body" style="font-style:italic;font-size:0.85em;color:rgba(212,175,55,0.55);margin-top:14px;">
-      With best compliments from Friends &amp; Relatives
     </div>
   </div>
 
@@ -442,93 +278,147 @@ a:focus-visible, [tabindex]:focus-visible, button:focus-visible{
 initLoader();
 hydrateConfig();
 document.getElementById('rsvp-btn-r').href = rsvpLink();
-</script>
-<script>
-// marquee bulbs
-const mq = document.getElementById('marquee');
-for(let i=0;i<16;i++){
-  const b=document.createElement('span');
-  b.style.animationDelay=(i*0.1)+'s';
-  mq.appendChild(b);
-}
-// pillar blooms
-document.querySelectorAll('.pillar').forEach(p=>{
-  const bloom=document.createElement('div');
-  bloom.className='pillar-bloom';
-  for(let i=0;i<6;i++){
-    const petal=document.createElement('span');
-    const ang=(i/6)*Math.PI*2, rad=12;
-    petal.style.width=petal.style.height=(10+Math.random()*6)+'px';
-    petal.style.left=(18+Math.cos(ang)*rad)+'px';
-    petal.style.top=(18+Math.sin(ang)*rad)+'px';
-    bloom.appendChild(petal);
+
+/* ── Procedural petal + leaf helpers, reused for every corner spray ── */
+function petalCluster(cx, cy, r, gradId){
+  let out = '';
+  for(let i=0;i<5;i++){
+    const ang = (i/5)*Math.PI*2 - Math.PI/2;
+    const px = cx + Math.cos(ang)*r*0.55;
+    const py = cy + Math.sin(ang)*r*0.55;
+    const deg = ang*180/Math.PI + 90;
+    out += `<ellipse cx="${px.toFixed(1)}" cy="${py.toFixed(1)}" rx="${(r*0.5).toFixed(1)}" ry="${(r*0.32).toFixed(1)}" transform="rotate(${deg.toFixed(1)} ${px.toFixed(1)} ${py.toFixed(1)})" fill="url(#${gradId})" opacity="0.94"/>`;
   }
-  p.appendChild(bloom);
-});
-
-const sceneDoors = document.getElementById('scene-doors');
-const sceneInvite = document.getElementById('scene-invite');
-const gL = document.getElementById('gdoor-l');
-const gR = document.getElementById('gdoor-r');
-const glow = document.getElementById('glass-glow');
-const stage = document.getElementById('door-stage-r');
-const prompt = document.getElementById('enter-prompt-r');
-let entered=false;
-
-stage.addEventListener('click', enterReception);
-stage.addEventListener('touchend', e=>{e.preventDefault();enterReception();});
-makeKeyboardActivatable(stage, enterReception, 'Open the doors to view the reception invitation');
-
-function enterReception(){
-  if(entered) return;
-  entered=true;
-  gL.classList.add('open');
-  gR.classList.add('open');
-  glow.classList.add('lit');
-  prompt.style.opacity='0';
-  const delay = prefersReducedMotion ? 100 : 950;
-  setTimeout(()=>{
-    sceneDoors.classList.add('out');
-    sceneInvite.classList.remove('out');
-  }, delay);
+  out += `<circle cx="${cx}" cy="${cy}" r="${(r*0.22).toFixed(1)}" fill="#C9915F" opacity="0.9"/>`;
+  return out;
+}
+function leafShape(x1,y1,x2,y2,width,color){
+  const mx=(x1+x2)/2, my=(y1+y2)/2;
+  const dx=x2-x1, dy=y2-y1, len=Math.hypot(dx,dy)||1;
+  const nx=-dy/len*width, ny=dx/len*width;
+  return `<path d="M${x1},${y1} Q${(mx+nx).toFixed(1)},${(my+ny).toFixed(1)} ${x2},${y2} Q${(mx-nx).toFixed(1)},${(my-ny).toFixed(1)} ${x1},${y1} Z" fill="${color}" opacity="0.88"/>
+    <path d="M${x1},${y1} Q${mx.toFixed(1)},${my.toFixed(1)} ${x2},${y2}" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="0.6"/>`;
 }
 
-// Bokeh particle field (shared pattern for both canvases)
-function initBokeh(canvasId){
-  const c = document.getElementById(canvasId);
-  const x = c.getContext('2d');
-  function mk(rand){
-    return{
-      x:Math.random(), y:rand?Math.random():1.08,
-      vy:0.00018+Math.random()*0.00042,
-      vx:(Math.random()-0.5)*0.00012,
-      r:6+Math.random()*22,
-      a:0.06+Math.random()*0.18,
-      hue: (()=>{const r=Math.random(); return r<0.55?42:(r<0.8?272:320);})(),
-      ph:Math.random()*Math.PI*2, sp:0.3+Math.random()*0.6
-    };
-  }
-  const P = Array.from({length:34},()=>mk(true));
-  let t=0;
-  function loop(){
-    c.width=innerWidth; c.height=innerHeight;
-    const W=c.width,H=c.height; t+=0.01;
-    for(const p of P){
-      p.y-=p.vy; p.x+=p.vx+Math.sin(t*p.sp+p.ph)*0.00012;
-      if(p.y<-0.08) Object.assign(p, mk(false));
-      const tw=0.7+0.3*Math.sin(t*p.sp*2+p.ph);
-      const grad = x.createRadialGradient(p.x*W,p.y*H,0,p.x*W,p.y*H,p.r);
-      grad.addColorStop(0, `hsla(${p.hue},70%,72%,${p.a*tw})`);
-      grad.addColorStop(1, `hsla(${p.hue},70%,60%,0)`);
-      x.beginPath(); x.arc(p.x*W,p.y*H,p.r,0,Math.PI*2);
-      x.fillStyle=grad; x.fill();
-    }
-    if(!prefersReducedMotion) requestAnimationFrame(loop);
-  }
-  loop();
+/* ── Watercolour-style floral spray, one per card corner ── */
+function buildFloralCorner(container){
+  const NS = 'http://www.w3.org/2000/svg';
+  container.innerHTML = `<svg viewBox="0 0 90 90" xmlns="${NS}" aria-hidden="true">
+    <defs>
+      <radialGradient id="bloomRose" cx="35%" cy="30%" r="75%">
+        <stop offset="0%" stop-color="#FBE0DE"/><stop offset="55%" stop-color="#E29AA0"/><stop offset="100%" stop-color="#B5657A"/>
+      </radialGradient>
+      <radialGradient id="bloomMauve" cx="35%" cy="30%" r="75%">
+        <stop offset="0%" stop-color="#F1E1EC"/><stop offset="55%" stop-color="#C9A0BB"/><stop offset="100%" stop-color="#9C7099"/>
+      </radialGradient>
+      <radialGradient id="bloomBlush" cx="35%" cy="30%" r="75%">
+        <stop offset="0%" stop-color="#FFF3EE"/><stop offset="55%" stop-color="#F0C4C8"/><stop offset="100%" stop-color="#D998A0"/>
+      </radialGradient>
+    </defs>
+    ${leafShape(3,3, 46,14, 6, '#8FA184')}
+    ${leafShape(3,3, 14,46, 6, '#7C9271')}
+    ${leafShape(5,5, 30,28, 4, '#A8B79A')}
+    ${petalCluster(42,19,15,'bloomRose')}
+    ${petalCluster(19,42,11,'bloomMauve')}
+    ${petalCluster(9,11,7,'bloomBlush')}
+  </svg>`;
 }
-initBokeh('bokeh-c');
-initBokeh('bokeh-c2');
+['rc-tl','rc-tr','rc-bl','rc-br'].forEach(id=>buildFloralCorner(document.getElementById(id)));
+
+/* ── The seal: a rose-gold crest medallion with the couple's
+   interlocking monogram, a laurel spray and a small coronet — the
+   reception's equivalent of the wedding scroll's tie-cord. ── */
+function buildSeal(container){
+  const NS = 'http://www.w3.org/2000/svg';
+  container.innerHTML = `<svg viewBox="0 0 140 168" xmlns="${NS}" aria-hidden="true">
+    <defs>
+      <radialGradient id="sealFace" cx="38%" cy="30%" r="75%">
+        <stop offset="0%" stop-color="#FFFDF9"/><stop offset="55%" stop-color="#FBF1EC"/><stop offset="100%" stop-color="#EEDCD3"/>
+      </radialGradient>
+      <linearGradient id="sealRing" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#F3D9C8"/><stop offset="35%" stop-color="#D9A679"/>
+        <stop offset="70%" stop-color="#C88A6E"/><stop offset="100%" stop-color="#8B5A45"/>
+      </linearGradient>
+      <linearGradient id="ribbonGrad" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#E2A8AE"/><stop offset="100%" stop-color="#C2707E"/>
+      </linearGradient>
+    </defs>
+
+    <path d="M50,96 L50,152 L70,140 L90,152 L90,96 Z" fill="url(#ribbonGrad)" opacity="0.92"/>
+    <path d="M50,96 L50,152 L60,146 L60,96 Z" fill="#00000018"/>
+
+    <path d="M22,120 Q34,108 40,92" fill="none" stroke="#8FA184" stroke-width="3" stroke-linecap="round" opacity="0.85"/>
+    <path d="M118,120 Q106,108 100,92" fill="none" stroke="#8FA184" stroke-width="3" stroke-linecap="round" opacity="0.85"/>
+    ${leafShape(24,116, 36,100, 4, '#A8B79A')}
+    ${leafShape(30,124, 42,110, 3.4, '#8FA184')}
+    ${leafShape(116,116, 104,100, 4, '#A8B79A')}
+    ${leafShape(110,124, 98,110, 3.4, '#8FA184')}
+
+    <circle cx="70" cy="64" r="54" fill="url(#sealFace)" stroke="url(#sealRing)" stroke-width="3"/>
+    <circle cx="70" cy="64" r="46" fill="none" stroke="url(#sealRing)" stroke-width="1" opacity="0.65"/>
+
+    <path d="M58,16 L62,26 L70,18 L78,26 L82,16 L70,10 Z" fill="url(#sealRing)"/>
+    <circle cx="58" cy="16" r="2.4" fill="url(#sealRing)"/>
+    <circle cx="82" cy="16" r="2.4" fill="url(#sealRing)"/>
+    <circle cx="70" cy="10" r="2.6" fill="url(#sealRing)"/>
+
+    <text x="46" y="76" text-anchor="middle" font-family="'Great Vibes',cursive" font-size="40" fill="#9C5B4C">S</text>
+    <path d="M64,58 L64,70" stroke="#C88A6E" stroke-width="1.4"/>
+    <circle cx="70" cy="64" r="3" fill="#D9A679" transform="rotate(45 70 64)"/>
+    <text x="94" y="76" text-anchor="middle" font-family="'Great Vibes',cursive" font-size="40" fill="#9C5B4C">H</text>
+  </svg>`;
+}
+buildSeal(document.getElementById('r-seal'));
+
+/* ── Reveal: lift the seal, fade in the invitation beneath it ── */
+const rVeil = document.getElementById('r-veil');
+const rSeal = document.getElementById('r-seal');
+const rContent = document.getElementById('r-content');
+let revealed = false;
+
+function revealInvitation(){
+  if(revealed) return;
+  revealed = true;
+  rVeil.classList.add('hide');
+  rContent.classList.add('show');
+  setTimeout(()=>{ rVeil.style.display = 'none'; }, prefersReducedMotion ? 0 : 950);
+}
+rSeal.addEventListener('click', revealInvitation);
+makeKeyboardActivatable(rSeal, revealInvitation, 'Touch the seal to reveal the reception invitation');
+
+/* Soft drifting blush / rose-gold / champagne bokeh — ambient only */
+const brC = document.getElementById('bokeh-r');
+const brX = brC.getContext('2d');
+function mkBokeh(rand){
+  return{
+    x:Math.random(), y:rand?Math.random():1.06,
+    vy:0.00014+Math.random()*0.00030,
+    vx:(Math.random()-0.5)*0.0001,
+    r:8+Math.random()*20,
+    a:0.05+Math.random()*0.13,
+    hue:(()=>{const r=Math.random(); return r<0.5?350:(r<0.8?28:300);})(),
+    ph:Math.random()*Math.PI*2, sp:0.25+Math.random()*0.5
+  };
+}
+const BOKEH = Array.from({length:26}, ()=>mkBokeh(true));
+let bt=0;
+function bokehLoop(){
+  brC.width=innerWidth; brC.height=Math.max(innerHeight, document.body.scrollHeight);
+  const W=brC.width,H=brC.height; bt+=0.01;
+  for(const p of BOKEH){
+    p.y-=p.vy; p.x+=p.vx;
+    if(p.y<-0.06) Object.assign(p, mkBokeh(false));
+    const tw=0.7+0.3*Math.sin(bt*p.sp+p.ph);
+    const grad = brX.createRadialGradient(p.x*W,p.y*H,0,p.x*W,p.y*H,p.r);
+    grad.addColorStop(0, `hsla(${p.hue},70%,80%,${p.a*tw})`);
+    grad.addColorStop(1, `hsla(${p.hue},70%,80%,0)`);
+    brX.beginPath(); brX.arc(p.x*W,p.y*H,p.r,0,Math.PI*2);
+    brX.fillStyle=grad; brX.fill();
+  }
+  if(!prefersReducedMotion) requestAnimationFrame(bokehLoop);
+}
+if(!prefersReducedMotion) bokehLoop();
+else { brC.width=innerWidth; brC.height=innerHeight; }
 </script>
 </body>
 </html>
