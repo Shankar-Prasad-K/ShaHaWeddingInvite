@@ -13,9 +13,9 @@ body{
   background:
     linear-gradient(128deg, transparent 10%, rgba(255,255,255,0.55) 24%, rgba(255,255,255,0.16) 34%, transparent 46%),
     linear-gradient(128deg, transparent 58%, rgba(255,255,255,0.32) 68%, transparent 78%),
-    radial-gradient(ellipse at 24% 0%, rgba(240,196,200,0.55) 0%, transparent 56%),
-    radial-gradient(ellipse at 84% 100%, rgba(201,160,187,0.4) 0%, transparent 55%),
-    linear-gradient(160deg,#F9EDE8 0%,#F3E3EC 45%,#F6ECDC 100%);
+    radial-gradient(ellipse at 24% 0%, rgba(240,196,200,0.6) 0%, transparent 56%),
+    radial-gradient(ellipse at 84% 100%, rgba(201,160,187,0.45) 0%, transparent 55%),
+    linear-gradient(160deg,#F7E6E4 0%,#EFDCEA 45%,#F3E7D4 100%);
   background-attachment:fixed;
   min-height:100vh;
 }
@@ -40,7 +40,6 @@ canvas#bokeh-r{position:fixed;inset:0;z-index:0;pointer-events:none;}
 }
 .back-link:hover{color:#7A2F4C;border-color:rgba(200,138,110,0.75);background:rgba(255,250,246,0.85);}
 
-/* focus visibility for keyboard users — plum outline reads on a light card */
 a:focus-visible, [tabindex]:focus-visible, button:focus-visible{
   outline:2px solid rgba(139,58,82,0.85);
   outline-offset:3px;
@@ -56,8 +55,8 @@ a:focus-visible, [tabindex]:focus-visible, button:focus-visible{
 /* ═══════════ THE CARD ═══════════ */
 .r-card-glow{
   position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
-  width:min(760px,120vw);height:min(760px,90vh);
-  background:radial-gradient(ellipse at center, rgba(232,180,160,0.35) 0%, rgba(232,180,160,0.12) 45%, transparent 70%);
+  width:min(820px,124vw);height:min(820px,92vh);
+  background:radial-gradient(ellipse at center, rgba(216,140,150,0.4) 0%, rgba(216,140,150,0.14) 45%, transparent 70%);
   pointer-events:none;z-index:0;
 }
 .r-card{
@@ -66,65 +65,73 @@ a:focus-visible, [tabindex]:focus-visible, button:focus-visible{
   padding:clamp(10px,2vw,16px);
 }
 .r-card-inner{
-  position:relative;display:grid;z-index:1;
-  background:linear-gradient(175deg,#FEFAF6 0%,#FBF1EC 100%);
+  position:relative;display:grid;z-index:1;overflow:hidden;
+  background:linear-gradient(175deg,#FEFAF6 0%,#FBEFE9 100%);
   border:3px solid;
   border-image:linear-gradient(180deg,#F3D9C8,#C88A6E 45%,#8B5A45 75%,#D9A679 100%) 1;
-  box-shadow:0 26px 64px rgba(122,47,76,0.2), 0 0 0 6px rgba(255,255,255,0.55), 0 0 46px rgba(216,160,140,0.22), inset 0 0 34px rgba(233,180,160,0.12);
+  box-shadow:0 26px 64px rgba(122,47,76,0.22), 0 0 0 6px rgba(255,255,255,0.55), 0 0 50px rgba(200,120,130,0.26), inset 0 0 34px rgba(233,180,160,0.14);
   padding:clamp(38px,6vw,60px) clamp(22px,5vw,46px) clamp(30px,5vw,46px);
 }
 .r-card-inner::before{
   content:'';position:absolute;inset:7px;z-index:0;
-  border:1px solid rgba(200,138,110,0.34);
+  border:1px solid rgba(200,138,110,0.36);
   pointer-events:none;
 }
 .r-card-inner::after{
   content:'';position:absolute;inset:0;z-index:0;pointer-events:none;
   background-image:url('assets/patterns/damask-gold.jpeg');
   background-size:280px 280px;
-  opacity:0.09;
+  opacity:0.1;
   filter:sepia(0.35) saturate(0.7) brightness(1.2) hue-rotate(295deg);
   mix-blend-mode:multiply;
 }
-.r-corner{position:absolute;width:min(96px,24vw);height:min(96px,24vw);z-index:2;pointer-events:none;}
-.r-corner.tl{top:-6px;left:-6px;}
-.r-corner.tr{top:-6px;right:-6px;transform:scaleX(-1);}
-.r-corner.bl{bottom:-6px;left:-6px;transform:scaleY(-1);}
-.r-corner.br{bottom:-6px;right:-6px;transform:scale(-1,-1);}
-.r-corner svg{display:block;width:100%;height:100%;overflow:visible;}
+.r-sparkle-layer{grid-area:1/1;position:relative;z-index:2;pointer-events:none;}
+.r-sparkle{position:absolute;z-index:2;pointer-events:none;animation:twinkle 3.2s ease-in-out infinite;}
+.r-sparkle svg{display:block;}
+@keyframes twinkle{0%,100%{opacity:0.18;transform:scale(0.7);}50%{opacity:0.95;transform:scale(1.15);}}
 
-/* ── Veil: what covers the invitation before the seal is opened ── */
+/* ── Veil: the hero butterfly resting, before love takes flight ── */
 .r-veil{
   grid-area:1/1;z-index:3;
   display:flex;flex-direction:column;align-items:center;justify-content:center;
   min-height:clamp(280px,42vw,360px);
-  transition:opacity 0.9s ease, transform 0.9s cubic-bezier(.5,0,.5,1);
+  transition:opacity 0.5s ease, transform 0.5s cubic-bezier(.5,0,.5,1);
 }
-.r-veil.hide{opacity:0;transform:translateY(-18px) scale(1.05);pointer-events:none;}
+.r-veil.hide{opacity:0;transform:scale(1.06);pointer-events:none;}
 
-.r-seal-wrap{
-  width:clamp(112px,24vw,148px);cursor:pointer;
-  animation:sealBreathe 3.6s ease-in-out infinite;
-  transition:transform 0.6s cubic-bezier(.3,0,.4,1), opacity 0.6s ease;
-  filter:drop-shadow(0 8px 16px rgba(122,47,76,0.22));
+.hero-bf{
+  width:clamp(122px,24vw,164px);cursor:pointer;
+  filter:drop-shadow(0 10px 18px rgba(122,47,76,0.28));
+  transition:opacity 0.4s ease, transform 0.4s cubic-bezier(.4,0,.6,1);
 }
-.r-seal-wrap svg{display:block;width:100%;height:auto;overflow:visible;}
-@keyframes sealBreathe{0%,100%{transform:scale(1);}50%{transform:scale(1.025);}}
-.r-veil.hide .r-seal-wrap{transform:scale(1.16) rotate(9deg) translateY(-10px);opacity:0;animation:none;}
+.hero-bf svg{display:block;width:100%;height:auto;overflow:visible;}
+.hero-bf .wing-l,.hero-bf .wing-r{transform-origin:0px 0px;animation:bfBreathe 2.4s ease-in-out infinite;}
+.hero-bf.launching{transform:scale(1.35);opacity:0;}
+.hero-bf.launching .wing-l,.hero-bf.launching .wing-r{animation:bfFlap 0.16s ease-in-out infinite alternate;}
 
 .r-veil-prompt{
-  margin-top:16px;white-space:nowrap;
+  margin-top:18px;white-space:nowrap;
   font-family:'Cinzel',serif;font-size:clamp(9.5px,1.2vw,11.5px);letter-spacing:0.2em;text-transform:uppercase;
   color:rgba(139,90,107,0.8);
   animation:promptPulse 2.6s ease-in-out infinite;
 }
 @keyframes promptPulse{0%,100%{opacity:0.45;}50%{opacity:1;}}
 
-/* ── Content: the real invitation, revealed once the seal lifts ── */
+/* ── Swarm butterflies: appended to <body>, driven every frame by JS ── */
+.swarm-bf{position:absolute;top:0;left:0;width:64px;height:53px;pointer-events:none;z-index:65;filter:drop-shadow(0 3px 6px rgba(122,47,76,0.28));}
+.swarm-bf .wing-l,.swarm-bf .wing-r{transform-origin:0px 0px;animation:bfFlap 0.2s ease-in-out infinite alternate;}
+.swarm-bf .wing-r{animation-delay:0.03s;}
+@keyframes bfFlap{0%{transform:scaleX(1);}100%{transform:scaleX(0.4);}}
+.swarm-bf.landed .wing-l,.swarm-bf.landed .wing-r{animation:bfBreathe 2.8s ease-in-out infinite;}
+@keyframes bfBreathe{0%,100%{transform:scaleX(1);}50%{transform:scaleX(0.86);}}
+
+.heart-flash{position:absolute;top:0;left:0;width:90px;height:80px;pointer-events:none;z-index:66;opacity:0;transition:opacity 0.45s ease, transform 0.6s cubic-bezier(.25,.7,.3,1);}
+
+/* ── Content: the real invitation, revealed as love takes flight ── */
 .r-content{
   grid-area:1/1;z-index:1;text-align:center;
   opacity:0;transform:translateY(16px);
-  transition:opacity 1.1s ease 0.25s, transform 1.1s cubic-bezier(.2,.8,.2,1) 0.25s;
+  transition:opacity 1.1s ease 0.3s, transform 1.1s cubic-bezier(.2,.8,.2,1) 0.3s;
 }
 .r-content.show{opacity:1;transform:translateY(0);}
 
@@ -135,10 +142,13 @@ a:focus-visible, [tabindex]:focus-visible, button:focus-visible{
 }
 .r-heading{
   font-family:'Great Vibes',cursive;font-size:clamp(34px,5.8vw,54px);
-  background:linear-gradient(180deg,#B4735A,#9C5B4C 55%,#7A3F42 100%);
+  background:linear-gradient(100deg,#7A3F42 15%,#E8A86E 32%,#9C5B4C 46%,#7A3F42 65%);
+  background-size:250% 100%;
   -webkit-background-clip:text;background-clip:text;color:transparent;
   line-height:1.15;
+  animation:shimmer 6s ease-in-out infinite;
 }
+@keyframes shimmer{0%,100%{background-position:0% 50%;}50%{background-position:100% 50%;}}
 .r-div{width:46%;height:1px;background:linear-gradient(90deg,transparent,rgba(200,138,110,0.55),transparent);margin:18px auto;position:relative;}
 .r-div::before{
   content:'';position:absolute;top:50%;left:50%;z-index:1;
@@ -195,8 +205,8 @@ a:focus-visible, [tabindex]:focus-visible, button:focus-visible{
 @keyframes loaderPulse{0%,100%{opacity:0.5;transform:scale(1);}50%{opacity:1;transform:scale(1.08);}}
 
 @media (prefers-reduced-motion: reduce){
-  .r-seal-wrap, .r-veil-prompt, #loader .l-mark{animation:none !important;}
-  .r-veil, .r-content, .r-seal-wrap{transition-duration:0.25s;}
+  .hero-bf, .r-veil-prompt, .r-heading, #loader .l-mark, .swarm-bf .wing-l, .swarm-bf .wing-r, .hero-bf .wing-l, .hero-bf .wing-r{animation:none !important;}
+  .r-veil, .r-content, .hero-bf, .heart-flash{transition-duration:0.2s;}
 }
 @media (max-width:480px){
   .r-card-inner{padding:34px 18px 30px;}
@@ -214,15 +224,13 @@ a:focus-visible, [tabindex]:focus-visible, button:focus-visible{
 <div id="scene-r">
   <div class="r-card">
     <div class="r-card-glow"></div>
-    <div class="r-corner tl" id="rc-tl"></div>
-    <div class="r-corner tr" id="rc-tr"></div>
-    <div class="r-corner bl" id="rc-bl"></div>
-    <div class="r-corner br" id="rc-br"></div>
 
-    <div class="r-card-inner">
+    <div class="r-card-inner" id="r-card-inner">
+      <div class="r-sparkle-layer" id="r-sparkles"></div>
+
       <div class="r-veil" id="r-veil">
-        <div class="r-seal-wrap" id="r-seal" role="button" tabindex="0" aria-label="Touch the seal to reveal the reception invitation"></div>
-        <p class="r-veil-prompt">✦ &nbsp;Touch the seal to reveal&nbsp; ✦</p>
+        <div class="hero-bf" id="hero-bf" role="button" tabindex="0" aria-label="Touch the butterfly to set love free and reveal the reception invitation"></div>
+        <p class="r-veil-prompt">✦ &nbsp;Touch to set love free&nbsp; ✦</p>
       </div>
 
       <div class="r-content" id="r-content">
@@ -271,119 +279,266 @@ initLoader();
 hydrateConfig();
 document.getElementById('rsvp-btn-r').href = rsvpLink();
 
-/* ── Procedural petal + leaf helpers, reused for every corner spray ── */
-function petalCluster(cx, cy, r, gradId){
-  let out = '';
-  for(let i=0;i<5;i++){
-    const ang = (i/5)*Math.PI*2 - Math.PI/2;
-    const px = cx + Math.cos(ang)*r*0.55;
-    const py = cy + Math.sin(ang)*r*0.55;
-    const deg = ang*180/Math.PI + 90;
-    out += `<ellipse cx="${px.toFixed(1)}" cy="${py.toFixed(1)}" rx="${(r*0.5).toFixed(1)}" ry="${(r*0.32).toFixed(1)}" transform="rotate(${deg.toFixed(1)} ${px.toFixed(1)} ${py.toFixed(1)})" fill="url(#${gradId})" opacity="0.94"/>`;
+/* ═══════════════════════════════════════════════════════════
+   BUTTERFLIES — a small procedural flight system.
+   Each butterfly is its own <svg>, positioned with a JS-driven
+   transform (translate + rotate + scale) recomputed every frame
+   along a unique cubic-bezier path; wing-flap is a separate,
+   independent CSS animation composed on top of it.
+═══════════════════════════════════════════════════════════ */
+let bfCounter = 0;
+const BF_PALETTES = [
+  {main:['#F8D3D8','#E8899A','#A84A66'], inner:['#FFF0DE','#E8B25A']},
+  {main:['#F3DFC8','#D9A679','#8B5A3F'], inner:['#FFF6E0','#E8C158']},
+  {main:['#E9D3EE','#B98CD0','#6E4890'], inner:['#F8ECFC','#C9A0D4']},
+  {main:['#F3E0A8','#D9B563','#96702E'], inner:['#FFF8E4','#F0D8A0']},
+  {main:['#F0C0CE','#C2708A','#7A3F52'], inner:['#FCE4EC','#E8899A']}
+];
+
+function buildButterflySVG(paletteIdx, big){
+  const NS = 'http://www.w3.org/2000/svg';
+  const pal = BF_PALETTES[paletteIdx % BF_PALETTES.length];
+  const id = bfCounter++;
+  const mainG = `bfMain${id}`, innerG = `bfInner${id}`, bodyG = `bfBody${id}`;
+  const edge = pal.main[2];
+  const svg = document.createElementNS(NS,'svg');
+  svg.setAttribute('viewBox', big ? '-44 -34 88 74' : '-40 -30 80 66');
+  svg.setAttribute('aria-hidden','true');
+  function wing(cx,cy,rx,ry,rot,fill,extra){
+    return `<ellipse cx="${cx}" cy="${cy}" rx="${rx}" ry="${ry}" transform="rotate(${rot} ${cx} ${cy})" fill="${fill}" ${extra||''}/>`;
   }
-  out += `<circle cx="${cx}" cy="${cy}" r="${(r*0.22).toFixed(1)}" fill="#C9915F" opacity="0.9"/>`;
-  return out;
-}
-function leafShape(x1,y1,x2,y2,width,color){
-  const mx=(x1+x2)/2, my=(y1+y2)/2;
-  const dx=x2-x1, dy=y2-y1, len=Math.hypot(dx,dy)||1;
-  const nx=-dy/len*width, ny=dx/len*width;
-  return `<path d="M${x1},${y1} Q${(mx+nx).toFixed(1)},${(my+ny).toFixed(1)} ${x2},${y2} Q${(mx-nx).toFixed(1)},${(my-ny).toFixed(1)} ${x1},${y1} Z" fill="${color}" opacity="0.88"/>
-    <path d="M${x1},${y1} Q${mx.toFixed(1)},${my.toFixed(1)} ${x2},${y2}" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="0.6"/>`;
-}
-
-/* ── Watercolour-style floral spray, one per card corner ── */
-function buildFloralCorner(container){
-  const NS = 'http://www.w3.org/2000/svg';
-  container.innerHTML = `<svg viewBox="0 0 90 90" xmlns="${NS}" aria-hidden="true">
+  svg.innerHTML = `
     <defs>
-      <radialGradient id="bloomRose" cx="35%" cy="30%" r="75%">
-        <stop offset="0%" stop-color="#FBE0DE"/><stop offset="55%" stop-color="#E29AA0"/><stop offset="100%" stop-color="#B5657A"/>
+      <linearGradient id="${mainG}" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="${pal.main[0]}"/><stop offset="55%" stop-color="${pal.main[1]}"/><stop offset="100%" stop-color="${pal.main[2]}"/>
+      </linearGradient>
+      <radialGradient id="${innerG}" cx="35%" cy="35%" r="70%">
+        <stop offset="0%" stop-color="${pal.inner[0]}"/><stop offset="100%" stop-color="${pal.inner[1]}"/>
       </radialGradient>
-      <radialGradient id="bloomMauve" cx="35%" cy="30%" r="75%">
-        <stop offset="0%" stop-color="#F1E1EC"/><stop offset="55%" stop-color="#C9A0BB"/><stop offset="100%" stop-color="#9C7099"/>
-      </radialGradient>
-      <radialGradient id="bloomBlush" cx="35%" cy="30%" r="75%">
-        <stop offset="0%" stop-color="#FFF3EE"/><stop offset="55%" stop-color="#F0C4C8"/><stop offset="100%" stop-color="#D998A0"/>
-      </radialGradient>
-      <linearGradient id="filigreeGold" x1="0" y1="0" x2="1" y2="1">
-        <stop offset="0%" stop-color="#F3D9C8"/><stop offset="50%" stop-color="#C88A6E"/><stop offset="100%" stop-color="#8B5A45"/>
+      <linearGradient id="${bodyG}" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#7A3F42"/><stop offset="100%" stop-color="#3D2530"/>
       </linearGradient>
     </defs>
-    <path d="M1,20 Q2,6 20,2" fill="none" stroke="url(#filigreeGold)" stroke-width="1.4" opacity="0.75"/>
-    <path d="M1,38 Q4,10 38,1" fill="none" stroke="url(#filigreeGold)" stroke-width="1" opacity="0.55"/>
-    <circle cx="1.5" cy="1.5" r="3" fill="url(#filigreeGold)"/>
-    <circle cx="1.5" cy="1.5" r="1.2" fill="#FFF6EE"/>
-    ${leafShape(3,3, 46,14, 6, '#8FA184')}
-    ${leafShape(3,3, 14,46, 6, '#7C9271')}
-    ${leafShape(5,5, 30,28, 4, '#A8B79A')}
-    ${petalCluster(42,19,15,'bloomRose')}
-    ${petalCluster(19,42,11,'bloomMauve')}
-    ${petalCluster(9,11,7,'bloomBlush')}
-  </svg>`;
+    <g class="wing wing-r" stroke="${edge}" stroke-width="0.6" stroke-opacity="0.5">
+      ${wing(20,-10,15,9,-30,`url(#${mainG})`)}
+      ${wing(9,-6,10,7,-12,`url(#${mainG})`)}
+      ${wing(13,15,11,8,26,`url(#${mainG})`,'opacity="0.95"')}
+      ${wing(19,-9,7,3.6,-30,`url(#${innerG})`,'stroke="none" opacity="0.92"')}
+      <circle cx="24" cy="-11" r="1.6" fill="${pal.inner[1]}" opacity="0.85"/>
+      <path d="M18,-22 Q28,-16 30,-4" fill="none" stroke="#FFF6E8" stroke-width="0.6" opacity="0.5"/>
+    </g>
+    <g class="wing wing-l" stroke="${edge}" stroke-width="0.6" stroke-opacity="0.5">
+      ${wing(-20,-10,15,9,30,`url(#${mainG})`)}
+      ${wing(-9,-6,10,7,12,`url(#${mainG})`)}
+      ${wing(-13,15,11,8,-26,`url(#${mainG})`,'opacity="0.95"')}
+      ${wing(-19,-9,7,3.6,30,`url(#${innerG})`,'stroke="none" opacity="0.92"')}
+      <circle cx="-24" cy="-11" r="1.6" fill="${pal.inner[1]}" opacity="0.85"/>
+      <path d="M-18,-22 Q-28,-16 -30,-4" fill="none" stroke="#FFF6E8" stroke-width="0.6" opacity="0.5"/>
+    </g>
+    <ellipse cx="0" cy="2" rx="2.1" ry="15" fill="url(#${bodyG})"/>
+    <path d="M-1,-10 Q-7,-18 -11,-17" fill="none" stroke="#3D2530" stroke-width="1.1" stroke-linecap="round"/>
+    <path d="M1,-10 Q7,-18 11,-17" fill="none" stroke="#3D2530" stroke-width="1.1" stroke-linecap="round"/>
+    <circle cx="-11" cy="-17" r="1.2" fill="#3D2530"/>
+    <circle cx="11" cy="-17" r="1.2" fill="#3D2530"/>
+  `;
+  return svg;
 }
-['rc-tl','rc-tr','rc-bl','rc-br'].forEach(id=>buildFloralCorner(document.getElementById(id)));
 
-/* ── The seal: a rose-gold crest medallion with the couple's
-   interlocking monogram, a laurel spray and a small coronet — the
-   reception's equivalent of the wedding scroll's tie-cord. ── */
-function buildSeal(container){
-  const NS = 'http://www.w3.org/2000/svg';
-  container.innerHTML = `<svg viewBox="0 0 140 168" xmlns="${NS}" aria-hidden="true">
-    <defs>
-      <radialGradient id="sealFace" cx="38%" cy="30%" r="75%">
-        <stop offset="0%" stop-color="#FFFDF9"/><stop offset="55%" stop-color="#FBF1EC"/><stop offset="100%" stop-color="#EEDCD3"/>
-      </radialGradient>
-      <linearGradient id="sealRing" x1="0" y1="0" x2="1" y2="1">
-        <stop offset="0%" stop-color="#F3D9C8"/><stop offset="35%" stop-color="#D9A679"/>
-        <stop offset="70%" stop-color="#C88A6E"/><stop offset="100%" stop-color="#8B5A45"/>
-      </linearGradient>
-      <linearGradient id="ribbonGrad" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stop-color="#E2A8AE"/><stop offset="100%" stop-color="#C2707E"/>
-      </linearGradient>
-    </defs>
+/* Hero butterfly — rests in the veil until touched */
+const heroWrap = document.getElementById('hero-bf');
+heroWrap.appendChild(buildButterflySVG(0, true));
 
-    <path d="M50,96 L50,152 L70,140 L90,152 L90,96 Z" fill="url(#ribbonGrad)" opacity="0.92"/>
-    <path d="M50,96 L50,152 L60,146 L60,96 Z" fill="#00000018"/>
-
-    <path d="M22,120 Q34,108 40,92" fill="none" stroke="#8FA184" stroke-width="3" stroke-linecap="round" opacity="0.85"/>
-    <path d="M118,120 Q106,108 100,92" fill="none" stroke="#8FA184" stroke-width="3" stroke-linecap="round" opacity="0.85"/>
-    ${leafShape(24,116, 36,100, 4, '#A8B79A')}
-    ${leafShape(30,124, 42,110, 3.4, '#8FA184')}
-    ${leafShape(116,116, 104,100, 4, '#A8B79A')}
-    ${leafShape(110,124, 98,110, 3.4, '#8FA184')}
-
-    <circle cx="70" cy="64" r="54" fill="url(#sealFace)" stroke="url(#sealRing)" stroke-width="3"/>
-    <circle cx="70" cy="64" r="46" fill="none" stroke="url(#sealRing)" stroke-width="1" opacity="0.65"/>
-
-    <path d="M58,16 L62,26 L70,18 L78,26 L82,16 L70,10 Z" fill="url(#sealRing)"/>
-    <circle cx="58" cy="16" r="2.4" fill="url(#sealRing)"/>
-    <circle cx="82" cy="16" r="2.4" fill="url(#sealRing)"/>
-    <circle cx="70" cy="10" r="2.6" fill="url(#sealRing)"/>
-
-    <text x="46" y="76" text-anchor="middle" font-family="'Great Vibes',cursive" font-size="40" fill="#9C5B4C">S</text>
-    <path d="M64,58 L64,70" stroke="#C88A6E" stroke-width="1.4"/>
-    <circle cx="70" cy="64" r="3" fill="#D9A679" transform="rotate(45 70 64)"/>
-    <text x="94" y="76" text-anchor="middle" font-family="'Great Vibes',cursive" font-size="40" fill="#9C5B4C">H</text>
-  </svg>`;
+/* ── Bezier flight maths ── */
+function bezierPoint(p,t){
+  const u=1-t, tt=t*t, uu=u*u, uuu=uu*u, ttt=tt*t;
+  return [
+    uuu*p[0][0] + 3*uu*t*p[1][0] + 3*u*tt*p[2][0] + ttt*p[3][0],
+    uuu*p[0][1] + 3*uu*t*p[1][1] + 3*u*tt*p[2][1] + ttt*p[3][1]
+  ];
 }
-buildSeal(document.getElementById('r-seal'));
+function bezierAngle(p,t){
+  const u=1-t;
+  const dx = 3*u*u*(p[1][0]-p[0][0]) + 6*u*t*(p[2][0]-p[1][0]) + 3*t*t*(p[3][0]-p[2][0]);
+  const dy = 3*u*u*(p[1][1]-p[0][1]) + 6*u*t*(p[2][1]-p[1][1]) + 3*t*t*(p[3][1]-p[2][1]);
+  return Math.atan2(dy,dx)*180/Math.PI;
+}
+function makePath(origin, target, swoop){
+  const dx=target[0]-origin[0], dy=target[1]-origin[1];
+  const dist = Math.hypot(dx,dy)||1;
+  const nx=-dy/dist, ny=dx/dist;
+  const bow = swoop;
+  return [
+    origin,
+    [origin[0]+dx*0.32+nx*bow, origin[1]+dy*0.32+ny*bow],
+    [origin[0]+dx*0.68+nx*bow*0.5, origin[1]+dy*0.68+ny*bow*0.5],
+    target
+  ];
+}
+function easeOutCubic(t){ return 1-Math.pow(1-t,3); }
+function easeInOutSine(t){ return -(Math.cos(Math.PI*t)-1)/2; }
 
-/* ── Reveal: lift the seal, fade in the invitation beneath it ── */
+/* ── Heart-shaped light burst at the moment love takes flight ── */
+function spawnHeartFlash(x,y){
+  const NS='http://www.w3.org/2000/svg';
+  const el = document.createElement('div');
+  el.className = 'heart-flash';
+  const base = `translate(${x-45}px,${y-40}px)`;
+  el.style.transform = base+' scale(0.3)';
+  el.innerHTML = `<svg viewBox="0 0 100 90" xmlns="${NS}">
+    <defs><radialGradient id="hfg" cx="50%" cy="35%" r="70%">
+      <stop offset="0%" stop-color="#FFF3E6"/><stop offset="45%" stop-color="#F0A8B8"/><stop offset="100%" stop-color="#C2708A"/>
+    </radialGradient></defs>
+    <path d="M50,85 C10,55 -5,25 15,10 C30,-2 48,8 50,25 C52,8 70,-2 85,10 C105,25 90,55 50,85 Z" fill="url(#hfg)"/>
+  </svg>`;
+  document.body.appendChild(el);
+  requestAnimationFrame(()=>{ el.style.opacity='0.92'; el.style.transform = base+' scale(1)'; });
+  setTimeout(()=>{ el.style.opacity='0'; el.style.transform = base+' scale(1.7)'; }, 420);
+  setTimeout(()=>el.remove(), 1100);
+}
+
+/* ── Launch the swarm: 4 land permanently at the card's corners,
+   10 flutter across the scene and fade away. ── */
+function launchButterflies(){
+  const cardRect = document.getElementById('r-card-inner').getBoundingClientRect();
+  const scrollX = window.scrollX, scrollY = window.scrollY;
+  const originX = cardRect.left + scrollX + cardRect.width/2;
+  const originY = cardRect.top + scrollY + 54;
+
+  spawnHeartFlash(originX, originY);
+
+  const corners = [
+    [cardRect.left+scrollX-6, cardRect.top+scrollY-6],
+    [cardRect.right+scrollX+6, cardRect.top+scrollY-6],
+    [cardRect.left+scrollX-6, cardRect.bottom+scrollY+6],
+    [cardRect.right+scrollX+6, cardRect.bottom+scrollY+6]
+  ];
+
+  const fleet = [];
+
+  corners.forEach((corner,i)=>{
+    const el = buildButterflySVG(i, false);
+    el.classList.add('swarm-bf');
+    document.body.appendChild(el);
+    fleet.push({
+      el, path: makePath([originX,originY], corner, 70+Math.random()*50*(i%2?1:-1)),
+      duration: 1900+Math.random()*400, delay: i*90,
+      land:true, done:false
+    });
+  });
+
+  for(let i=0;i<10;i++){
+    const ang = Math.random()*Math.PI*2;
+    const rad = 240+Math.random()*220;
+    const target = [originX+Math.cos(ang)*rad, originY+Math.sin(ang)*rad*0.72];
+    const el = buildButterflySVG(i+2, false);
+    el.classList.add('swarm-bf');
+    el.style.width = (48+Math.random()*22)+'px';
+    el.style.height = 'auto';
+    document.body.appendChild(el);
+    fleet.push({
+      el, path: makePath([originX,originY], target, (Math.random()*2-1)*140),
+      duration: 2500+Math.random()*1300, delay: 90+Math.random()*430,
+      land:false, done:false
+    });
+  }
+
+  const start = performance.now();
+  fleet.forEach(b=>{ b.t0 = start + b.delay; });
+
+  function tick(now){
+    let active = false;
+    for(const b of fleet){
+      if(b.done) continue;
+      const elapsed = now - b.t0;
+      if(elapsed < 0){ active = true; continue; }
+      const t = Math.min(1, elapsed / b.duration);
+      const et = b.land ? easeOutCubic(t) : easeInOutSine(t);
+      const [x,y] = bezierPoint(b.path, et);
+      const ang = bezierAngle(b.path, et);
+      const scale = b.land ? (1 - 0.42*et) : 1;
+      let opacity = 1;
+      if(b.land){
+        if(t < 0.1) opacity = t/0.1;
+      } else {
+        if(t < 0.08) opacity = t/0.08;
+        else if(t > 0.8) opacity = Math.max(0, 1-(t-0.8)/0.2);
+      }
+      b.el.style.transform = `translate(${x}px,${y}px) rotate(${ang}deg) scale(${scale})`;
+      b.el.style.opacity = opacity;
+      if(t >= 1){
+        if(b.land) b.el.classList.add('landed'); else b.el.remove();
+        b.done = true;
+      } else {
+        active = true;
+      }
+    }
+    if(active) requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+}
+
+/* Reduced-motion fallback: place the four keepsake butterflies
+   directly at the corners, no flight, no flapping. */
+function placeStaticCorners(){
+  const cardRect = document.getElementById('r-card-inner').getBoundingClientRect();
+  const scrollX = window.scrollX, scrollY = window.scrollY;
+  const corners = [
+    [cardRect.left+scrollX-6, cardRect.top+scrollY-6],
+    [cardRect.right+scrollX+6, cardRect.top+scrollY-6],
+    [cardRect.left+scrollX-6, cardRect.bottom+scrollY+6],
+    [cardRect.right+scrollX+6, cardRect.bottom+scrollY+6]
+  ];
+  corners.forEach((corner,i)=>{
+    const el = buildButterflySVG(i, false);
+    el.classList.add('swarm-bf','landed');
+    el.style.transform = `translate(${corner[0]}px,${corner[1]}px) scale(0.58)`;
+    document.body.appendChild(el);
+  });
+}
+
+/* ── Reveal ── */
 const rVeil = document.getElementById('r-veil');
-const rSeal = document.getElementById('r-seal');
+const heroBf = document.getElementById('hero-bf');
 const rContent = document.getElementById('r-content');
 let revealed = false;
 
 function revealInvitation(){
   if(revealed) return;
   revealed = true;
-  rVeil.classList.add('hide');
-  rContent.classList.add('show');
-  setTimeout(()=>{ rVeil.style.display = 'none'; }, prefersReducedMotion ? 0 : 950);
+
+  if(prefersReducedMotion){
+    rVeil.classList.add('hide');
+    rContent.classList.add('show');
+    placeStaticCorners();
+    return;
+  }
+
+  heroBf.classList.add('launching');
+  launchButterflies();
+  setTimeout(()=>rVeil.classList.add('hide'), 260);
+  setTimeout(()=>rContent.classList.add('show'), 350);
 }
-rSeal.addEventListener('click', revealInvitation);
-makeKeyboardActivatable(rSeal, revealInvitation, 'Touch the seal to reveal the reception invitation');
+heroBf.addEventListener('click', revealInvitation);
+makeKeyboardActivatable(heroBf, revealInvitation, 'Touch the butterfly to set love free and reveal the reception invitation');
+document.getElementById('r-card-inner').addEventListener('click', e=>{
+  if(!revealed && !heroBf.contains(e.target)) revealInvitation();
+});
+
+/* Hand-placed sparkle twinkles along the card's margins */
+(function buildSparkles(){
+  const NS='http://www.w3.org/2000/svg';
+  const spots = [
+    [6,10],[94,14],[8,88],[93,84],[50,6],[50,95],[4,50],[96,48]
+  ];
+  const layer = document.getElementById('r-sparkles');
+  layer.innerHTML = spots.map(([x,y],i)=>{
+    const s = 5+((i*37)%5);
+    const delay = ((i*0.41)%3).toFixed(2);
+    return `<div class="r-sparkle" style="left:${x}%;top:${y}%;animation-delay:${delay}s;">
+      <svg viewBox="0 0 10 10" width="${s}" height="${s}" xmlns="${NS}"><path d="M5,0 L6,4 10,5 6,6 5,10 4,6 0,5 4,4 Z" fill="#E8B87A"/></svg>
+    </div>`;
+  }).join('');
+})();
 
 /* Soft drifting blush / rose-gold / champagne bokeh — ambient only */
 const brC = document.getElementById('bokeh-r');
