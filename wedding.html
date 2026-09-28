@@ -135,8 +135,13 @@ canvas#dust-canvas{position:fixed;inset:0;pointer-events:none;z-index:1;}
 }
 .scroll-content{position:relative;z-index:1;text-align:center;}
 
-.scroll-frame{position:absolute;inset:9px;border:1px solid rgba(212,175,55,0.45);pointer-events:none;z-index:2;}
-.scroll-frame::before{content:'';position:absolute;inset:5px;border:1px solid rgba(212,175,55,0.22);}
+.scroll-frame{position:absolute;inset:9px;border:1.5px solid rgba(232,205,140,0.5);pointer-events:none;z-index:2;box-shadow:0 0 10px rgba(212,175,55,0.18);}
+.scroll-frame::before{content:'';position:absolute;inset:6px;border:1px solid rgba(212,175,55,0.24);}
+.frame-tick{position:absolute;width:9px;height:9px;background:linear-gradient(135deg,#FFF6D8,#E8C158 45%,#8a6a1e 100%);transform:rotate(45deg);box-shadow:0 1px 3px rgba(0,0,0,0.45);z-index:2;}
+.frame-tick.top{top:9px;left:50%;margin:-4.5px 0 0 -4.5px;}
+.frame-tick.bottom{bottom:9px;left:50%;margin:0 0 -4.5px -4.5px;}
+.frame-tick.left{left:9px;top:50%;margin:-4.5px 0 0 -4.5px;}
+.frame-tick.right{right:9px;top:50%;margin:-4.5px -4.5px 0 0;}
 .corner{position:absolute;width:34px;height:34px;opacity:0.85;z-index:2;}
 .corner.tl{top:2px;left:2px;} .corner.tr{top:2px;right:2px;transform:scaleX(-1);}
 .corner.bl{bottom:2px;left:2px;transform:scaleY(-1);} .corner.br{bottom:2px;right:2px;transform:scale(-1,-1);}
@@ -201,9 +206,24 @@ canvas#dust-canvas{position:fixed;inset:0;pointer-events:none;z-index:1;}
   background:linear-gradient(180deg,#FFE8A0,#F5D078 55%,#C9A05C 100%);
   -webkit-background-clip:text;background-clip:text;color:transparent;
   filter:drop-shadow(0 0 10px rgba(255,200,80,0.5));
+  position:relative;
 }
+.s-om::before{
+  content:'';position:absolute;top:50%;left:50%;
+  width:2.4em;height:2.4em;transform:translate(-50%,-50%) scale(0.94);
+  background:radial-gradient(circle, rgba(255,210,120,0.35) 0%, rgba(255,210,120,0.12) 45%, transparent 72%);
+  z-index:-1;
+  animation:omGlow 3.4s ease-in-out infinite;
+}
+@keyframes omGlow{0%,100%{opacity:0.7;transform:translate(-50%,-50%) scale(0.94);}50%{opacity:1;transform:translate(-50%,-50%) scale(1.06);}}
 .s-sloka{font-size:clamp(9px,1.2vw,12px);letter-spacing:0.16em;color:rgba(232,205,160,0.7);margin-bottom:18px;}
-.s-div{width:52%;height:1px;background:linear-gradient(90deg,transparent,rgba(212,175,55,0.5),transparent);margin:14px auto;}
+.s-div{width:52%;height:1px;background:linear-gradient(90deg,transparent,rgba(212,175,55,0.5),transparent);margin:14px auto;position:relative;}
+.s-div::before{
+  content:'';position:absolute;top:50%;left:50%;
+  width:7px;height:7px;transform:translate(-50%,-50%) rotate(45deg);
+  background:linear-gradient(135deg,#FFF6D8,#E8C158 45%,#8a6a1e 100%);
+  box-shadow:0 0 4px rgba(0,0,0,0.35);
+}
 .s-heading{font-family:'Cinzel',serif;font-weight:500;font-size:clamp(14px,2vw,17px);letter-spacing:0.16em;text-transform:uppercase;color:#F5D078;}
 .s-sub{font-size:clamp(8px,1vw,11px);letter-spacing:0.2em;text-transform:uppercase;color:rgba(232,205,160,0.55);margin-bottom:16px;}
 .s-hosts{font-size:clamp(12px,1.5vw,15px);color:rgba(255,238,215,0.88);line-height:1.75;font-style:italic;}
@@ -256,7 +276,7 @@ a:focus-visible, [tabindex]:focus-visible, button:focus-visible{
 @keyframes loaderPulse{0%,100%{opacity:0.5;transform:scale(1);}50%{opacity:1;transform:scale(1.08);}}
 
 @media (prefers-reduced-motion: reduce){
-  #enter-prompt-w, .roll-glow, #loader .l-om, .thread-sway{animation:none !important;}
+  #enter-prompt-w, .roll-glow, #loader .l-om, .thread-sway, .s-om::before{animation:none !important;}
   .scroll-body{transition:grid-template-rows 0.3s linear;}
   .scroll-roll{transition:height 0.3s linear;}
 }
@@ -291,6 +311,10 @@ a:focus-visible, [tabindex]:focus-visible, button:focus-visible{
           <div class="scroll-silk">
             <div class="scroll-brocade"></div>
             <div class="scroll-frame">
+              <div class="frame-tick top"></div>
+              <div class="frame-tick bottom"></div>
+              <div class="frame-tick left"></div>
+              <div class="frame-tick right"></div>
               <svg class="corner tl" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
                 <defs><linearGradient id="cornerGold-tl" x1="0" y1="0" x2="1" y2="1">
                   <stop offset="0%" stop-color="#FFF6D8"/><stop offset="35%" stop-color="#E8C158"/>
