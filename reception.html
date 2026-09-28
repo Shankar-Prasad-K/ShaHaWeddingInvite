@@ -54,28 +54,43 @@ a:focus-visible, [tabindex]:focus-visible, button:focus-visible{
 }
 
 /* ═══════════ THE CARD ═══════════ */
+.r-card-glow{
+  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  width:min(760px,120vw);height:min(760px,90vh);
+  background:radial-gradient(ellipse at center, rgba(232,180,160,0.35) 0%, rgba(232,180,160,0.12) 45%, transparent 70%);
+  pointer-events:none;z-index:0;
+}
 .r-card{
   position:relative;
   width:min(600px,90vw);
   padding:clamp(10px,2vw,16px);
 }
 .r-card-inner{
-  position:relative;display:grid;
+  position:relative;display:grid;z-index:1;
   background:linear-gradient(175deg,#FEFAF6 0%,#FBF1EC 100%);
-  border:1.5px solid rgba(200,138,110,0.55);
-  box-shadow:0 24px 60px rgba(122,47,76,0.16), 0 0 0 6px rgba(255,255,255,0.5), inset 0 0 30px rgba(233,180,160,0.1);
+  border:3px solid;
+  border-image:linear-gradient(180deg,#F3D9C8,#C88A6E 45%,#8B5A45 75%,#D9A679 100%) 1;
+  box-shadow:0 26px 64px rgba(122,47,76,0.2), 0 0 0 6px rgba(255,255,255,0.55), 0 0 46px rgba(216,160,140,0.22), inset 0 0 34px rgba(233,180,160,0.12);
   padding:clamp(38px,6vw,60px) clamp(22px,5vw,46px) clamp(30px,5vw,46px);
 }
 .r-card-inner::before{
-  content:'';position:absolute;inset:7px;
-  border:1px solid rgba(200,138,110,0.32);
+  content:'';position:absolute;inset:7px;z-index:0;
+  border:1px solid rgba(200,138,110,0.34);
   pointer-events:none;
 }
-.r-corner{position:absolute;width:min(78px,20vw);height:min(78px,20vw);z-index:2;pointer-events:none;}
-.r-corner.tl{top:-4px;left:-4px;}
-.r-corner.tr{top:-4px;right:-4px;transform:scaleX(-1);}
-.r-corner.bl{bottom:-4px;left:-4px;transform:scaleY(-1);}
-.r-corner.br{bottom:-4px;right:-4px;transform:scale(-1,-1);}
+.r-card-inner::after{
+  content:'';position:absolute;inset:0;z-index:0;pointer-events:none;
+  background-image:url('assets/patterns/damask-gold.jpeg');
+  background-size:280px 280px;
+  opacity:0.09;
+  filter:sepia(0.35) saturate(0.7) brightness(1.2) hue-rotate(295deg);
+  mix-blend-mode:multiply;
+}
+.r-corner{position:absolute;width:min(96px,24vw);height:min(96px,24vw);z-index:2;pointer-events:none;}
+.r-corner.tl{top:-6px;left:-6px;}
+.r-corner.tr{top:-6px;right:-6px;transform:scaleX(-1);}
+.r-corner.bl{bottom:-6px;left:-6px;transform:scaleY(-1);}
+.r-corner.br{bottom:-6px;right:-6px;transform:scale(-1,-1);}
 .r-corner svg{display:block;width:100%;height:100%;overflow:visible;}
 
 /* ── Veil: what covers the invitation before the seal is opened ── */
@@ -126,10 +141,15 @@ a:focus-visible, [tabindex]:focus-visible, button:focus-visible{
 }
 .r-div{width:46%;height:1px;background:linear-gradient(90deg,transparent,rgba(200,138,110,0.55),transparent);margin:18px auto;position:relative;}
 .r-div::before{
-  content:'';position:absolute;top:50%;left:50%;
+  content:'';position:absolute;top:50%;left:50%;z-index:1;
   width:6px;height:6px;transform:translate(-50%,-50%) rotate(45deg);
   background:linear-gradient(135deg,#F3D9C8,#C88A6E 55%,#8B5A45 100%);
   box-shadow:0 0 4px rgba(122,47,76,0.3);
+}
+.r-div::after{
+  content:'';position:absolute;top:50%;left:50%;z-index:0;
+  width:24px;height:24px;transform:translate(-50%,-50%);
+  background:radial-gradient(circle, rgba(200,138,110,0.4) 0%, transparent 72%);
 }
 .r-body{font-size:clamp(12px,1.4vw,14.5px);color:rgba(91,58,82,0.78);line-height:1.9;}
 .r-name{
@@ -140,23 +160,6 @@ a:focus-visible, [tabindex]:focus-visible, button:focus-visible{
 }
 .r-date{font-family:'Cinzel',serif;font-size:clamp(13px,1.6vw,16px);letter-spacing:0.06em;color:#8B4A5C;margin:4px 0 2px;}
 .r-venue-name{font-family:'Cinzel',serif;font-size:1.15em;letter-spacing:0.04em;color:#7A3F42;}
-
-.r-sched{
-  margin:18px 0 4px;
-  border-top:1px solid rgba(200,138,110,0.4);
-  border-bottom:1px solid rgba(200,138,110,0.4);
-  padding:16px 4px;
-}
-.r-sched-row{
-  display:flex;justify-content:space-between;gap:14px;
-  font-size:clamp(10.5px,1.25vw,12.5px);
-  color:rgba(91,58,82,0.75);
-  line-height:2.1;text-align:left;
-}
-.r-sched-row .ev{
-  font-family:'Cinzel',serif;letter-spacing:0.06em;color:#8B4A5C;
-  min-width:110px;flex:0 0 auto;
-}
 
 .map-link{
   display:inline-block;margin-top:12px;
@@ -197,9 +200,6 @@ a:focus-visible, [tabindex]:focus-visible, button:focus-visible{
 }
 @media (max-width:480px){
   .r-card-inner{padding:34px 18px 30px;}
-  .r-sched-row{flex-direction:column;gap:1px;line-height:1.7;margin-bottom:6px;}
-  .r-sched-row .ev{min-width:0;}
-  .r-sched-row:last-child{margin-bottom:0;}
 }
 </style>
 </head>
@@ -213,6 +213,7 @@ a:focus-visible, [tabindex]:focus-visible, button:focus-visible{
 
 <div id="scene-r">
   <div class="r-card">
+    <div class="r-card-glow"></div>
     <div class="r-corner tl" id="rc-tl"></div>
     <div class="r-corner tr" id="rc-tr"></div>
     <div class="r-corner bl" id="rc-bl"></div>
@@ -229,11 +230,6 @@ a:focus-visible, [tabindex]:focus-visible, button:focus-visible{
         <div class="r-heading">Wedding Reception</div>
         <div class="r-div"></div>
 
-        <div class="r-body">
-          Mrs. Devi Kumaravel &amp; Mr. V. Kumaravel<br/>
-          joyfully invite you to celebrate the marriage reception of
-        </div>
-
         <div style="margin:20px 0 2px;"><span class="r-name">Shankar Prasad K</span></div>
         <div class="r-body" style="font-size:0.82em;opacity:0.7;margin-bottom:10px;">with</div>
         <div style="margin-bottom:20px;"><span class="r-name">Haripriya V</span></div>
@@ -241,20 +237,16 @@ a:focus-visible, [tabindex]:focus-visible, button:focus-visible{
         <div class="r-div"></div>
 
         <div class="r-date">FRIDAY · 20 NOVEMBER 2026</div>
-        <div class="r-body" style="margin-bottom:16px;">6:00 PM – 9:00 PM</div>
+        <div class="r-body" style="margin-bottom:16px;">6:30 PM onwards</div>
 
         <div class="r-body"><span class="r-venue-name">GP Grand Galaxy</span><br/>
           Near G.P. Signal, Ganthipuram<br/>Sathy Road, Coimbatore
         </div>
         <a class="map-link" data-cfg="reception.mapLink" href="https://share.google/MLjErDc9WtHHSo3wP" target="_blank" rel="noopener">📍 Get Directions</a>
 
-        <div class="r-sched">
-          <div class="r-sched-row"><span class="ev">Betrothal</span><span>18 Nov 2026 (Wed) · 4:30 – 6:00 AM</span></div>
-          <div class="r-sched-row"><span class="ev">Muhurtham</span><span>20 Nov 2026 (Fri) · 6:00 – 7:30 AM</span></div>
-          <div class="r-sched-row"><span class="ev">Reception</span><span>20 Nov 2026 (Fri) · 6:00 PM onwards</span></div>
-        </div>
+        <div class="r-div"></div>
 
-        <div class="r-body" style="font-style:italic;font-size:0.85em;color:rgba(157,107,90,0.85);margin-top:14px;">
+        <div class="r-body" style="font-style:italic;font-size:0.85em;color:rgba(157,107,90,0.85);">
           With best compliments from Friends &amp; Relatives
         </div>
       </div>
@@ -314,7 +306,14 @@ function buildFloralCorner(container){
       <radialGradient id="bloomBlush" cx="35%" cy="30%" r="75%">
         <stop offset="0%" stop-color="#FFF3EE"/><stop offset="55%" stop-color="#F0C4C8"/><stop offset="100%" stop-color="#D998A0"/>
       </radialGradient>
+      <linearGradient id="filigreeGold" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#F3D9C8"/><stop offset="50%" stop-color="#C88A6E"/><stop offset="100%" stop-color="#8B5A45"/>
+      </linearGradient>
     </defs>
+    <path d="M1,20 Q2,6 20,2" fill="none" stroke="url(#filigreeGold)" stroke-width="1.4" opacity="0.75"/>
+    <path d="M1,38 Q4,10 38,1" fill="none" stroke="url(#filigreeGold)" stroke-width="1" opacity="0.55"/>
+    <circle cx="1.5" cy="1.5" r="3" fill="url(#filigreeGold)"/>
+    <circle cx="1.5" cy="1.5" r="1.2" fill="#FFF6EE"/>
     ${leafShape(3,3, 46,14, 6, '#8FA184')}
     ${leafShape(3,3, 14,46, 6, '#7C9271')}
     ${leafShape(5,5, 30,28, 4, '#A8B79A')}

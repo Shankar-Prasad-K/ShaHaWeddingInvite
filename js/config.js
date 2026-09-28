@@ -34,11 +34,11 @@ const WEDDING_CONFIG = {
 
   reception: {
     dateDisplay: "Friday, 20th November 2026",
-    timeDisplay: "6:00 PM – 9:00 PM",
+    timeDisplay: "6:30 PM onwards",
     venueName: "GP Grand Galaxy",
     venueAddress: "Near G.P. Signal, Ganthipuram, Sathy Road, Coimbatore",
     mapLink: "https://share.google/MLjErDc9WtHHSo3wP",
-    icsStartUTC: "20261120T123000Z",
+    icsStartUTC: "20261120T130000Z",
     icsEndUTC:   "20261120T153000Z"
   },
 
