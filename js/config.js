@@ -1,6 +1,6 @@
 /* ═══════════════════════════════════════════════════════════
    WEDDING_CONFIG — single source of truth for all editable text.
-   Change names, dates, venues, hosts, or RSVP contact here;
+  Change names, dates, venues or hosts here;
    every page reads from this file at load time.
 
    Calendar times are stored pre-converted to UTC (India is
@@ -46,12 +46,5 @@ const WEDDING_CONFIG = {
     { event: "Betrothal", date: "18 Nov 2026 (Wed)", time: "4:30 – 6:00 AM" },
     { event: "Muhurtham", date: "20 Nov 2026 (Fri)", time: "6:00 – 7:30 AM" },
     { event: "Reception", date: "20 Nov 2026 (Fri)", time: "6:00 PM onwards" }
-  ],
-
-  // WhatsApp number guests can RSVP to (from the printed invitation card).
-  // Change this to whichever number should receive RSVPs.
-  rsvp: {
-    whatsappNumber: "919840454710",
-    message: "Hi! We're delighted to confirm our attendance at Shankar & Haripriya's wedding 🎉"
-  }
+  ]
 };

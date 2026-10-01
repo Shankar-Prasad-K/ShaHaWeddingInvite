@@ -1,61 +1,88 @@
-/* ═══════════════════════════════════════════════════════════
-   Shared helpers used across all pages: calendar export,
-   native share, RSVP link building, a small toast, reduced-
-   motion detection, and keyboard-operable interactive doors.
-═══════════════════════════════════════════════════════════ */
+/* Shared invitation actions; platform-independent helpers stay testable. */
+'use strict';
 
-const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-function showToast(msg){
-  let t = document.getElementById('wed-toast');
+function showToast(msg, {doc = document, frame = requestAnimationFrame, schedule = setTimeout, cancel = clearTimeout} = {}){
+  let t = doc.getElementById('wed-toast');
   if(!t){
-    t = document.createElement('div');
+    t = doc.createElement('div');
     t.id = 'wed-toast';
-    t.style.cssText = `
-      position:fixed;left:50%;bottom:28px;transform:translateX(-50%) translateY(10px);
-      background:rgba(20,15,10,0.92);color:#FFE8B0;border:1px solid rgba(212,175,55,0.4);
-      padding:10px 20px;border-radius:3px;font-family:'Cormorant Garamond',Georgia,serif;
-      font-size:14px;letter-spacing:0.04em;z-index:9999;opacity:0;
-      transition:opacity 0.35s ease, transform 0.35s ease;pointer-events:none;`;
-    document.body.appendChild(t);
+    t.setAttribute('role', 'status');
+    t.setAttribute('aria-live', 'polite');
+    t.setAttribute('aria-atomic', 'true');
+    doc.body.appendChild(t);
   }
-  t.textContent = msg;
-  requestAnimationFrame(()=>{
+  t.textContent = '';
+  frame(()=>{
+    t.textContent = msg;
     t.style.opacity = '1';
     t.style.transform = 'translateX(-50%) translateY(0)';
   });
-  clearTimeout(t._hideTimer);
-  t._hideTimer = setTimeout(()=>{
+  cancel(t._hideTimer);
+  t._hideTimer = schedule(()=>{
     t.style.opacity = '0';
     t.style.transform = 'translateX(-50%) translateY(10px)';
-  }, 2400);
+  }, 4000);
 }
 
-function downloadICS({title, description, location, startUTC, endUTC}){
-  const ics = [
+function calendarTimestamp(value){
+  if (!/^\d{8}T\d{6}Z$/.test(value)) throw new Error('Invalid calendar timestamp');
+  const iso = `${value.slice(0,4)}-${value.slice(4,6)}-${value.slice(6,8)}T${value.slice(9,11)}:${value.slice(11,13)}:${value.slice(13,15)}.000Z`;
+  const time = Date.parse(iso);
+  if (!Number.isFinite(time) || new Date(time).toISOString() !== iso) throw new Error('Invalid calendar date');
+  return time;
+}
+
+function escapeCalendarText(value){
+  return String(value).replace(/\\/g,'\\\\').replace(/\r\n|\r|\n/g,'\\n').replace(/,/g,'\\,').replace(/;/g,'\\;');
+}
+
+// RFC 5545 folds at 75 octets, not 75 characters; keep Tamil and emoji intact.
+function foldCalendarLine(line){
+  const encoder = new TextEncoder();
+  let output = '', bytes = 0;
+  for (const character of line) {
+    const size = encoder.encode(character).length;
+    if (bytes + size > 75) { output += '\r\n '; bytes = 1; }
+    output += character;
+    bytes += size;
+  }
+  return output;
+}
+
+function buildCalendar({uid, title, description, location, startUTC, endUTC}, stamp){
+  if (!/^[a-zA-Z0-9@._-]+$/.test(uid)) throw new Error('Invalid calendar identifier');
+  if (calendarTimestamp(endUTC) <= calendarTimestamp(startUTC)) throw new Error('Invalid calendar interval');
+  calendarTimestamp(stamp);
+  return [
     'BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Shankar & Haripriya Wedding//EN','CALSCALE:GREGORIAN',
     'BEGIN:VEVENT',
-    `UID:${Date.now()}-${Math.random().toString(36).slice(2)}@shankarharipriya.wedding`,
-    `DTSTAMP:${startUTC}`,
+    `UID:${uid}`,
+    `DTSTAMP:${stamp}`,
     `DTSTART:${startUTC}`,
     `DTEND:${endUTC}`,
-    `SUMMARY:${title}`,
-    `DESCRIPTION:${description.replace(/\n/g,'\\n')}`,
-    `LOCATION:${location.replace(/\n/g,', ')}`,
+    `SUMMARY:${escapeCalendarText(title)}`,
+    `DESCRIPTION:${escapeCalendarText(description)}`,
+    `LOCATION:${escapeCalendarText(location)}`,
     'END:VEVENT','END:VCALENDAR'
-  ].join('\r\n');
+  ].map(foldCalendarLine).join('\r\n') + '\r\n';
+}
+
+function downloadICS(event){
+  const stamp = new Date().toISOString().replace(/[-:]/g,'').replace(/\.\d{3}/,'');
+  const ics = buildCalendar(event, stamp);
   const blob = new Blob([ics], {type:'text/calendar;charset=utf-8'});
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
-  a.href = url; a.download = title.replace(/\s+/g,'_') + '.ics';
+  a.href = url; a.download = event.title.replace(/[^\p{L}\p{N}._-]+/gu,'_') + '.ics';
   document.body.appendChild(a); a.click(); document.body.removeChild(a);
   setTimeout(()=>URL.revokeObjectURL(url), 2000);
-  showToast('Calendar event downloaded ✓');
+  showToast('Calendar file prepared. Open it to add the event.');
 }
 
 function addWeddingToCalendar(){
   const c = WEDDING_CONFIG;
   downloadICS({
+    uid: 'wedding-shankar-haripriya-2026@shankarharipriya.wedding',
     title: `${c.couple.groom.name} & ${c.couple.bride.name} — Wedding`,
     description: `${c.wedding.label}. ${c.closing}`,
     location: `${c.wedding.venueName}, ${c.wedding.venueAddress}`,
@@ -66,12 +93,35 @@ function addWeddingToCalendar(){
 function addReceptionToCalendar(){
   const c = WEDDING_CONFIG;
   downloadICS({
+    uid: 'reception-shankar-haripriya-2026@shankarharipriya.wedding',
     title: `${c.couple.groom.name} & ${c.couple.bride.name} — Reception`,
     description: `Wedding Reception. ${c.closing}`,
     location: `${c.reception.venueName}, ${c.reception.venueAddress}`,
     startUTC: c.reception.icsStartUTC,
     endUTC: c.reception.icsEndUTC
   });
+}
+
+function revealShareLink(url, doc = document){
+  doc.getElementById('share-link-panel').hidden = false;
+  const field = doc.getElementById('share-link-value');
+  field.value = url;
+  field.focus();
+  field.select();
+}
+
+async function shareWithFallback({data, nav, notify, showLink}){
+  if (new URL(data.url).protocol !== 'https:') throw new Error('Invalid invitation URL');
+  if (typeof nav.share === 'function') {
+    try { await nav.share(data); return 'shared'; }
+    catch (error) { if (error && error.name === 'AbortError') return 'cancelled'; }
+  }
+  if (nav.clipboard && typeof nav.clipboard.writeText === 'function') {
+    try { await nav.clipboard.writeText(data.url); notify('Invitation link copied.'); return 'copied'; }
+    catch { /* Browser permissions can block copying; leave a selectable link. */ }
+  }
+  showLink(data.url);
+  return 'manual';
 }
 
 function shareInvite(){
@@ -81,25 +131,15 @@ function shareInvite(){
     text: `You're invited to ${c.couple.groom.name} & ${c.couple.bride.name}'s wedding — ${c.wedding.dateDisplay}`,
     url: c.site.url
   };
-  if(navigator.share){
-    navigator.share(shareData).catch(()=>{});
-  } else if(navigator.clipboard){
-    navigator.clipboard.writeText(shareData.url).then(()=>showToast('Link copied ✓')).catch(()=>showToast(shareData.url));
-  } else {
-    showToast(shareData.url);
-  }
-}
-
-function rsvpLink(){
-  const c = WEDDING_CONFIG.rsvp;
-  return `https://wa.me/${c.whatsappNumber}?text=${encodeURIComponent(c.message)}`;
+  return shareWithFallback({data:shareData, nav:navigator, notify:showToast, showLink:revealShareLink})
+    .catch(() => showToast('The invitation link is unavailable. Please try again later.'));
 }
 
 /* Populate any element carrying data-cfg="dot.path.into.WEDDING_CONFIG" */
-function hydrateConfig(root=document){
+function hydrateConfig(root=document, config=WEDDING_CONFIG){
   root.querySelectorAll('[data-cfg]').forEach(el=>{
     const path = el.getAttribute('data-cfg').split('.');
-    let val = WEDDING_CONFIG;
+    let val = config;
     for(const k of path){ val = val && val[k]; }
     if(val != null){
       if(el.tagName === 'A') el.href = val; else el.textContent = val;
@@ -107,37 +147,6 @@ function hydrateConfig(root=document){
   });
 }
 
-/* Make a click-only interactive element (e.g. a door stage) also
-   operable by keyboard — Enter/Space triggers the same handler,
-   and it becomes a real tab stop with a visible focus ring. */
-function makeKeyboardActivatable(el, handler, label){
-  el.setAttribute('role','button');
-  el.setAttribute('tabindex','0');
-  if(label) el.setAttribute('aria-label', label);
-  el.addEventListener('keydown', e=>{
-    if(e.key === 'Enter' || e.key === ' '){
-      e.preventDefault();
-      handler();
-    }
-  });
-}
-
-/* Simple loading screen: fades out once the window has loaded
-   (fonts, the hero image, etc.), with a floor on how briefly it
-   can show so it never just flickers. */
-function initLoader(){
-  const loader = document.getElementById('loader');
-  if(!loader) return;
-  const minShow = prefersReducedMotion ? 0 : 700;
-  const shownAt = performance.now();
-  function hide(){
-    const elapsed = performance.now() - shownAt;
-    const wait = Math.max(0, minShow - elapsed);
-    setTimeout(()=>{
-      loader.style.opacity = '0';
-      setTimeout(()=>loader.remove(), prefersReducedMotion ? 0 : 500);
-    }, wait);
-  }
-  if(document.readyState === 'complete') hide();
-  else window.addEventListener('load', hide);
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = {buildCalendar, shareWithFallback, showToast, revealShareLink, hydrateConfig, addWeddingToCalendar, addReceptionToCalendar, shareInvite};
 }

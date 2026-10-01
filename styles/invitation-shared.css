@@ -8,6 +8,10 @@
 }
 .letter-map .direction-arrow { margin-left:0; }
 .portal-action .direction-arrow { width:18px; height:18px; }
+.share-link-panel { max-width:520px; margin:18px auto 0; padding:16px; background:var(--invite-surface); border:1px solid var(--invite-line); border-radius:3px; }
+.share-link-panel label { display:block; margin-bottom:10px; color:var(--invite-text); font:12px/1.6 var(--invite-ui); }
+.share-link-panel input { width:100%; min-width:0; min-height:44px; padding:10px; border:1px solid var(--invite-line); border-radius:2px; color:var(--invite-text); background:transparent; font:12px/1.6 var(--invite-ui); }
+#wed-toast { position:fixed; left:50%; bottom:calc(22px + env(safe-area-inset-bottom,0px)); transform:translate(-50%,10px); max-width:calc(100% - 32px); width:max-content; padding:12px 18px; background:#22191d; border:1px solid #d8b475; color:#fff1d9; font:14px/1.5 'Cormorant Garamond',Georgia,serif; overflow-wrap:anywhere; z-index:50; opacity:0; pointer-events:none; transition:opacity .3s,transform .3s; }
 :root {
   --invite-accent:#ead0a3;
   --invite-text:#eee0cd;
@@ -75,6 +79,7 @@
   .invitation-navigation { flex-direction:column; gap:2px; }
 }
 @media (prefers-reduced-motion:reduce) {
+  #wed-toast { transition:none; }
   .invitation-back, .guest-actions a, .guest-actions button { transition:none; }
 }
 @media (forced-colors:active) {
@@ -83,5 +88,6 @@
   :is(.invitation-back,.invitation-brand,.invitation-navigation a,.guest-actions a,.guest-actions button,.ambient-control):focus-visible { outline-color:Highlight; }
 }
 @media print {
+  .share-link-panel, #wed-toast { display:none !important; }
   .invitation-header, .invitation-navigation, .guest-actions, .ambient-control { display:none !important; }
 }

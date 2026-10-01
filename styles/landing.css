@@ -117,7 +117,6 @@ img { display: block; max-width: 100%; height: auto; }
 .utility-actions button:hover, .utility-actions button:focus-visible { background: #e2bb7612; border-color: #d5b37e66; }
 .utility-actions button:disabled { color: #c9bba7; cursor: default; }
 .footer-ornament { display: block; color: #c6a270; font-size: 8px; margin-top: 10px; }
-#wed-toast { position: fixed; bottom: 22px; left: 50%; transform: translate(-50%, 10px); max-width: calc(100% - 32px); width: max-content; overflow-wrap: anywhere; z-index: 15; background: #22191d; border: 1px solid #d8b475; color: #fff1d9; padding: 12px 18px; opacity: 0; pointer-events: none; transition: opacity .3s ease, transform .3s ease; }
 
 .sky-lights { position: absolute; inset: 0; }
 .sky-lights i { position: absolute; left: var(--x); top: var(--y); width: 3px; height: 3px; background: #f9d99b; border-radius: 50%; box-shadow: 0 0 7px 2px #ffd68a55; opacity: 0; animation: light-drift 16s linear infinite; animation-delay: var(--delay); animation-play-state: var(--motion-state); }

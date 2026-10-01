@@ -11,7 +11,22 @@ async function assertDrawnArrows(page) {
   })), 'decorative vector arrows inherit the link color');
 }
 
+async function assertShareMetadata(page) {
+  const base = 'https://shankar-prasad-k.github.io/ShaHaWeddingInvite/';
+  const filename = new URL(page.url()).pathname.split('/').pop();
+  const canonical = base + (filename === 'index.html' ? '' : filename);
+  assert.equal(await page.locator('link[rel="canonical"]').getAttribute('href'),canonical);
+  assert.equal(await page.locator('meta[property="og:url"]').getAttribute('content'),canonical);
+  for (const selector of ['meta[name="description"]','meta[property="og:title"]','meta[property="og:description"]','meta[property="og:image:alt"]']) {
+    assert.ok((await page.locator(selector).getAttribute('content')).length > 10);
+  }
+  const image = await page.locator('meta[property="og:image"]').getAttribute('content');
+  assert.ok(image.startsWith(base + 'assets/'));
+  await page.evaluate(async relative => { const image = new Image(); image.src = relative; await image.decode(); }, image.slice(base.length));
+}
+
 async function assertSecondaryNavigation(page) {
+  await assertShareMetadata(page);
   await assertDrawnArrows(page);
   const back = page.locator('.invitation-back');
   assert.equal((await back.textContent()).trim(), '← The beginning');
@@ -25,6 +40,7 @@ async function assertSecondaryNavigation(page) {
 }
 
 async function assertLandingActions(page) {
+  await assertShareMetadata(page);
   await assertDrawnArrows(page);
   assert.equal(await page.locator('[id^="rsvp-"], a[href*="wa.me"]').count(), 0);
   const share = page.locator('#share-landing');
@@ -40,7 +56,7 @@ async function assertLandingActions(page) {
     assert.match(download.suggestedFilename(), /\.ics$/);
     const chunks = [];
     for await (const chunk of await download.createReadStream()) chunks.push(chunk);
-    const content = Buffer.concat(chunks).toString('utf8');
+    const content = Buffer.concat(chunks).toString('utf8').replace(/\r\n /g,'');
     assert.ok(content.includes(`DTSTART:${start}\r\n`));
     assert.ok(content.includes(`DTEND:${end}\r\n`));
     assert.match(content, new RegExp(`SUMMARY:.*${event}`, 'i'));
