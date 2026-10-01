@@ -119,8 +119,8 @@ h1 em { display: block; margin-top: 1px; font-family: 'Great Vibes', cursive; fo
 .open-caption { position: absolute; top: calc(100% + 24px); left: -15%; width: 130%; display: grid; gap: 10px; }
 .open-caption > span { color: var(--muted); font-size: 16px; font-style: italic; }
 .open-caption strong { font: 10px/1.7 var(--sans); text-transform: uppercase; letter-spacing: .19em; }
-.open-caption strong span { display: inline-block; font-size: 16px; margin-left: 7px; transition: transform .25s; }
-.open-invitation:is(:hover, :focus-visible) .open-caption strong span { transform: translate(2px, -2px); }
+.open-caption .direction-arrow { transition: transform .25s; }
+.open-invitation:is(:hover, :focus-visible) .open-caption .direction-arrow { transform: translate(2px, -2px); }
 .is-open .envelope { opacity: 0; transform: translateY(140px) scale(.94); pointer-events: none; }
 .is-open .envelope-flap { transform: rotateX(180deg); }
 .is-open .open-invitation { pointer-events: none; animation: seal-away .38s forwards; }

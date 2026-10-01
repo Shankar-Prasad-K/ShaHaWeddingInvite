@@ -172,6 +172,10 @@ Browser checks open local files, not a server exposing private source images.
 
 ### Mobile reception entrance
 
+Diagonal action arrows use inline SVG with shared `currentColor` strokes rather
+than Unicode arrow characters, preventing mobile emoji-font substitution.
+They are decorative and hidden from screen readers; link labels remain intact.
+
 On screens up to 760px wide, the closed reception entrance scales its branches,
 flowers, envelope and spacing into the small viewport height instead of pushing
 oversized artwork beyond the edges. A gentle two-degree botanical sway keeps

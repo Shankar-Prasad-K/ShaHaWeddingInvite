@@ -1,6 +1,18 @@
 const assert = require('node:assert/strict');
 
+async function assertDrawnArrows(page) {
+  assert.equal(await page.locator('body').evaluate(el => el.textContent.includes('↗')), false, 'diagonal arrows must not depend on emoji fonts');
+  const arrows = page.locator('svg.direction-arrow');
+  assert.ok(await arrows.count() > 0);
+  assert.ok(await arrows.evaluateAll(elements => elements.every(el => {
+    const style = getComputedStyle(el);
+    const box = el.getBoundingClientRect();
+    return el.getAttribute('aria-hidden') === 'true' && style.stroke === style.color && (!el.getClientRects().length || (box.width >= 12 && box.height >= 12));
+  })), 'decorative vector arrows inherit the link color');
+}
+
 async function assertSecondaryNavigation(page) {
+  await assertDrawnArrows(page);
   const back = page.locator('.invitation-back');
   assert.equal((await back.textContent()).trim(), '← The beginning');
   assert.equal(await back.getAttribute('href'), 'index.html');
@@ -13,6 +25,7 @@ async function assertSecondaryNavigation(page) {
 }
 
 async function assertLandingActions(page) {
+  await assertDrawnArrows(page);
   assert.equal(await page.locator('[id^="rsvp-"], a[href*="wa.me"]').count(), 0);
   const share = page.locator('#share-landing');
   await share.focus();
