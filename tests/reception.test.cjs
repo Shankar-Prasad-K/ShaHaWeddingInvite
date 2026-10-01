@@ -231,7 +231,7 @@ test('unavailable canvas still permits pausing the CSS flower animation', () => 
 });
 
 test('initialization hydrates content and shares motion control with the background video', async () => {
-  const ids = ['open-invitation', 'invitation', 'letter-stage', 'invitation-heading', 'close-invitation', 'reception-status', 'rsvp-btn-r', 'calendar-reception', 'share-reception', 'fireflies', 'motion-toggle'];
+  const ids = ['open-invitation', 'invitation', 'letter-stage', 'invitation-heading', 'close-invitation', 'reception-status', 'fireflies', 'motion-toggle'];
   const nodes = Object.fromEntries(ids.map(id => [id, element()]));
   nodes.fireflies.getContext = () => null;
   const video = { ...element(), hidden: true, src: '', dataset: { src: 'assets/landing-garden.mp4' }, paused: true,
@@ -246,21 +246,15 @@ test('initialization hydrates content and shares motion control with the backgro
   const calls = [];
   initReception({ doc, win,
     config: { couple: { groom: { name: 'Test Groom' }, bride: { name: 'Test Bride' } } },
-    hydrate: root => calls.push(root), calendar: () => calls.push('calendar'),
-    share: () => calls.push('share'), rsvp: () => 'https://wa.me/example',
+    hydrate: root => calls.push(root),
   });
   assert.equal(calls[0], doc);
   assert.match(doc.title, /Test Groom.*Test Bride/);
-  assert.equal(nodes['rsvp-btn-r'].href, 'https://wa.me/example');
-  assert.equal(nodes['calendar-reception'].hidden, false);
-  assert.equal(nodes['share-reception'].hidden, false);
   assert.equal(styles.get('--garden-play-state'), 'paused');
   nodes['open-invitation'].dispatch('click');
   assert.equal(nodes['invitation'].hidden, false);
   assert.equal(nodes['invitation-heading'].focusCount, 1);
-  nodes['calendar-reception'].dispatch('click');
-  nodes['share-reception'].dispatch('click');
-  assert.deepEqual(calls.slice(1), ['calendar', 'share']);
+  assert.deepEqual(calls, [doc], 'Reception needs no RSVP or sharing controls to initialize');
   assert.equal(video.src, '', 'initial reduced motion does not load video');
   media.matches = false;
   media.dispatch('change');

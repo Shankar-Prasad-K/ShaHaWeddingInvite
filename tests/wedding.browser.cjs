@@ -2,6 +2,7 @@ const assert = require('node:assert/strict');
 const path = require('node:path');
 const { pathToFileURL } = require('node:url');
 const { chromium } = require(process.env.PLAYWRIGHT_MODULE || 'playwright');
+const { assertSecondaryNavigation } = require('./invitation-browser-helpers.cjs');
 const url = pathToFileURL(path.resolve(__dirname, '../wedding.html')).href;
 
 (async () => {
@@ -16,6 +17,7 @@ const url = pathToFileURL(path.resolve(__dirname, '../wedding.html')).href;
   try {
     for (const width of [320, 390, 768, 1440]) {
       const page = await openPage({ viewport:{ width, height:900 } });
+      await assertSecondaryNavigation(page);
       const cord = page.locator('#tie-cord');
       assert.equal(await page.locator('.royal-side-frame').count(), 0, 'Video architecture replaces separate pillar overlays');
       const video = page.locator('#wedding-background-video');
@@ -48,7 +50,7 @@ const url = pathToFileURL(path.resolve(__dirname, '../wedding.html')).href;
       });
       assert.equal(await page.locator('.charm-initial').allTextContents().then(values => values.join('')), 'HS');
       assert.equal(await page.locator('.charm-shine').count(), 2);
-      assert.equal(await page.locator('#braid-bronze stop').nth(1).evaluate(el => getComputedStyle(el).stopColor), 'rgb(240, 215, 189)');
+      assert.equal(await page.locator('#braid-bronze stop').nth(1).evaluate(el => getComputedStyle(el).stopColor), 'rgb(238, 210, 182)');
       assert.equal(await page.locator('.charm-shine').first().evaluate(el => getComputedStyle(el).animationIterationCount), '1', 'Finite initial shine, not endless flashing');
       assert.match(await page.locator('.scroll-brocade').evaluate(el => getComputedStyle(el).backgroundImage), /wedding-gold-buta\.svg/);
       for (const slot of await page.locator('.finial-slot').all()) {
@@ -106,7 +108,7 @@ const url = pathToFileURL(path.resolve(__dirname, '../wedding.html')).href;
       assert.equal(await cord.getAttribute('aria-expanded'), 'true');
       assert.equal(await page.locator('#scroll-body').evaluate(el => el.inert), false);
       assert.ok((await page.locator('.s-om').boundingBox()).y >= 0, 'Om remains visible after focus moves into the invitation');
-      const omOffset = await page.locator('.s-om-glyph').evaluate(el => {
+      const omOffset = await page.locator('.om-glyph').evaluate(el => {
         const s = getComputedStyle(el), box = el.getBoundingClientRect(), ring = el.parentElement.getBoundingClientRect();
         const ctx = document.createElement('canvas').getContext('2d');
         ctx.font = `${s.fontSize} ${s.fontFamily}`;
@@ -194,7 +196,7 @@ const url = pathToFileURL(path.resolve(__dirname, '../wedding.html')).href;
     const nojs = await openPage({ javaScriptEnabled:false, viewport:{ width:390, height:844 } });
     assert.equal(await nojs.locator('.s-venue').isVisible(), true);
     assert.equal(await nojs.locator('#tie-cord').isVisible(), false);
-    assert.equal(await nojs.locator('.js-action').first().isVisible(), false);
+    assert.equal(await nojs.locator('.js-action').count(), 0);
     assert.equal(await nojs.locator('#wedding-video-toggle').isVisible(), false);
     assert.equal(await nojs.locator('#wedding-background-video').getAttribute('src'), null);
     assert.match(await nojs.locator('.wedding-backdrop').evaluate(el => getComputedStyle(el).backgroundImage), /wedding-temple-bells-poster/);

@@ -6,24 +6,36 @@ external actions (maps, WhatsApp, sharing) may require internet access.
 
 ## The experience
 
-1. **`index.html`** — A full-screen golden-arches video: original hanging
-   brass lamps, a framed Om blessing, ivory calligraphy, a kolam-inspired
-   ornament and two engraved arches leading to the wedding and reception.
+1. **[index.html](index.html)** — A full-screen blossom-window video with a
+   small botanical S/H crest, ivory calligraphy, a fine floral engraving
+   and two arches leading to the wedding and reception. Hanging lamps and
+   the landing Om are removed, leaving the blossoms room to breathe.
    The supplied portrait clip loops silently behind the invitation throughout
    scrolling. Proportions are preserved with a centered cover crop, never
    stretched. A matching still image remains available when video cannot play.
 2. **`wedding.html`** — An arakku-maroon silk scroll over a temple-bells and incense video, with zari borders,
-   a clear gold Tamil Om and Tamil invitation wording. Drag the braided golden
+   a clear Tamil Om and Tamil invitation wording. Drag the braided bronze-champagne
    bow downwards (or tap / press Enter or Space): the knot tensions, the loops
    release, and the scroll unfurls before a single gold-petal cascade.
 3. **`reception.html`** — A floral garden video under midnight-blue shading,
    with original botanical SVG artwork, champagne-gold accents and drifting fireflies. Open the sealed
    envelope to reveal an ivory invitation letter. Date, time, venue and
-   WhatsApp RSVP are also available below the letter, without a reveal.
+   directions are also available below the letter, without a reveal.
 
-The courtyard landing redesign leaves both invitation pages and the shared
-configuration/helpers unchanged. No build step, backend, environment variables
-or additional runtime dependencies are required.
+RSVP, sharing and separate wedding/reception calendar downloads are available
+only on the landing page. Both event pages link back to these guest details,
+use matching “← The beginning” navigation and retain their own maps, reveals
+and accessible motion controls. Wedding keeps its bronze/maroon temple identity;
+reception keeps its midnight floral stationery. The botanical crest and fine
+engraving connect the landing to the reception without adding more animation.
+
+[styles/invitation-shared.css](styles/invitation-shared.css) provides shared
+navigation, action and motion-control proportions, Manrope UI typography,
+keyboard focus, narrow-screen, forced-colors and print treatment. Colors remain
+theme-specific. The static RSVP link works without JavaScript; sharing and
+calendar controls are revealed only after initialization. Action listeners are
+removed when the landing controller is cleaned up. Event facts and media are unchanged.
+No build step, backend, environment variables or new runtime dependencies are required.
 
 ## File structure
 
@@ -49,10 +61,10 @@ Landing-specific files:
 - [js/background-video.js](js/background-video.js) — shared lazy video playback
    and still-fallback handling used by landing and reception, without duplicated
    media assets or page-specific playback logic.
-- [assets/temple-lamp.svg](assets/temple-lamp.svg) — original engraved hanging
-   brass lamp, reused on both sides with separate, pausable flame effects.
-- [assets/courtyard-kolam.svg](assets/courtyard-kolam.svg) — original ornamental
-   linework inspired by kolam, not a prescribed ritual diagram.
+- [assets/couple-botanical-mark.svg](assets/couple-botanical-mark.svg) — static
+   floral S/H crest, shared with the reception stationery.
+- [assets/stationery-flourish.svg](assets/stationery-flourish.svg) — fine botanical
+   divider shared with reception. Earlier lamp and kolam artwork remains unused.
 - [assets/portal-temple.svg](assets/portal-temple.svg) and
    [assets/portal-garden.svg](assets/portal-garden.svg) — original invitation icons.
 - [tests/landing.test.cjs](tests/landing.test.cjs) — hermetic controller tests.
@@ -105,7 +117,9 @@ single staggered light sweep clipped to each charm. The shine ends within
 
 The temple-bells finishing pass gives the rods and lotus finials a shared aged-bronze
 palette: copper-brown shadows, warm worn highlights and fine engraved bands.
-The golden cord and readable light lettering remain intentional accents.
+The cord and initial charms use bronze-champagne tones, with readable light lettering.
+Om uses a separate glyph span with a font-metric-based optical offset so its visible
+shape sits centrally within the lotus ring on both mobile and desktop.
 The deeper maroon silk has original repeating
 [temple-vine edging](assets/patterns/wedding-temple-border.svg), an engraved
 [lotus medallion](assets/patterns/wedding-lotus-medallion.svg) around Om and
@@ -122,7 +136,7 @@ the bronze highlights and smoky blue shadows, while dark-backed instructions
 and action buttons preserve contrast. The extra pillar overlays and repeated
 background pattern are no longer displayed.
 Earlier pillar and arch artwork remains available in assets for later exploration.
-The landing retains its golden-arches clip; the reception retains its floral video.
+The landing now trials a blossom-window clip; the reception retains its floral video.
 The user-supplied Klickpin download (pin ID 880594533411693216) is a silent,
 720 × 1280, 24fps H.264 clip lasting approximately 5.21 seconds (0.93 MB).
 Its video stream is copied without recompression into a fast-start MP4; the poster
@@ -147,6 +161,14 @@ invitation even when the interactive scroll is closed. No new runtime dependenci
 or changes to the landing/reception pages are required.
 
 Run all unit tests with `node --test tests/*.test.cjs`.
+
+The landing, wedding and reception browser suites cover responsive layouts,
+motion preferences, no-JavaScript fallback and existing reveal behavior.
+[tests/invitation-browser-helpers.cjs](tests/invitation-browser-helpers.cjs) adds
+shared assertions for matching back navigation and absence of duplicate guest
+actions. Landing checks actual ICS downloads for both configured UTC times,
+WhatsApp link construction and a mocked native-share call (nothing is sent).
+Browser checks open local files, not a server exposing private source images.
 
 Reception-specific files:
 - `styles/reception.css` — responsive layout, stationery and print styles.
@@ -288,20 +310,22 @@ GitHub Pages redeploys automatically within a minute.
    work. The top countdown continues ticking when **Pause motion** is pressed;
    it catches up from real time on return to the page. Without JavaScript,
    the scenery and lamps remain still. No audio plays automatically.
-- The current golden-arches video is decorative imagery, not the ceremony venue.
-   [assets/landing-golden-arches.mp4](assets/landing-golden-arches.mp4) is a local
-   H.264 copy of the supplied Klickpin download (pin 4151824653513112): approximately
-   5.2 seconds, 720 × 1280 and 1.2 MB. The source has no audio; its video stream is
-   preserved without re-encoding, with fast-start metadata. The full clip loops;
+- The current blossom-window video is decorative imagery, not the ceremony venue.
+   [assets/landing-blossom-window.mp4](assets/landing-blossom-window.mp4) is a local
+   H.264 copy of the supplied Klickpin download (pin 11188699075240312): approximately
+   10.47 seconds, 720 × 1280, 30fps and 1.73 MB. The source audio is removed from
+   this background copy; its video stream is preserved without re-encoding,
+   with fast-start metadata. The full video stream loops;
    no seamless-loop editing has been applied.
    Its portrait composition is cropped more heavily on wide desktop screens.
-   [assets/landing-golden-arches-poster.jpg](assets/landing-golden-arches-poster.jpg) is preloaded
+   [assets/landing-blossom-window-poster.jpg](assets/landing-blossom-window-poster.jpg) is preloaded
    and shown during loading, failed/blocked playback, reduced motion and no-JS.
    Video is loaded only when motion is allowed; initial reduced motion and no-JS
    do not request the MP4. Manual pause freezes the current frame; reduced motion
    restores the poster. Hidden tabs/page suspension pause playback. The original
-   Documents video, [Image (61).jpeg](Image%20(61).jpeg), and previous sunset photo
-   are untouched. Downloading does not establish a republication license; verify
+   Documents video, previous golden-arches assets, [Image (61).jpeg](Image%20(61).jpeg),
+   and previous sunset photo are untouched. Wedding and reception are unchanged
+   by this landing-only trial. Downloading does not establish a republication license; verify
    creator permission before publishing this trial.
 - Reception opening and folding use native buttons, `aria-expanded`, a
    live status message and focus management. The unopened letter is not

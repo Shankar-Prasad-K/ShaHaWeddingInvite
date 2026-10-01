@@ -8,9 +8,10 @@
   <title>Shankar Prasad &amp; Haripriya</title>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Cinzel:wght@400;500;600&display=swap" rel="stylesheet"/>
-  <link rel="preload" href="assets/landing-golden-arches-poster.jpg" as="image"/>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Cinzel:wght@400;500;600&family=Manrope:wght@400;500&display=swap" rel="stylesheet"/>
+  <link rel="preload" href="assets/landing-blossom-window-poster.jpg" as="image"/>
   <link rel="stylesheet" href="styles/landing.css"/>
+  <link rel="stylesheet" href="styles/invitation-shared.css"/>
   <script src="js/config.js" defer></script>
   <script src="js/features.js" defer></script>
   <script src="js/background-video.js" defer></script>
@@ -20,8 +21,8 @@
   <a class="skip-link" href="#celebrations">Skip to the invitations</a>
   <div class="courtyard" aria-hidden="true">
     <div class="courtyard-photo">
-      <img src="assets/landing-golden-arches-poster.jpg" alt="" fetchpriority="high" width="720" height="1280"/>
-      <video id="background-video" data-src="assets/landing-golden-arches.mp4" poster="assets/landing-golden-arches-poster.jpg" muted loop playsinline preload="none" disablepictureinpicture tabindex="-1" hidden></video>
+      <img src="assets/landing-blossom-window-poster.jpg" alt="" fetchpriority="high" width="720" height="1280"/>
+      <video id="background-video" data-src="assets/landing-blossom-window.mp4" poster="assets/landing-blossom-window-poster.jpg" muted loop playsinline preload="none" disablepictureinpicture tabindex="-1" hidden></video>
     </div>
     <div class="courtyard-shade"></div>
     <div class="courtyard-grain"></div>
@@ -44,18 +45,10 @@
   <div class="ceremonial-frame" aria-hidden="true">
     <span class="frame-corner corner-tl"></span><span class="frame-corner corner-tr"></span>
     <span class="frame-corner corner-bl"></span><span class="frame-corner corner-br"></span>
-    <div class="temple-lamp lamp-left">
-      <img src="assets/temple-lamp.svg" alt="" width="160" height="460"/>
-      <span class="lamp-flame"><svg class="flame-body" viewBox="0 0 20 32" focusable="false"><path class="flame-outer" d="M10 31C-2 28 1 18 8 11C11 8 12 4 11 1C20 10 12 14 16 21C21 28 15 31 10 31Z"/><path class="flame-core" d="M10 30C5 28 6 24 10 18C10 23 16 26 10 30Z"/></svg></span>
-    </div>
-    <div class="temple-lamp lamp-right">
-      <img src="assets/temple-lamp.svg" alt="" width="160" height="460"/>
-      <span class="lamp-flame"><svg class="flame-body" viewBox="0 0 20 32" focusable="false"><path class="flame-outer" d="M10 31C-2 28 1 18 8 11C11 8 12 4 11 1C20 10 12 14 16 21C21 28 15 31 10 31Z"/><path class="flame-core" d="M10 30C5 28 6 24 10 18C10 23 16 26 10 30Z"/></svg></span>
-    </div>
   </div>
   <main class="landing" id="welcome">
     <header class="welcome">
-      <div class="blessing-mark" role="img" aria-label="Om"><span lang="ta" aria-hidden="true">ௐ</span></div>
+      <img class="blossom-crest" src="assets/couple-botanical-mark.svg" alt="" width="80" height="87"/>
       <section class="countdown" id="countdown" aria-labelledby="countdown-caption" hidden>
         <h2 id="countdown-caption">Until our forever begins</h2>
         <div id="countdown-values" class="countdown-values" role="timer" aria-live="off" aria-label="Time until the wedding ceremony">
@@ -75,7 +68,7 @@
         <span class="bride">Haripriya</span>
       </h1>
       <p class="welcome-message">With our families’ blessings, we invite you<br class="desktop-break"/> to celebrate our beginning.</p>
-      <img class="welcome-kolam" src="assets/courtyard-kolam.svg" alt="" width="240" height="86"/>
+      <img class="welcome-kolam" src="assets/stationery-flourish.svg" alt="" width="280" height="64"/>
       <p class="landing-date" data-cfg="wedding.dateDisplay">Friday, 20th November 2026</p>
       <p class="landing-place"><span aria-hidden="true"></span> Coimbatore <span aria-hidden="true"></span></p>
     </header>
@@ -107,12 +100,15 @@
         </a>
       </div>
     </section>
-    <footer class="landing-footer">
+    <footer class="landing-footer" id="guest-actions">
       <p>Your presence is our most cherished blessing.</p>
-      <div class="utility-actions">
+      <div class="utility-actions guest-actions" aria-label="RSVP, sharing and calendars">
+        <a id="rsvp-landing" href="https://wa.me/919840454710" target="_blank" rel="noopener noreferrer">RSVP on WhatsApp ↗</a>
         <button id="share-landing" type="button" hidden>Share invitation</button>
-        <button id="motion-toggle" type="button" aria-pressed="false" hidden>Pause motion</button>
+        <button id="calendar-wedding" type="button" hidden>Save wedding date</button>
+        <button id="calendar-reception" type="button" hidden>Save reception date</button>
       </div>
+      <button class="ambient-control" id="motion-toggle" type="button" aria-pressed="false" hidden>Pause motion</button>
       <span class="footer-ornament" aria-hidden="true">◆</span>
     </footer>
   </main>

@@ -1,0 +1,81 @@
+/* Shared navigation proportions; each invitation keeps its own palette. */
+[hidden] { display:none !important; }
+:root {
+  --invite-accent:#ead0a3;
+  --invite-text:#eee0cd;
+  --invite-surface:#22191de8;
+  --invite-line:#d9bd8559;
+  --invite-ui:'Manrope',sans-serif;
+}
+.invitation-header {
+  position:absolute; inset:0 0 auto; z-index:5;
+  max-width:1440px; padding:27px 5%; margin:auto;
+  display:grid; grid-template-columns:1fr auto 1fr; align-items:center;
+}
+.back-link.invitation-back {
+  position:static; justify-self:start; display:inline-flex; align-items:center;
+  gap:12px; min-height:44px; padding:0; border:0; border-radius:0;
+  background:none; backdrop-filter:none; color:var(--invite-text);
+  font:10px/1.6 var(--invite-ui); letter-spacing:.13em; text-transform:none;
+  text-decoration:none; text-shadow:0 1px 8px #080808;
+  transition:color .2s;
+}
+.back-link.invitation-back span { font-size:21px; }
+.back-link.invitation-back:hover { background:none; color:var(--invite-accent); }
+.invitation-brand { padding:6px 15px; font:500 29px 'Cormorant Garamond',Georgia,serif; color:var(--invite-accent); text-decoration:none; }
+.invitation-brand span { font-style:italic; font-size:20px; padding:0 4px; }
+.invitation-header-note { text-align:right; color:var(--invite-text); font:10px/1.8 var(--invite-ui); letter-spacing:.13em; text-transform:uppercase; }
+.invitation-navigation, .site-footer .invitation-navigation {
+  display:flex; flex-wrap:wrap; align-items:center; justify-content:center;
+  gap:8px 19px; max-width:100%; color:var(--invite-text); font:10px/1.7 var(--invite-ui);
+}
+.invitation-navigation a { display:inline-flex; align-items:center; min-height:44px; text-align:center; text-decoration:none; color:inherit; }
+.invitation-navigation a:hover { color:var(--invite-accent); text-decoration:underline; text-underline-offset:5px; }
+.invitation-navigation > span { color:var(--invite-accent); }
+.guest-actions { gap:10px; margin:18px auto 0; max-width:760px; }
+.guest-actions a, .guest-actions button {
+  display:inline-flex; align-items:center; justify-content:center; min-height:44px;
+  padding:12px 18px; border:1px solid var(--invite-line); border-radius:3px;
+  background:var(--invite-surface); color:var(--invite-text);
+  font:10px/1.7 var(--invite-ui); letter-spacing:.04em; text-decoration:none; cursor:pointer;
+  transition:background .2s,border-color .2s;
+}
+.guest-actions #rsvp-landing { background:#e7ceaa; color:#2e2027; border-color:#e7ceaa; }
+.guest-actions :is(a,button):hover { background:#3b2932; border-color:var(--invite-accent); }
+.guest-actions #rsvp-landing:hover { background:#f5dfc0; }
+.ambient-control, #wedding-video-toggle.ambient-control {
+  position:static; display:block; margin:18px auto 0; min-height:44px; padding:8px 16px;
+  border:1px solid var(--invite-line); border-radius:24px;
+  background:var(--invite-surface); color:var(--invite-text);
+  font:9px/1.7 var(--invite-ui); letter-spacing:.035em; cursor:pointer;
+}
+.ambient-control:not(:disabled):hover { color:var(--invite-accent); border-color:var(--invite-accent); }
+.ambient-control[aria-pressed="true"] { border-style:dashed; }
+.ambient-control:disabled { cursor:default; }
+:is(.invitation-back,.invitation-brand,.invitation-navigation a,.guest-actions a,.guest-actions button,.ambient-control):focus-visible {
+  outline:2px solid var(--invite-accent); outline-offset:5px;
+}
+@media (max-width:760px) {
+  .invitation-header { padding:18px 24px; }
+  .back-link.invitation-back { font-size:9px; letter-spacing:.02em; gap:7px; }
+  .invitation-header-note { font-size:8px; max-width:105px; justify-self:end; }
+}
+@media (max-width:480px) {
+  .invitation-header { grid-template-columns:1fr auto; }
+  .invitation-header-note { display:none; }
+  .invitation-brand { font-size:26px; padding-right:0; }
+  .guest-actions { display:grid; grid-template-columns:minmax(0,1fr); max-width:290px; }
+  .invitation-navigation > span { display:none; }
+  .invitation-navigation { flex-direction:column; gap:2px; }
+}
+@media (prefers-reduced-motion:reduce) {
+  .invitation-back, .guest-actions a, .guest-actions button { transition:none; }
+}
+@media (forced-colors:active) {
+  .guest-actions :is(a,button), .guest-actions #rsvp-landing, .ambient-control { background:Canvas; color:ButtonText; border-color:ButtonText; }
+  .back-link.invitation-back, .invitation-brand, .invitation-navigation a { color:LinkText; text-shadow:none; }
+  :is(.invitation-back,.invitation-brand,.invitation-navigation a,.guest-actions a,.guest-actions button,.ambient-control):focus-visible { outline-color:Highlight; }
+}
+@media print {
+  .invitation-header, .invitation-navigation, .guest-actions, .ambient-control { display:none !important; }
+}

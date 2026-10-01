@@ -4,6 +4,9 @@ body {
   overflow-x:clip; background:#11191b;
   --bronze-shadow:#382219; --bronze-deep:#603b29;
   --bronze-main:#8e5635; --bronze-light:#be8b60; --bronze-highlight:#e6bc91;
+  --cord-highlight:#eed2b6;
+  --invite-accent:#e6bc91; --invite-text:#f2ddc1;
+  --invite-surface:#210c10e8; --invite-line:#be8b6066;
 }
 .wedding-backdrop {
   position:fixed; inset:0; z-index:0; pointer-events:none; overflow:hidden;
@@ -108,6 +111,8 @@ body {
   border:0; border-radius:50%; box-shadow:0 0 28px #bd8c6012;
 }
 .s-om::before { content:none; }
+/* Centre the visible Tamil glyph, not the font's asymmetric ascent/descent box. */
+.om-glyph { display:block; line-height:1; transform:translateY(-.203em); }
 .s-sub { font-size:clamp(18px,2.6vw,25px); font-weight:600; letter-spacing:0; line-height:1.8; margin:0; color:#ffe6b0; }
 .s-tamil { letter-spacing:0; }
 .s-introduction { font-size:clamp(13px,1.5vw,15px); line-height:2.1; color:#f1ddc7; margin:22px auto 28px; max-width:440px; text-wrap:pretty; }
@@ -139,7 +144,7 @@ body {
 .cord-tail { transition:transform .5s ease-in; }
 .cord-tail .cord-strand { transform:scaleY(calc(1 + var(--tension, 0) * .45)); transform-origin:120px 94px; transition:transform .35s cubic-bezier(.2,.9,.25,1.3); }
 .cord-charm { transform:translateY(var(--pull)); transition:transform .35s cubic-bezier(.2,.9,.25,1.3); }
-.charm-initial { fill:url(#initial-foil); stroke:#fce7a0; stroke-width:.2; paint-order:stroke fill; }
+.charm-initial { fill:url(#initial-foil); stroke:#eed2b6; stroke-width:.2; paint-order:stroke fill; }
 .charm-shine { opacity:0; animation:charm-gleam 4.5s ease-in-out .25s 1 both; pointer-events:none; }
 .cord-charm:nth-child(3) .charm-shine { animation-delay:.7s; }
 .releasing .charm-shine { animation:none; }

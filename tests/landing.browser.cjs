@@ -3,6 +3,7 @@ const assert = require('node:assert/strict');
 const { pathToFileURL } = require('node:url');
 const path = require('node:path');
 const { chromium } = require(process.env.PLAYWRIGHT_MODULE || 'playwright');
+const { assertLandingActions } = require('./invitation-browser-helpers.cjs');
 const url = pathToFileURL(path.resolve(__dirname, '../index.html')).href;
 
 async function changingTransform(page, selector) {
@@ -33,9 +34,10 @@ async function changingTransform(page, selector) {
       const arch = page.locator('.courtyard-photo img');
       assert.equal(await arch.count(), 1, 'video has a matching still fallback');
       assert.ok(await arch.evaluate(img => img.complete && img.naturalWidth > 0), 'poster loads');
-      assert.match(await arch.getAttribute('src'), /landing-golden-arches-poster\.jpg$/);
+      assert.match(await arch.getAttribute('src'), /landing-blossom-window-poster\.jpg$/);
       const video = page.locator('#background-video');
-      assert.equal(await video.getAttribute('data-src'), 'assets/landing-golden-arches.mp4');
+      assert.equal(await video.getAttribute('data-src'), 'assets/landing-blossom-window.mp4');
+      assert.equal(await video.getAttribute('poster'), await arch.getAttribute('src'));
       await page.waitForFunction(() => {
         const video = document.getElementById('background-video');
         return !video.hidden && !video.paused && video.currentTime > 0;
@@ -60,13 +62,14 @@ async function changingTransform(page, selector) {
       assert.notEqual(await page.locator('#cd-secs').textContent(), before, 'seconds tick');
       assert.equal(await page.locator('.sky-bird').count(), 2);
       assert.equal(await page.locator('.bird-wing').count(), 4);
-      assert.equal(await page.locator('.lamp-flame').count(), 2);
+      assert.equal(await page.locator('.temple-lamp, .lamp-flame, .blessing-mark, [aria-label="Om"]').count(), 0);
+      assert.equal(await page.locator('.blossom-crest').count(), 1);
+      assert.equal(await page.locator('.blossom-crest').evaluate(el => getComputedStyle(el).animationName), 'none');
+      assert.equal(await page.locator('.guest-actions :is(a,button):visible').count(), 4);
       assert.ok(await page.locator('.sky-bird').evaluateAll(birds => birds.every(bird => bird.getBoundingClientRect().width <= 23)), 'birds read as distant');
       const wingTiming = await page.locator('.bird-wing-left').evaluateAll(wings => wings.map(wing => [getComputedStyle(wing).animationDuration, getComputedStyle(wing).animationDelay]));
       assert.deepEqual(wingTiming[0], wingTiming[1], 'birds flap together');
-      assert.ok(await page.locator('.temple-lamp').evaluateAll(lamps => lamps.every(lamp => lamp.clientWidth <= 132)), 'lamps stay slender');
-      assert.ok(await page.locator('.temple-lamp').evaluateAll(lamps => lamps.every(lamp => Math.abs(lamp.clientWidth - lamp.querySelector('img').clientWidth) <= 1)), 'lamp artwork fills its flame coordinate system');
-      for (const selector of ['.bird-wing-left', '.bird-wing-right', '.flame-body']) {
+      for (const selector of ['.bird-wing-left', '.bird-wing-right']) {
         await changingTransform(page, selector);
       }
       assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
@@ -92,16 +95,18 @@ async function changingTransform(page, selector) {
       await page.emulateMedia({ reducedMotion: 'reduce' });
       await page.waitForFunction(() => document.getElementById('motion-toggle').disabled);
       assert.ok(await video.evaluate(el => el.paused && el.hidden), 'reduced motion uses still fallback');
-      assert.equal(await page.locator('.flame-body').first().evaluate(el => getComputedStyle(el).animationName), 'none');
+      assert.equal(await page.locator('.blossom-crest').isVisible(), true);
       assert.equal(await page.locator('.sky-birds').isVisible(), false);
       await page.close();
-      console.log(`PASS ${width}: ticking timer, distant synchronized birds, slender single-flame lamps, pause/reduced motion and layout`);
+      console.log(`PASS ${width}: timer, birds, static botanical crest, centralized guest actions, pause/reduced motion and layout`);
     }
     const nojs = await browser.newPage({ javaScriptEnabled: false, viewport: { width: 320, height: 568 } });
     await nojs.goto(url);
     assert.equal(await nojs.locator('#countdown').isVisible(), false);
     assert.equal(await nojs.locator('.reception-portal').isVisible(), true);
-    assert.equal(await nojs.locator('.flame-body').first().evaluate(el => getComputedStyle(el).animationPlayState), 'paused');
+    assert.equal(await nojs.locator('#rsvp-landing').isVisible(), true);
+    assert.equal(await nojs.locator('#rsvp-landing').getAttribute('href'), 'https://wa.me/919840454710');
+    assert.equal(await nojs.locator('.guest-actions button:visible').count(), 0);
     assert.equal(await nojs.locator('#background-video').getAttribute('src'), null, 'no-JS does not download video');
     await nojs.close();
     const reduced = await browser.newPage({ reducedMotion: 'reduce' });
@@ -118,6 +123,17 @@ async function changingTransform(page, selector) {
     assert.equal(await blocked.locator('.courtyard-photo img').isVisible(), true);
     assert.equal(await blocked.locator('.wedding-portal').isVisible(), true);
     await blocked.close();
+    const actions = await browser.newPage();
+    actions.on('pageerror', error => errors.push(error.message));
+    await actions.addInitScript(() => {
+      Object.defineProperty(navigator, 'share', { configurable:true, value:async data => { window.sharedInvitation = data; } });
+    });
+    await actions.goto(url);
+    await assertLandingActions(actions);
+    await actions.emulateMedia({ media:'print' });
+    assert.equal(await actions.locator('.guest-actions').isVisible(), false);
+    assert.equal(await actions.locator('.ambient-control').isVisible(), false);
+    await actions.close();
     assert.deepEqual(errors, []);
     console.log('PASS no-JavaScript fallback and no browser errors');
   } finally { await browser.close(); }

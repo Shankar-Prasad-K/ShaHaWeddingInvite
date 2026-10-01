@@ -10,6 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Great+Vibes&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="styles/reception.css"/>
+  <link rel="stylesheet" href="styles/invitation-shared.css"/>
   <link rel="preload" href="assets/landing-garden-poster.jpg" as="image"/>
   <script src="js/config.js" defer></script>
   <script src="js/features.js" defer></script>
@@ -26,7 +27,7 @@
   <canvas id="fireflies" aria-hidden="true"></canvas>
 
   <header class="site-header">
-    <a class="back-link" href="index.html"><span aria-hidden="true">←</span> The beginning</a>
+    <a class="back-link invitation-back" href="index.html"><span aria-hidden="true">←</span> The beginning</a>
     <a class="brand" href="index.html" aria-label="Shankar and Haripriya, home">S<span>&amp;</span>H</a>
     <span class="header-note">A celebration of us</span>
   </header>
@@ -146,25 +147,14 @@
         </div>
       </div>
 
-      <div class="rsvp-block">
-        <span class="rsvp-star" aria-hidden="true">✧</span>
-        <h2>Be part of our <em>forever.</em></h2>
-        <p>We’ve saved you a place in our story.<br/>Let us know you’ll be there.</p>
-        <a class="rsvp-button" id="rsvp-btn-r" href="https://wa.me/919840454710?text=Hi!%20We%27re%20delighted%20to%20confirm%20our%20attendance%20at%20Shankar%20%26%20Haripriya%27s%20wedding" target="_blank" rel="noopener noreferrer">Count me in <span aria-hidden="true">↗</span><span class="sr-only"> — RSVP on WhatsApp (opens in a new tab)</span></a>
-        <span class="rsvp-note">A little hello on WhatsApp</span>
-        <div class="secondary-actions">
-          <button id="calendar-reception" type="button" hidden><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><rect x="3" y="4" width="14" height="13" rx="1"/><path d="M6 2v4M14 2v4M3 8h14M10 10v5m-2.5-2.5h5"/></svg> Save the date</button>
-          <button id="share-reception" type="button" hidden><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M10 12V2m-4 4 4-4 4 4M5 9H3v8h14V9h-2"/></svg> Share the love</button>
-        </div>
-      </div>
     </section>
   </main>
 
   <footer class="site-footer">
     <div class="footer-signature">With love, always.</div>
     <p><span data-cfg="couple.groom.name">Shankar Prasad K</span> <span class="footer-amp">&amp;</span> <span data-cfg="couple.bride.name">Haripriya V</span></p>
-    <nav aria-label="Invitation pages"><a href="index.html">The beginning</a><span aria-hidden="true">✧</span><a href="wedding.html">The wedding ceremony ↗</a></nav>
-    <button class="motion-toggle" id="motion-toggle" type="button" aria-pressed="false" hidden>Pause garden motion</button>
+    <nav class="invitation-navigation" aria-label="Invitation pages"><a href="index.html#guest-actions">The beginning &amp; guest details</a><span aria-hidden="true">✧</span><a href="wedding.html">The wedding ceremony ↗</a></nav>
+    <button class="motion-toggle ambient-control" id="motion-toggle" type="button" aria-pressed="false" hidden>Pause garden motion</button>
   </footer>
 </body>
 </html>

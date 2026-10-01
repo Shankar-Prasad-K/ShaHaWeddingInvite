@@ -3,6 +3,7 @@ const assert = require('node:assert/strict');
 const path = require('node:path');
 const { pathToFileURL } = require('node:url');
 const { chromium } = require(process.env.PLAYWRIGHT_MODULE || 'playwright');
+const { assertSecondaryNavigation } = require('./invitation-browser-helpers.cjs');
 const url = pathToFileURL(path.resolve(__dirname, '../reception.html')).href;
 
 async function assertBackdrop(page) {
@@ -23,6 +24,7 @@ async function assertBackdrop(page) {
       page.on('pageerror', error => errors.push(error.message));
       await page.goto(url);
       await page.evaluate(() => document.fonts.ready);
+      await assertSecondaryNavigation(page);
       await page.waitForFunction(() => {
         const video = document.getElementById('reception-video');
         return !video.hidden && !video.paused && video.currentTime > 0;

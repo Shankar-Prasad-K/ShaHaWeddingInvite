@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>Wedding Ceremony — Shankar & Haripriya</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;500;600&family=Noto+Serif+Tamil:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;500;600&family=Noto+Serif+Tamil:wght@400;500;600&family=Manrope:wght@400;500&display=swap" rel="stylesheet"/>
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
 html,body{width:100%;overflow-x:hidden;font-family:'Cormorant Garamond',Georgia,serif;color:#FFF8E7;-webkit-font-smoothing:antialiased;}
@@ -294,6 +294,7 @@ a:focus-visible, [tabindex]:focus-visible, button:focus-visible{
 }
 </style>
 <link rel="stylesheet" href="styles/wedding-refinements.css"/>
+<link rel="stylesheet" href="styles/invitation-shared.css"/>
 </head>
 <body>
 
@@ -301,8 +302,11 @@ a:focus-visible, [tabindex]:focus-visible, button:focus-visible{
   <video id="wedding-background-video" data-src="assets/wedding-temple-bells.mp4" poster="assets/wedding-temple-bells-poster.jpg" muted loop playsinline preload="none" disablepictureinpicture tabindex="-1" hidden></video>
 </div>
 <div id="damask-layer"></div>
-<a class="back-link" href="index.html">← Home</a>
-<button id="wedding-video-toggle" type="button" aria-controls="wedding-background-video" aria-pressed="false" hidden>Pause background</button>
+<header class="invitation-header">
+  <a class="back-link invitation-back" href="index.html"><span aria-hidden="true">←</span> The beginning</a>
+  <a class="invitation-brand" href="index.html" aria-label="Shankar and Haripriya, home">S<span>&amp;</span>H</a>
+  <span class="invitation-header-note">The sacred beginning</span>
+</header>
 <canvas id="dust-canvas"></canvas>
 
 <svg class="grand-corner tl" id="gc-tl" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"></svg>
@@ -312,7 +316,7 @@ a:focus-visible, [tabindex]:focus-visible, button:focus-visible{
 
 <div id="scene-scroll">
   <div class="scroll-glow"></div>
-  <p id="enter-prompt-w">Gently pull the golden tie downwards · or tap to open</p>
+  <p id="enter-prompt-w">Gently pull the bronze tie downwards · or tap to open</p>
 
   <div class="scroll-wrap">
     <div class="rod rod-top"><div class="finial-slot l" id="fin-tl"></div><div class="finial-slot r" id="fin-tr"></div></div>
@@ -374,7 +378,7 @@ a:focus-visible, [tabindex]:focus-visible, button:focus-visible{
             </div>
 
             <div class="scroll-content">
-              <div class="s-om" lang="ta" aria-label="ஓம்">ௐ</div>
+              <div class="s-om" lang="ta" aria-label="ஓம்"><span class="om-glyph" aria-hidden="true">ௐ</span></div>
               <h1 class="s-sub s-tamil" id="wedding-heading" lang="ta" tabindex="-1">திருமண விழா அழைப்பிதழ்</h1>
               <div class="s-div"></div>
 
@@ -406,7 +410,7 @@ a:focus-visible, [tabindex]:focus-visible, button:focus-visible{
         </div>
       </div>
       <div class="scroll-roll" id="scroll-roll"></div>
-      <button type="button" class="tie-cord" id="tie-cord" aria-controls="scroll-body" aria-expanded="false" aria-label="Pull the golden tie downwards, or activate to open the wedding invitation"></button>
+      <button type="button" class="tie-cord" id="tie-cord" aria-controls="scroll-body" aria-expanded="false" aria-label="Pull the bronze tie downwards, or activate to open the wedding invitation"></button>
     </div>
 
     <div class="rod rod-bottom" id="rod-bottom">
@@ -414,15 +418,11 @@ a:focus-visible, [tabindex]:focus-visible, button:focus-visible{
     </div>
   </div>
 
-  <div class="nav-links">
-    <button class="nav-btn js-action" onclick="addWeddingToCalendar()">Add to Calendar</button>
-    <a class="nav-btn" id="rsvp-btn-w" href="https://wa.me/919840454710" target="_blank" rel="noopener">RSVP on WhatsApp</a>
-    <button class="nav-btn js-action" onclick="shareInvite()">Share Invite</button>
-  </div>
-  <div class="nav-links">
-    <a class="nav-btn" href="index.html">← Home</a>
-    <a class="nav-btn" href="reception.html">Reception Invitation →</a>
-  </div>
+  <nav class="invitation-navigation" aria-label="Invitation pages">
+    <a href="index.html#guest-actions">The beginning &amp; guest details</a>
+    <span aria-hidden="true">✧</span><a href="reception.html">The reception ↗</a>
+  </nav>
+  <button class="ambient-control" id="wedding-video-toggle" type="button" aria-controls="wedding-background-video" aria-pressed="false" hidden>Pause background</button>
 </div>
 
 <script src="js/config.js"></script>
@@ -430,7 +430,6 @@ a:focus-visible, [tabindex]:focus-visible, button:focus-visible{
 <script src="js/wedding-scroll.js"></script>
 <script>
 hydrateConfig();
-document.getElementById('rsvp-btn-w').href = rsvpLink();
 
 /* Still turned finials and silk tassels frame the brief opening ceremony. */
 function buildFinial(container, idx){

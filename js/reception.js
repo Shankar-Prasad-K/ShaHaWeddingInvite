@@ -147,15 +147,9 @@ function createFireflies({ canvas, button, doc, win, media, random = Math.random
   };
 }
 
-function initReception({ doc, win, config, hydrate, calendar, share, rsvp }) {
+function initReception({ doc, win, config, hydrate }) {
   hydrate(doc);
   doc.title = `Reception — ${config.couple.groom.name} & ${config.couple.bride.name}`;
-  doc.getElementById('rsvp-btn-r').href = rsvp();
-  for (const [id, action] of [['calendar-reception', calendar], ['share-reception', share]]) {
-    const button = doc.getElementById(id);
-    button.addEventListener('click', action);
-    button.hidden = false;
-  }
 
   const media = win.matchMedia('(prefers-reduced-motion: reduce)');
   createReveal({
@@ -180,6 +174,5 @@ if (typeof module !== 'undefined' && module.exports) {
 } else {
   initReception({
     doc: document, win: window, config: WEDDING_CONFIG, hydrate: hydrateConfig,
-    calendar: addReceptionToCalendar, share: shareInvite, rsvp: rsvpLink,
   });
 }

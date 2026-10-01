@@ -100,20 +100,26 @@ function createMotion({ doc, win, media = win.matchMedia('(prefers-reduced-motio
   return () => { setState(true, true); unlisten(); };
 }
 
-function initLanding({ doc, win, config, hydrate, share, now = Date.now }) {
+function initLanding({ doc, win, config, hydrate, share, rsvp, weddingCalendar, receptionCalendar, now = Date.now }) {
   hydrate(doc);
   doc.title = config.site.title;
-  const shareButton = doc.getElementById('share-landing');
-  shareButton.addEventListener('click', share);
-  shareButton.hidden = false;
+  doc.getElementById('rsvp-landing').href = rsvp();
+  const actions = [['share-landing', share], ['calendar-wedding', weddingCalendar], ['calendar-reception', receptionCalendar]];
+  const actionListeners = actions.map(([id, action]) => {
+    const button = doc.getElementById(id);
+    button.hidden = false;
+    return [button, 'click', action];
+  });
+  const cleanupActions = listen(actionListeners);
   const countdown = createCountdown({ doc, win, target: config.wedding.icsStartUTC, now });
   const video = landingVideoFactory(doc.getElementById('background-video'));
   const motion = createMotion({ doc, win, onChange: video.update });
-  return () => { countdown(); motion(); video.destroy(); shareButton.removeEventListener('click', share); };
+  return () => { countdown(); motion(); video.destroy(); cleanupActions(); };
 }
 
 if (typeof module !== 'undefined' && module.exports) {
   module.exports = { parseUTC, countdownParts, createCountdown, createBackgroundVideo: landingVideoFactory, createMotion, initLanding };
 } else {
-  initLanding({ doc: document, win: window, config: WEDDING_CONFIG, hydrate: hydrateConfig, share: shareInvite });
+  initLanding({ doc: document, win: window, config: WEDDING_CONFIG, hydrate: hydrateConfig,
+    share: shareInvite, rsvp: rsvpLink, weddingCalendar: addWeddingToCalendar, receptionCalendar: addReceptionToCalendar });
 }

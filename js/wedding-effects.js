@@ -15,14 +15,14 @@ function initWeddingEffects(document, window, WeddingScroll) {
   function thread(d, className) {
     return `<g class="${className}" fill="none" stroke-linecap="round">
       <path d="${d}" stroke="#3a210d" stroke-width="6"/>
-      <path d="${d}" stroke="url(#braid-gold)" stroke-width="4"/>
-      <path d="${d}" stroke="#fff0b3" stroke-width="1" stroke-dasharray="1 3" opacity=".75"/>
+      <path d="${d}" stroke="url(#braid-bronze)" stroke-width="4"/>
+      <path d="${d}" stroke="var(--cord-highlight)" stroke-width="1" stroke-dasharray="1 3" opacity=".65"/>
     </g>`;
   }
   function charm(x, y, letter) {
     return `<g class="cord-charm"><g transform="translate(${x} ${y})">
       <defs><clipPath id="charm-face-${letter}"><path d="M0 -16 Q18 -13 14 3 Q11 16 0 20 Q-11 16 -14 3 Q-18 -13 0 -16Z"/></clipPath></defs>
-      <circle cy="-19" r="3" fill="none" stroke="#e2bf6a" stroke-width="2"/>
+      <circle cy="-19" r="3" fill="none" stroke="#be8b60" stroke-width="2"/>
       <path d="M0 -16 Q18 -13 14 3 Q11 16 0 20 Q-11 16 -14 3 Q-18 -13 0 -16Z" fill="url(#charm-foil)" stroke="#8d651e"/>
       <path d="M0 -12 Q13 -9 10 3 Q8 12 0 15 Q-8 12 -10 3 Q-13 -9 0 -12Z" fill="#501323" stroke="#fff0b3" stroke-width=".7"/>
       <path d="M-8 -9L-5 -11M5 -11L8 -9M-8 9L-5 12M5 12L8 9" stroke="#f4d384" stroke-width=".7"/>
@@ -32,9 +32,9 @@ function initWeddingEffects(document, window, WeddingScroll) {
   }
   cord.innerHTML = `<svg viewBox="0 0 240 232" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
     <defs>
-      <linearGradient id="braid-gold" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#987028"/><stop offset=".32" stop-color="#ffeeb7"/><stop offset=".55" stop-color="#cca34c"/><stop offset=".8" stop-color="#f8df95"/><stop offset="1" stop-color="#936322"/></linearGradient>
-      <radialGradient id="charm-foil" cx=".3" cy=".2"><stop stop-color="#fff0b8"/><stop offset=".6" stop-color="#d2aa51"/><stop offset="1" stop-color="#997029"/></radialGradient>
-      <linearGradient id="initial-foil" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#fff6cc"/><stop offset=".45" stop-color="#f9dc8d"/><stop offset=".6" stop-color="#b78835"/><stop offset="1" stop-color="#ffe9ab"/></linearGradient>
+      <linearGradient id="braid-bronze" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#8e5635"/><stop offset=".32" stop-color="#eed2b6"/><stop offset=".55" stop-color="#be8b60"/><stop offset=".8" stop-color="#e6bc91"/><stop offset="1" stop-color="#603b29"/></linearGradient>
+      <radialGradient id="charm-foil" cx=".3" cy=".2"><stop stop-color="#eed2b6"/><stop offset=".6" stop-color="#be8b60"/><stop offset="1" stop-color="#8e5635"/></radialGradient>
+      <linearGradient id="initial-foil" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#fff1df"/><stop offset=".45" stop-color="#eed2b6"/><stop offset=".6" stop-color="#be8b60"/><stop offset="1" stop-color="#f5ddc4"/></linearGradient>
       <linearGradient id="charm-light"><stop stop-color="#fff9dc" stop-opacity="0"/><stop offset=".5" stop-color="#fff9dc" stop-opacity=".95"/><stop offset="1" stop-color="#fff9dc" stop-opacity="0"/></linearGradient>
     </defs>
     ${thread('M114 0 C105 20 111 67 119 90 M125 0 C133 27 126 70 121 91', 'cord-wrap')}
@@ -44,8 +44,8 @@ function initWeddingEffects(document, window, WeddingScroll) {
       ${thread('M119 94 C101 117 104 142 96 162 M123 94 C144 115 134 151 148 174', 'cord-strand')}
       ${charm(96, 182, 'H')}${charm(148, 194, 'S')}
     </g>
-    <ellipse cx="121" cy="92" rx="10" ry="6" fill="url(#braid-gold)" stroke="#8e6123"/>
-    <path d="M116 88 L125 96 M120 87 L129 94" stroke="#fff0b3" stroke-width="1" opacity=".7"/>
+    <ellipse cx="121" cy="92" rx="10" ry="6" fill="url(#braid-bronze)" stroke="#603b29"/>
+    <path d="M116 88 L125 96 M120 87 L129 94" stroke="#eed2b6" stroke-width="1" opacity=".7"/>
   </svg>`;
 
   let cleanupTimer;

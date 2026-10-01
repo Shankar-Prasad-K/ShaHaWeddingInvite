@@ -12,7 +12,7 @@
 
 *, *::before, *::after { box-sizing: border-box; }
 html { scroll-behavior: smooth; scroll-padding-top: 24px; }
-body { margin: 0; background: var(--night); color: var(--ink); font-family: var(--serif); -webkit-font-smoothing: antialiased; }
+body { margin: 0; background: var(--night); color: var(--ink); font-family: var(--serif); -webkit-font-smoothing: antialiased; --invite-surface:#080f1ce8; --invite-text:#d5d6d4; --invite-accent:#d9bd85; }
 button, a { -webkit-tap-highlight-color: transparent; }
 button { font: inherit; }
 a { color: inherit; text-decoration: none; }
