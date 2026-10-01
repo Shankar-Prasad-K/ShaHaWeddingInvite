@@ -1,0 +1,20 @@
+name: Validate invitation
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  unit-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Test with coverage gate
+        run: node --test --experimental-test-coverage --test-coverage-include='js/*.js' --test-coverage-include='tools/*.cjs' --test-coverage-lines=80 tests/*.test.cjs

@@ -13,11 +13,11 @@ external actions (maps and sharing) may require internet access.
    The supplied portrait clip loops silently behind the invitation throughout
    scrolling. Proportions are preserved with a centered cover crop, never
    stretched. A matching still image remains available when video cannot play.
-2. **`wedding.html`** — An arakku-maroon silk scroll over a temple-bells and incense video, with zari borders,
+2. **[wedding.html](wedding.html)** — An arakku-maroon silk scroll over a temple-bells and incense video, with zari borders,
    a clear Tamil Om and Tamil invitation wording. Drag the braided bronze-champagne
    bow downwards (or tap / press Enter or Space): the knot tensions, the loops
    release, and the scroll unfurls before a single gold-petal cascade.
-3. **`reception.html`** — A floral garden video under midnight-blue shading,
+3. **[reception.html](reception.html)** — A floral garden video under midnight-blue shading,
    with original botanical SVG artwork, champagne-gold accents and drifting fireflies. Open the sealed
    envelope to reveal an ivory invitation letter. Date, time, venue and
    directions are also available below the letter, without a reveal.
@@ -37,6 +37,31 @@ theme-specific. Sharing and calendar controls are revealed only after initializa
 removed when the landing controller is cleaned up. Event facts and media are unchanged.
 No build step, backend, environment variables or new runtime dependencies are required.
 
+### Final reliability pass
+
+Each page includes static canonical and Open Graph metadata for social previews,
+using its matching video poster. If the public URL changes, update these HTML
+head tags alongside `site.url` in [js/config.js](js/config.js); crawlers generally
+do not execute the page's JavaScript. Previews can only be verified after hosting.
+
+Sharing prefers the native share sheet, then clipboard access. If both are blocked,
+a labelled, selected link field remains available for manual copying. Cancellation
+does not produce an error. Feedback is announced politely and respects reduced motion.
+The removed WhatsApp contact and message are no longer shipped in configuration.
+
+Calendar exports use stable, distinct event identifiers (to support re-import matching
+in compatible calendar apps), the actual UTC export timestamp, escaped text and
+75-octet UTF-8-safe line folding. Event start/end times are unchanged. Import behavior
+can vary by calendar app. Tests cover punctuation, newlines and Tamil/emoji text.
+
+See [RELEASE-CHECKLIST.md](RELEASE-CHECKLIST.md) for local verification and the owner
+approvals still required before publication. No deployment has been performed.
+
+CI in [.github/workflows/validate.yml](.github/workflows/validate.yml) runs hermetic
+Node 22 tests on pushes and pull requests with an 80% measured line-coverage gate.
+It installs no project packages and does not deploy or upload artifacts. Browser
+tests remain separate local integration checks with an existing Playwright install.
+
 ## File structure
 
 ```
@@ -46,7 +71,7 @@ eInvWedding/
 ├── reception.html       Modern entrance + reception invitation
 ├── js/
 │   ├── config.js         ← All editable text/dates/venues live here
-│   └── features.js       Shared helpers: calendar export, share, RSVP, a11y
+│   └── features.js       Shared calendar, sharing and content helpers
 ├── assets/
 │   ├── temple-tower.jpg   Real photo of the Meenakshi Temple gopuram
 │   └── temple-sunset.jpg  Real photo of the temple complex at dusk
@@ -206,10 +231,9 @@ Reception-specific files:
 
 ## Editing the content
 
-Everything that changes per-wedding lives in **[`js/config.js`](js/config.js)**:
-names, dates, times, venue names/addresses, Google Maps links, the RSVP
-WhatsApp number, and the printed schedule. Edit that one file and the
-Add-to-Calendar, RSVP, and map-link buttons all pick up the change
+Shared event configuration lives in **[js/config.js](js/config.js)**:
+names, dates, times, venue names/addresses, Google Maps links and the legacy
+schedule. Edit that file and the calendar and map-link buttons pick up the change
 automatically. The reception's displayed names, date, time, venue and closing
 line also use `data-cfg` bindings, so those update from config. The landing's
 date, both event times and venue names also use these bindings, and its countdown uses
@@ -263,30 +287,17 @@ this is decorative retouching, not a reconstructed or forensic fingerprint.
 Original source files remain untouched. Both halves use subdued ink colors
 so the heart is a personal detail rather than the invitation's main palette.
 
-Any static file server works. For example:
-
-```bash
-python3 -m http.server 9010
-```
-
-Then open `http://localhost:9010/index.html`.
+For local review, open [index.html](index.html) directly in a browser. The browser
+suites use local file URLs and do not expose a server. If using a development server,
+serve a separate, reviewed public-only directory rather than this workspace root.
 
 ## Deploying to GitHub Pages
 
 1. Create a new repository on GitHub (e.g. `ShaHaWeddingInvite`) — it can be
    private or public; GitHub Pages works either way on a paid plan, and
    public repos get Pages free.
-2. From this folder, push it up:
-
-   ```bash
-   cd /Users/sprasadk/Documents/Innovation/Ideas/eInvWedding
-   git init
-   git add .
-   git commit -m "Wedding invitation site"
-   git branch -M main
-   git remote add origin https://github.com/<your-username>/ShaHaWeddingInvite.git
-   git push -u origin main
-   ```
+2. After completing [RELEASE-CHECKLIST.md](RELEASE-CHECKLIST.md), review and commit
+   only intended public files. Do not blanket-upload the workspace or private originals.
 
 3. On GitHub: go to the repo's **Settings → Pages**.
 4. Under **Build and deployment**, set **Source** to "Deploy from a branch",
@@ -294,18 +305,11 @@ Then open `http://localhost:9010/index.html`.
 5. GitHub gives you a URL like
    `https://<your-username>.github.io/ShaHaWeddingInvite/` within a minute
    or two.
-6. Update `site.url` in `js/config.js` to that exact URL — the Share button
-   uses it — then commit and push again.
+6. Update `site.url` in [js/config.js](js/config.js) and the canonical/Open Graph
+   URLs in all three HTML heads to the confirmed address.
 
-To update the live site later, just edit files and:
-
-```bash
-git add .
-git commit -m "Update wedding details"
-git push
-```
-
-GitHub Pages redeploys automatically within a minute.
+For future updates, rerun tests and review the selected changes before committing
+and pushing. GitHub Pages redeployment timing varies.
 
 ## Accessibility & performance notes
 
@@ -317,17 +321,15 @@ GitHub Pages redeploys automatically within a minute.
    status region. The countdown does **not** announce every second; it announces
    completion once, without claiming the ceremony has actually concluded.
 - One **Pause motion** button controls the landing's background video,
-   lamps, flames, 12 lights and exactly two distant birds. Each bird has two
+   12 lights and exactly two distant birds. Each bird has two
    articulated wings with synchronized flap cycles and slightly different
    silhouettes. Birds are 22px and 18px wide with muted opacity for distance.
-   Each slender lamp has one small curved SVG flame anchored to its wick.
-   Lamps and flames remain mostly still, moving briefly in a light breeze
-   instead of continuously wobbling. Decorative effects use CSS timelines
+   The floral crest and divider remain static. Decorative effects use CSS timelines
    rather than a per-frame Canvas loop. Reduced motion is honored on load and
    when changed; hidden tabs and page suspension pause motion and countdown
    work. The top countdown continues ticking when **Pause motion** is pressed;
    it catches up from real time on return to the page. Without JavaScript,
-   the scenery and lamps remain still. No audio plays automatically.
+   the scenery remains still. No audio plays automatically.
 - The current blossom-window video is decorative imagery, not the ceremony venue.
    [assets/landing-blossom-window.mp4](assets/landing-blossom-window.mp4) is a local
    H.264 copy of the supplied Klickpin download (pin 11188699075240312): approximately
