@@ -17,7 +17,7 @@ function node() {
 }
 
 function fixture({ reduced = false, target = '20261120T003000Z' } = {}) {
-  const nodes = Object.fromEntries(['countdown', 'countdown-values', 'countdown-caption', 'landing-status', 'cd-days', 'cd-hours', 'cd-mins', 'cd-secs', 'motion-toggle', 'share-landing', 'rsvp-landing', 'calendar-wedding', 'calendar-reception'].map(id => [id, node()]));
+  const nodes = Object.fromEntries(['countdown', 'countdown-values', 'countdown-caption', 'landing-status', 'cd-days', 'cd-hours', 'cd-mins', 'cd-secs', 'motion-toggle', 'share-landing', 'calendar-wedding', 'calendar-reception'].map(id => [id, node()]));
   const styles = new Map();
   const doc = { ...node(), hidden: false, getElementById: id => nodes[id], documentElement: { style: { setProperty: (key, value) => styles.set(key, value) } } };
   const media = { ...node(), matches: reduced };
@@ -142,13 +142,12 @@ test('motion respects initial and live reduced-motion preferences', () => {
 test('initialization hydrates configured content, wires sharing, and cleans up', () => {
   const f = fixture();
   const calls = [];
-  const cleanup = initLanding({ ...f, config: { site: { title: 'Test wedding' }, wedding: { icsStartUTC: f.target } }, hydrate: doc => calls.push(doc), share: () => calls.push('share'), rsvp: () => 'https://wa.me/test', weddingCalendar: () => calls.push('wedding'), receptionCalendar: () => calls.push('reception') });
+  const cleanup = initLanding({ ...f, config: { site: { title: 'Test wedding' }, wedding: { icsStartUTC: f.target } }, hydrate: doc => calls.push(doc), share: () => calls.push('share'), weddingCalendar: () => calls.push('wedding'), receptionCalendar: () => calls.push('reception') });
   assert.equal(f.doc.title, 'Test wedding');
   assert.equal(calls[0], f.doc);
   assert.equal(f.nodes['share-landing'].hidden, false);
   f.nodes['share-landing'].dispatch('click');
   assert.equal(calls[1], 'share');
-  assert.equal(f.nodes['rsvp-landing'].href, 'https://wa.me/test');
   for (const event of ['wedding', 'reception']) {
     assert.equal(f.nodes[`calendar-${event}`].hidden, false);
     f.nodes[`calendar-${event}`].dispatch('click');

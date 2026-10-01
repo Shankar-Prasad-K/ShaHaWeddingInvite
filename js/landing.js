@@ -100,10 +100,9 @@ function createMotion({ doc, win, media = win.matchMedia('(prefers-reduced-motio
   return () => { setState(true, true); unlisten(); };
 }
 
-function initLanding({ doc, win, config, hydrate, share, rsvp, weddingCalendar, receptionCalendar, now = Date.now }) {
+function initLanding({ doc, win, config, hydrate, share, weddingCalendar, receptionCalendar, now = Date.now }) {
   hydrate(doc);
   doc.title = config.site.title;
-  doc.getElementById('rsvp-landing').href = rsvp();
   const actions = [['share-landing', share], ['calendar-wedding', weddingCalendar], ['calendar-reception', receptionCalendar]];
   const actionListeners = actions.map(([id, action]) => {
     const button = doc.getElementById(id);
@@ -121,5 +120,5 @@ if (typeof module !== 'undefined' && module.exports) {
   module.exports = { parseUTC, countdownParts, createCountdown, createBackgroundVideo: landingVideoFactory, createMotion, initLanding };
 } else {
   initLanding({ doc: document, win: window, config: WEDDING_CONFIG, hydrate: hydrateConfig,
-    share: shareInvite, rsvp: rsvpLink, weddingCalendar: addWeddingToCalendar, receptionCalendar: addReceptionToCalendar });
+    share: shareInvite, weddingCalendar: addWeddingToCalendar, receptionCalendar: addReceptionToCalendar });
 }

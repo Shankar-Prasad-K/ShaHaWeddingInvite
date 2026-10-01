@@ -65,7 +65,7 @@ async function changingTransform(page, selector) {
       assert.equal(await page.locator('.temple-lamp, .lamp-flame, .blessing-mark, [aria-label="Om"]').count(), 0);
       assert.equal(await page.locator('.blossom-crest').count(), 1);
       assert.equal(await page.locator('.blossom-crest').evaluate(el => getComputedStyle(el).animationName), 'none');
-      assert.equal(await page.locator('.guest-actions :is(a,button):visible').count(), 4);
+      assert.equal(await page.locator('.guest-actions :is(a,button):visible').count(), 3);
       assert.ok(await page.locator('.sky-bird').evaluateAll(birds => birds.every(bird => bird.getBoundingClientRect().width <= 23)), 'birds read as distant');
       const wingTiming = await page.locator('.bird-wing-left').evaluateAll(wings => wings.map(wing => [getComputedStyle(wing).animationDuration, getComputedStyle(wing).animationDelay]));
       assert.deepEqual(wingTiming[0], wingTiming[1], 'birds flap together');
@@ -104,8 +104,7 @@ async function changingTransform(page, selector) {
     await nojs.goto(url);
     assert.equal(await nojs.locator('#countdown').isVisible(), false);
     assert.equal(await nojs.locator('.reception-portal').isVisible(), true);
-    assert.equal(await nojs.locator('#rsvp-landing').isVisible(), true);
-    assert.equal(await nojs.locator('#rsvp-landing').getAttribute('href'), 'https://wa.me/919840454710');
+    assert.equal(await nojs.locator('#rsvp-landing, a[href*="wa.me"]').count(), 0);
     assert.equal(await nojs.locator('.guest-actions button:visible').count(), 0);
     assert.equal(await nojs.locator('#background-video').getAttribute('src'), null, 'no-JS does not download video');
     await nojs.close();

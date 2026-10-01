@@ -2,7 +2,7 @@
 
 An interactive, three-part wedding invitation website. Pure HTML/CSS/JS —
 no build step and no backend. Local artwork is bundled; Google Fonts and
-external actions (maps, WhatsApp, sharing) may require internet access.
+external actions (maps and sharing) may require internet access.
 
 ## The experience
 
@@ -22,9 +22,10 @@ external actions (maps, WhatsApp, sharing) may require internet access.
    envelope to reveal an ivory invitation letter. Date, time, venue and
    directions are also available below the letter, without a reveal.
 
-RSVP, sharing and separate wedding/reception calendar downloads are available
-only on the landing page. Both event pages link back to these guest details,
-use matching “← The beginning” navigation and retain their own maps, reveals
+Sharing and separate wedding/reception calendar downloads are available
+only on the landing page. WhatsApp RSVP and the redundant “The beginning &
+guest details” footer links have been removed. Both event pages
+use matching “← The beginning” header navigation and retain their own maps, reveals
 and accessible motion controls. Wedding keeps its bronze/maroon temple identity;
 reception keeps its midnight floral stationery. The botanical crest and fine
 engraving connect the landing to the reception without adding more animation.
@@ -32,8 +33,7 @@ engraving connect the landing to the reception without adding more animation.
 [styles/invitation-shared.css](styles/invitation-shared.css) provides shared
 navigation, action and motion-control proportions, Manrope UI typography,
 keyboard focus, narrow-screen, forced-colors and print treatment. Colors remain
-theme-specific. The static RSVP link works without JavaScript; sharing and
-calendar controls are revealed only after initialization. Action listeners are
+theme-specific. Sharing and calendar controls are revealed only after initialization. Action listeners are
 removed when the landing controller is cleaned up. Event facts and media are unchanged.
 No build step, backend, environment variables or new runtime dependencies are required.
 
@@ -167,8 +167,22 @@ motion preferences, no-JavaScript fallback and existing reveal behavior.
 [tests/invitation-browser-helpers.cjs](tests/invitation-browser-helpers.cjs) adds
 shared assertions for matching back navigation and absence of duplicate guest
 actions. Landing checks actual ICS downloads for both configured UTC times,
-WhatsApp link construction and a mocked native-share call (nothing is sent).
+a mocked native-share call (nothing is sent), and absence of WhatsApp links.
 Browser checks open local files, not a server exposing private source images.
+
+### Mobile reception entrance
+
+On screens up to 760px wide, the closed reception entrance scales its branches,
+flowers, envelope and spacing into the small viewport height instead of pushing
+oversized artwork beyond the edges. A gentle two-degree botanical sway keeps
+the full arrangements in view. Opening the letter restores normal document flow;
+the full stationery is never squeezed into a screen or clipped. No-JavaScript
+and print views retain the readable letter. Background video still uses a
+proportional cover crop; these changes address the decorative SVG branches/flowers.
+
+[tests/reception-mobile.browser.cjs](tests/reception-mobile.browser.cjs) checks
+the closed entrance at 320×568, 360×640, 390×844, 430×932 and 600×960, including
+artwork bounds at multiple sway positions, opening, replay and reduced motion.
 
 Reception-specific files:
 - `styles/reception.css` — responsive layout, stationery and print styles.

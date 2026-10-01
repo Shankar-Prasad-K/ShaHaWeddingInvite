@@ -40,9 +40,7 @@
   font:10px/1.7 var(--invite-ui); letter-spacing:.04em; text-decoration:none; cursor:pointer;
   transition:background .2s,border-color .2s;
 }
-.guest-actions #rsvp-landing { background:#e7ceaa; color:#2e2027; border-color:#e7ceaa; }
 .guest-actions :is(a,button):hover { background:#3b2932; border-color:var(--invite-accent); }
-.guest-actions #rsvp-landing:hover { background:#f5dfc0; }
 .ambient-control, #wedding-video-toggle.ambient-control {
   position:static; display:block; margin:18px auto 0; min-height:44px; padding:8px 16px;
   border:1px solid var(--invite-line); border-radius:24px;
@@ -72,7 +70,7 @@
   .invitation-back, .guest-actions a, .guest-actions button { transition:none; }
 }
 @media (forced-colors:active) {
-  .guest-actions :is(a,button), .guest-actions #rsvp-landing, .ambient-control { background:Canvas; color:ButtonText; border-color:ButtonText; }
+  .guest-actions :is(a,button), .ambient-control { background:Canvas; color:ButtonText; border-color:ButtonText; }
   .back-link.invitation-back, .invitation-brand, .invitation-navigation a { color:LinkText; text-shadow:none; }
   :is(.invitation-back,.invitation-brand,.invitation-navigation a,.guest-actions a,.guest-actions button,.ambient-control):focus-visible { outline-color:Highlight; }
 }

@@ -7,20 +7,16 @@ async function assertSecondaryNavigation(page) {
   assert.ok((await back.boundingBox()).height >= 44, 'back link has a touch-sized target');
   assert.equal(await back.evaluate(el => getComputedStyle(el).position), 'static');
   assert.equal(await page.locator('[id^="rsvp-"], [id^="calendar-"], [id^="share-"], a[href*="wa.me"], [onclick*="Calendar"], [onclick*="shareInvite"]').count(), 0, 'guest actions appear only on landing');
-  assert.equal(await page.locator('.invitation-navigation a[href="index.html#guest-actions"]').count(), 1);
+  assert.equal(await page.locator('.invitation-navigation a[href="index.html#guest-actions"]').count(), 0);
   await back.focus();
   assert.equal(await back.evaluate(el => el.matches(':focus-visible')), true);
 }
 
 async function assertLandingActions(page) {
-  const rsvp = page.locator('#rsvp-landing');
-  const href = new URL(await rsvp.getAttribute('href'));
-  assert.equal(href.origin, 'https://wa.me');
-  assert.equal(href.pathname, '/919840454710');
-  assert.ok(href.searchParams.get('text'));
-  assert.equal(await rsvp.getAttribute('rel'), 'noopener noreferrer');
-  await rsvp.focus();
-  assert.equal(await rsvp.evaluate(el => el.matches(':focus-visible')), true);
+  assert.equal(await page.locator('[id^="rsvp-"], a[href*="wa.me"]').count(), 0);
+  const share = page.locator('#share-landing');
+  await share.focus();
+  assert.equal(await share.evaluate(el => el.matches(':focus-visible')), true);
   for (const [event, start, end] of [
     ['wedding', '20261120T003000Z', '20261120T020000Z'],
     ['reception', '20261120T130000Z', '20261120T153000Z'],

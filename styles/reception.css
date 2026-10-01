@@ -344,6 +344,42 @@ h1 em { display: block; margin-top: 1px; font-family: 'Great Vibes', cursive; fo
   .site-footer { padding-top: 32px; }
   .site-footer > p { font-size: 15px; }
 }
+/* Scale the artwork itself into the phone, rather than cropping oversized stems.
+   Only the closed, enhanced scene is viewport-sized; the letter flows naturally. */
+@media (max-width:760px) {
+  .site-header { padding:10px 24px; min-height:64px; }
+  .site-header .brand { line-height:1; }
+  .canopy-bough { top:8px; width:min(34vw,150px); opacity:.4; }
+  .canopy-left { left:8px; }
+  .canopy-right { right:8px; }
+  .botanical { width:min(32%,145px); bottom:68px; animation-name:botanical-mobile-breeze; }
+  .botanical-left, .is-open .botanical-left { left:10px; transform:scaleX(1); }
+  .botanical-right, .is-open .botanical-right { right:10px; transform:scaleX(-1); }
+  .garden:has(.is-enhanced:not(.is-open)) {
+    display:flex; flex-direction:column; min-height:calc(100svh - 64px);
+    padding:8px 16px 12px;
+  }
+  .garden:has(.is-enhanced:not(.is-open)) .celestial-emblem { height:24px; margin-bottom:8px; }
+  .garden:has(.is-enhanced:not(.is-open)) .eyebrow { margin:0; font-size:8px; }
+  .garden:has(.is-enhanced:not(.is-open)) h1 { margin:10px 0 0; font-size:clamp(28px,7.8vw,40px); }
+  .garden:has(.is-enhanced:not(.is-open)) h1 em { font-size:1.6em; margin-top:0; }
+  .garden:has(.is-enhanced:not(.is-open)) .intro { font-size:10px; max-width:260px; margin:8px auto 0; }
+  .letter-stage.is-enhanced:not(.is-open) { flex:1; min-height:clamp(238px,40svh,360px); margin:12px auto 0; padding:22px 0 62px; }
+  .letter-stage.is-enhanced:not(.is-open) .moon-arch { width:92%; height:calc(100% - 12px); top:0; }
+  .letter-stage.is-enhanced:not(.is-open) :is(.envelope,.open-invitation) { width:min(320px,78%); height:clamp(148px,24svh,210px); margin-bottom:20px; }
+  .letter-stage.is-enhanced:not(.is-open) .open-caption { top:calc(100% + 18px); gap:5px; }
+  .letter-stage.is-enhanced:not(.is-open) .open-caption > span { font-size:14px; }
+  .letter-stage.is-enhanced:not(.is-open) .open-caption strong { font-size:8px; }
+  .letter-stage.is-enhanced:not(.is-open) .garden-lantern { top:12px; transform:scale(.7); }
+  .letter-stage.is-enhanced:not(.is-open) .lantern-left { left:4%; }
+  .letter-stage.is-enhanced:not(.is-open) .lantern-right { right:4%; }
+  .garden:has(.is-enhanced:not(.is-open)) .scroll-cue { flex:none; flex-direction:row; justify-content:center; min-height:44px; margin:0; padding:8px; }
+}
+@keyframes botanical-mobile-breeze {
+  0%,100% { transform:scaleX(var(--mirror)) rotate(0); }
+  40% { transform:scaleX(var(--mirror)) rotate(2deg); }
+  72% { transform:scaleX(var(--mirror)) rotate(-1deg); }
+}
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation: none !important; transition: none !important; }
@@ -360,7 +396,7 @@ h1 em { display: block; margin-top: 1px; font-family: 'Great Vibes', cursive; fo
 @media print {
   body { background: white; }
   .site-header, .night-sky, #fireflies, .garden-heading, .garden-canopy, .garden-lantern, .moon-arch, .botanical, .garden-star, .envelope, .open-invitation, .scroll-cue, .celebration, .site-footer, .close-letter, .garden::before { display: none !important; }
-  .garden, .letter-stage { padding: 0; margin: 0 auto; min-height: 0; overflow: visible; }
+  .garden, .letter-stage, .garden:has(.is-enhanced:not(.is-open)), .letter-stage.is-enhanced:not(.is-open) { display:block; padding: 0; margin: 0 auto; min-height: 0; overflow: visible; }
   #invitation { display: block !important; box-shadow: none; animation: none; }
   .letter-art { display: none; }
   .is-open .groom-name, .is-open .bride-name { background: none; color: var(--name-ink); }
