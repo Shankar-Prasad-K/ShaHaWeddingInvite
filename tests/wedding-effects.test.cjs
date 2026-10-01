@@ -49,7 +49,9 @@ const point = (y, pointerId = 1) => ({ clientY:y, pointerId, button:0 });
 
 test('adapter creates braided artwork, enhances closed panel and supports native tap', () => {
   const f = fixture();
-  assert.match(f.cord.innerHTML, /braid-gold/); assert.equal(f.panel.inert, true);
+  assert.match(f.cord.innerHTML, /braid-bronze/); assert.equal(f.panel.inert, true);
+  assert.match(f.cord.innerHTML, /var\(--cord-highlight\)/);
+  assert.ok(!f.cord.innerHTML.includes('#ffeeb7'), 'Old yellow-gold thread palette is removed');
   for (const letter of ['H', 'S']) {
     assert.match(f.cord.innerHTML, new RegExp(`id="charm-face-${letter}"`));
     assert.match(f.cord.innerHTML, new RegExp(`clip-path="url\\(#charm-face-${letter}\\)"`));

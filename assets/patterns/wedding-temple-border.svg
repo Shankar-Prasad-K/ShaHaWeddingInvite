@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="120" viewBox="0 0 24 120" fill="none">
+  <!-- Original woven temple-triangle and flowering-vine border. -->
+  <path d="M2 0V120M22 0V120" stroke="#b88657" stroke-opacity=".6"/>
+  <g stroke="#dbb184" stroke-width=".8" stroke-linejoin="round">
+    <path d="M5 0L12 12L19 0M5 120L12 108L19 120M7 0L12 8L17 0M7 120L12 112L17 120"/>
+    <path d="M12 18C2 34 22 46 12 60C2 74 22 88 12 102"/>
+    <path d="M11 38C3 37 4 29 5 27C11 29 13 33 11 38ZM13 50C21 48 20 41 19 39C13 41 11 45 13 50ZM11 80C3 78 4 71 5 69C11 71 13 75 11 80ZM13 92C21 90 20 83 19 81C13 83 11 87 13 92Z" fill="#bd8c60" fill-opacity=".2"/>
+    <path d="M12 54L16 60L12 66L8 60Z" fill="#bd8c60" fill-opacity=".3"/>
+    <circle cx="12" cy="18" r="1.5"/><circle cx="12" cy="102" r="1.5"/>
+  </g>
+</svg>

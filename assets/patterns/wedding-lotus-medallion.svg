@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="160" height="160" viewBox="0 0 160 160" fill="none">
+  <!-- Original twelve-petal engraved lotus ring surrounding a quiet centre. -->
+  <defs><path id="petal" d="M80 29C67 23 72 12 80 5C88 12 93 23 80 29Z"/></defs>
+  <g stroke="#c5986b" stroke-width=".9" fill="#bd8755" fill-opacity=".1">
+    <use href="#petal"/><use href="#petal" transform="rotate(30 80 80)"/>
+    <use href="#petal" transform="rotate(60 80 80)"/><use href="#petal" transform="rotate(90 80 80)"/>
+    <use href="#petal" transform="rotate(120 80 80)"/><use href="#petal" transform="rotate(150 80 80)"/>
+    <use href="#petal" transform="rotate(180 80 80)"/><use href="#petal" transform="rotate(210 80 80)"/>
+    <use href="#petal" transform="rotate(240 80 80)"/><use href="#petal" transform="rotate(270 80 80)"/>
+    <use href="#petal" transform="rotate(300 80 80)"/><use href="#petal" transform="rotate(330 80 80)"/>
+    <circle cx="80" cy="80" r="49"/><circle cx="80" cy="80" r="45" stroke-dasharray="1 4"/>
+    <circle cx="80" cy="80" r="77" stroke-opacity=".4"/>
+  </g>
+</svg>

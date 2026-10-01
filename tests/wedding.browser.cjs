@@ -19,7 +19,12 @@ const url = pathToFileURL(path.resolve(__dirname, '../wedding.html')).href;
       const cord = page.locator('#tie-cord');
       assert.equal(await page.locator('.royal-side-frame').count(), 0, 'Video architecture replaces separate pillar overlays');
       const video = page.locator('#wedding-background-video');
-      assert.equal(await video.getAttribute('data-src'), 'assets/landing-golden-arches.mp4');
+      assert.equal(await video.getAttribute('data-src'), 'assets/wedding-temple-bells.mp4');
+      assert.equal(await video.getAttribute('poster'), 'assets/wedding-temple-bells-poster.jpg');
+      await page.evaluate(async () => {
+        const poster = new Image(); poster.src = document.getElementById('wedding-background-video').poster;
+        await poster.decode();
+      });
       await page.waitForFunction(() => {
         const v = document.getElementById('wedding-background-video'); return !v.hidden && !v.paused && v.currentTime > 0;
       });
@@ -31,8 +36,19 @@ const url = pathToFileURL(path.resolve(__dirname, '../wedding.html')).href;
       assert.equal(await cord.evaluate(el => el.tagName), 'BUTTON');
       assert.equal(await page.locator('.finial-lotus').count(), 4, 'Four engraved lotus finial caps');
       assert.equal(await page.locator('.tassel-strand').count(), 52, 'Each finial has thirteen detailed tassel strands');
+      assert.equal(await page.locator('.finial-slot stop').nth(2).evaluate(el => getComputedStyle(el).stopColor), 'rgb(230, 188, 145)', 'Finial highlight is warm bronze, not yellow gold');
+      assert.match(await page.locator('.rod-top').evaluate(el => getComputedStyle(el).backgroundImage), /142, 86, 53/, 'Rod uses the bronze body tone');
+      assert.match(await page.locator('.scroll-silk').evaluate(el => getComputedStyle(el, '::after').backgroundImage), /wedding-temple-border/);
+      assert.match(await page.locator('.s-om').evaluate(el => getComputedStyle(el).backgroundImage), /wedding-lotus-medallion/);
+      assert.match(await page.locator('.s-div').first().evaluate(el => getComputedStyle(el).backgroundImage), /wedding-lotus-divider/);
+      await page.evaluate(async () => {
+        await Promise.all(['temple-border', 'lotus-medallion', 'lotus-divider'].map(async name => {
+          const image = new Image(); image.src = `assets/patterns/wedding-${name}.svg`; await image.decode();
+        }));
+      });
       assert.equal(await page.locator('.charm-initial').allTextContents().then(values => values.join('')), 'HS');
       assert.equal(await page.locator('.charm-shine').count(), 2);
+      assert.equal(await page.locator('#braid-bronze stop').nth(1).evaluate(el => getComputedStyle(el).stopColor), 'rgb(240, 215, 189)');
       assert.equal(await page.locator('.charm-shine').first().evaluate(el => getComputedStyle(el).animationIterationCount), '1', 'Finite initial shine, not endless flashing');
       assert.match(await page.locator('.scroll-brocade').evaluate(el => getComputedStyle(el).backgroundImage), /wedding-gold-buta\.svg/);
       for (const slot of await page.locator('.finial-slot').all()) {
@@ -90,6 +106,16 @@ const url = pathToFileURL(path.resolve(__dirname, '../wedding.html')).href;
       assert.equal(await cord.getAttribute('aria-expanded'), 'true');
       assert.equal(await page.locator('#scroll-body').evaluate(el => el.inert), false);
       assert.ok((await page.locator('.s-om').boundingBox()).y >= 0, 'Om remains visible after focus moves into the invitation');
+      const omOffset = await page.locator('.s-om-glyph').evaluate(el => {
+        const s = getComputedStyle(el), box = el.getBoundingClientRect(), ring = el.parentElement.getBoundingClientRect();
+        const ctx = document.createElement('canvas').getContext('2d');
+        ctx.font = `${s.fontSize} ${s.fontFamily}`;
+        const m = ctx.measureText(el.textContent);
+        const baseline = box.y + (box.height - m.fontBoundingBoxAscent - m.fontBoundingBoxDescent) / 2 + m.fontBoundingBoxAscent;
+        return { x:box.x + (m.actualBoundingBoxRight - m.actualBoundingBoxLeft) / 2 - (ring.x + ring.width / 2),
+          y:baseline + (m.actualBoundingBoxDescent - m.actualBoundingBoxAscent) / 2 - (ring.y + ring.height / 2) };
+      });
+      assert.ok(Math.abs(omOffset.x) < 1.5 && Math.abs(omOffset.y) < 1.5, `Om ink centered within lotus ring: ${JSON.stringify(omOffset)}`);
       assert.equal(await page.locator('.petal').count(), width < 600 ? 24 : 36);
       const content = await page.locator('.scroll-content').innerText();
       for (const removed of ['ஸ்ரீ பச்சையம்மன்', 'Wedding Invitation', 'cordially solicit', 'Selvan', 'Selvi', 'Deloitte', 'eClerx']) assert.ok(!content.includes(removed));
@@ -133,7 +159,7 @@ const url = pathToFileURL(path.resolve(__dirname, '../wedding.html')).href;
       await page.goto(url);
       if (failure === 'media') await page.locator('#wedding-background-video').evaluate(el => el.dispatchEvent(new Event('error')));
       await page.waitForFunction(() => document.getElementById('wedding-background-video').hidden);
-      assert.match(await page.locator('.wedding-backdrop').evaluate(el => getComputedStyle(el).backgroundImage), /landing-golden-arches-poster/);
+      assert.match(await page.locator('.wedding-backdrop').evaluate(el => getComputedStyle(el).backgroundImage), /wedding-temple-bells-poster/);
       await page.locator('#tie-cord').click();
       await page.waitForFunction(() => document.activeElement.id === 'wedding-heading');
       await page.close();
@@ -171,7 +197,7 @@ const url = pathToFileURL(path.resolve(__dirname, '../wedding.html')).href;
     assert.equal(await nojs.locator('.js-action').first().isVisible(), false);
     assert.equal(await nojs.locator('#wedding-video-toggle').isVisible(), false);
     assert.equal(await nojs.locator('#wedding-background-video').getAttribute('src'), null);
-    assert.match(await nojs.locator('.wedding-backdrop').evaluate(el => getComputedStyle(el).backgroundImage), /landing-golden-arches-poster/);
+    assert.match(await nojs.locator('.wedding-backdrop').evaluate(el => getComputedStyle(el).backgroundImage), /wedding-temple-bells-poster/);
     await nojs.close();
     assert.deepEqual(errors, []);
     console.log('PASS touch drag/cancel, keyboard, reduced motion, live preference, print, no-JS and no browser errors');

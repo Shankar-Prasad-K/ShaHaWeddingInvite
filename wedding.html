@@ -298,7 +298,7 @@ a:focus-visible, [tabindex]:focus-visible, button:focus-visible{
 <body>
 
 <div class="wedding-backdrop" aria-hidden="true">
-  <video id="wedding-background-video" data-src="assets/landing-golden-arches.mp4" poster="assets/landing-golden-arches-poster.jpg" muted loop playsinline preload="none" disablepictureinpicture tabindex="-1" hidden></video>
+  <video id="wedding-background-video" data-src="assets/wedding-temple-bells.mp4" poster="assets/wedding-temple-bells-poster.jpg" muted loop playsinline preload="none" disablepictureinpicture tabindex="-1" hidden></video>
 </div>
 <div id="damask-layer"></div>
 <a class="back-link" href="index.html">← Home</a>
@@ -398,7 +398,7 @@ a:focus-visible, [tabindex]:focus-visible, button:focus-visible{
               </div>
               <a class="map-link" data-cfg="wedding.mapLink" href="https://share.google/5LpDdYQeVHZ9qTApS" target="_blank" rel="noopener">Get Directions</a>
               <div class="s-div" style="margin-top:20px;"></div>
-              <div class="s-body" style="font-size:0.9em;font-style:italic;color:rgba(212,175,55,0.7);">
+              <div class="s-body s-blessing">
                 With best compliments from Friends &amp; Relatives
               </div>
             </div>
@@ -450,11 +450,11 @@ function buildFinial(container, idx){
   container.innerHTML = `<svg viewBox="0 0 34 110" xmlns="${NS}" aria-hidden="true">
     <defs>
       <linearGradient id="${gid}" x1="0" y1="0" x2="1" y2="0">
-        <stop offset="0%" stop-color="#6b4a10"/>
-        <stop offset="30%" stop-color="#E8C158"/>
-        <stop offset="50%" stop-color="#FFF6D8"/>
-        <stop offset="72%" stop-color="#C8960A"/>
-        <stop offset="100%" stop-color="#5c3e0c"/>
+        <stop offset="0%" stop-color="var(--bronze-deep)"/>
+        <stop offset="30%" stop-color="var(--bronze-light)"/>
+        <stop offset="50%" stop-color="var(--bronze-highlight)"/>
+        <stop offset="72%" stop-color="var(--bronze-main)"/>
+        <stop offset="100%" stop-color="var(--bronze-shadow)"/>
       </linearGradient>
     </defs>
     <path d="M17 0L20 4L17 8L14 4Z" fill="url(#${gid})"/>

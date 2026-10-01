@@ -12,7 +12,7 @@ external actions (maps, WhatsApp, sharing) may require internet access.
    The supplied portrait clip loops silently behind the invitation throughout
    scrolling. Proportions are preserved with a centered cover crop, never
    stretched. A matching still image remains available when video cannot play.
-2. **`wedding.html`** — An arakku-maroon silk scroll over the golden-arches video, with zari borders,
+2. **`wedding.html`** — An arakku-maroon silk scroll over a temple-bells and incense video, with zari borders,
    a clear gold Tamil Om and Tamil invitation wording. Drag the braided golden
    bow downwards (or tap / press Enter or Space): the knot tensions, the loops
    release, and the scroll unfurls before a single gold-petal cascade.
@@ -103,13 +103,32 @@ strands each. H/S pendants have dark maroon enamel, gold-foil initials and a
 single staggered light sweep clipped to each charm. The shine ends within
 5.2 seconds, stops on release, and is disabled for reduced motion.
 
-The wedding now shares the landing's [golden-arches video](assets/landing-golden-arches.mp4)
-and matching poster without duplicating either asset. A warm, shaded full-screen
-background complements the opaque maroon silk, with dark-backed instructions
-and action buttons to preserve contrast. The extra pillar overlays and repeated
-background pattern are no longer displayed: the video supplies the architecture.
+The temple-bells finishing pass gives the rods and lotus finials a shared aged-bronze
+palette: copper-brown shadows, warm worn highlights and fine engraved bands.
+The golden cord and readable light lettering remain intentional accents.
+The deeper maroon silk has original repeating
+[temple-vine edging](assets/patterns/wedding-temple-border.svg), an engraved
+[lotus medallion](assets/patterns/wedding-lotus-medallion.svg) around Om and
+[lotus dividers](assets/patterns/wedding-lotus-divider.svg) between text sections.
+Detail is concentrated around the edges rather than behind the words. All new
+ornaments are static CSS backgrounds, narrow on mobile and hidden for print;
+no additional motion, libraries or overlays on the temple video are introduced.
+The downward unfurl, event details, landing and reception remain unchanged.
+
+The wedding uses its own [temple-bells video](assets/wedding-temple-bells.mp4)
+and [matching poster](assets/wedding-temple-bells-poster.jpg): bronze bells, oil lamps
+and drifting incense behind the opaque maroon silk. Restrained shading preserves
+the bronze highlights and smoky blue shadows, while dark-backed instructions
+and action buttons preserve contrast. The extra pillar overlays and repeated
+background pattern are no longer displayed.
 Earlier pillar and arch artwork remains available in assets for later exploration.
-The landing page remains unchanged while its future background is undecided.
+The landing retains its golden-arches clip; the reception retains its floral video.
+The user-supplied Klickpin download (pin ID 880594533411693216) is a silent,
+720 × 1280, 24fps H.264 clip lasting approximately 5.21 seconds (0.93 MB).
+Its video stream is copied without recompression into a fast-start MP4; the poster
+uses the first frame. The source remains unchanged outside the project.
+Confirm the original creator's reuse licence before publishing; a download does
+not establish permission. This is decorative imagery, not the ceremony venue.
 
 [js/wedding-backdrop.js](js/wedding-backdrop.js) connects the shared
 [video adapter](js/background-video.js) to a Pause/Resume background button,
@@ -124,8 +143,8 @@ use fakes; the wedding browser suite verifies playback and layout.
 Reduced motion skips the sequence and petals, including when changed while
 opening. Closed content is inert until revealed and focus moves to the Tamil
 heading. Without JavaScript the invitation remains open; printing includes the
-invitation even when the interactive scroll is closed. No runtime dependencies,
-new video assets or changes to the landing/reception pages are required.
+invitation even when the interactive scroll is closed. No new runtime dependencies
+or changes to the landing/reception pages are required.
 
 Run all unit tests with `node --test tests/*.test.cjs`.
 
