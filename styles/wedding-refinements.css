@@ -1,0 +1,177 @@
+/* Arakku silk, antique zari and a single hand-tied cord. */
+html { background:#160407; overflow-x:clip; }
+body { overflow-x:clip; background:#21120d; }
+.wedding-backdrop {
+  position:fixed; inset:0; z-index:0; pointer-events:none; overflow:hidden;
+  background:#392515 url('../assets/landing-golden-arches-poster.jpg') center / cover no-repeat;
+}
+.wedding-backdrop video { width:100%; height:100%; object-fit:cover; object-position:center; }
+.wedding-backdrop::after {
+  content:''; position:absolute; inset:0;
+  background:linear-gradient(180deg,#160b0640,#19080b55 55%,#100406b3),
+    radial-gradient(ellipse at center,#1e060c55,transparent 74%);
+}
+#damask-layer,.grand-corner,.scroll-glow { display:none; }
+.back-link { position:absolute; }
+#wedding-video-toggle {
+  position:absolute; top:18px; right:20px; z-index:50;
+  min-height:44px; padding:8px 12px; border:1px solid #d9b56a70;
+  background:#210c10d9; color:#ffe5ae; font:13px 'Cormorant Garamond',serif;
+  border-radius:3px; cursor:pointer;
+}
+#wedding-video-toggle:disabled { cursor:default; }
+.back-link { background:#210c10d9; color:#ffe5ae; min-height:44px; display:flex; align-items:center; }
+.nav-btn { background:#260910ed; color:#ffe5ae; border-color:#d9b56a80; box-shadow:0 3px 12px #0003; }
+#enter-prompt-w { padding:10px 18px; border:1px solid #dbb66a50; border-radius:30px; background:#250a0ee6; color:#ffe4ae; }
+.scroll-stack { box-shadow:0 16px 45px #10030588; }
+.s-sub { scroll-margin-top:24px; }
+.s-sub:focus { outline:none; }
+.scroll-body { scroll-margin-top:40px; }
+/* A fixed starting edge prevents the centered flex scene from lifting the
+  top rod while the growing sheet pushes its lower cylinder downwards. */
+#scene-scroll { justify-content:flex-start; padding-top:clamp(100px,14svh,150px); overflow-anchor:none; }
+.scroll-wrap { width:min(620px, calc(100vw - 76px)); margin-bottom:130px; }
+.scroll-body { grid-template-rows:1fr; overflow:hidden; }
+.scroll-enhanced .scroll-body:not(.open) { grid-template-rows:0fr; }
+/* Clip at the moving sheet edge, not at the smaller fractional grid track. */
+.scroll-inner { visibility:visible; overflow:visible; }
+.scroll-enhanced .scroll-body:not(.open) .scroll-inner { visibility:hidden; }
+.scroll-body, .scroll-roll { transition-duration:var(--unfurl-duration,2.8s); transition-timing-function:cubic-bezier(.45,.05,.35,1); }
+.scroll-initializing .scroll-body, .scroll-initializing .scroll-roll { transition:none; }
+.scroll-roll {
+  height:92px; border-radius:16px; cursor:default; flex-shrink:0;
+  box-shadow:0 -9px 13px -7px #120005cc,0 9px 14px -5px #000a;
+}
+.scroll-roll.open { height:28px; }
+.scroll-roll::before {
+  background:
+    url('../assets/patterns/wedding-gold-buta.svg') center / 70px 90px repeat,
+    repeating-linear-gradient(0deg,#e4bd6b26 0 1px,transparent 1px 22px),
+    repeating-linear-gradient(35deg,#ffe1ab08 0 1px,transparent 1px 5px),
+    linear-gradient(180deg,#160309,#51131f 10%,#a94b56 32%,#bd6269 40%,#822e3d 58%,#400a17 83%,#160309);
+  background-position:0 0,0 0,0 0,0 0;
+}
+.scroll-roll::after {
+  border-inline:16px double #d5af6399;
+  background:linear-gradient(180deg,#13010899,transparent 24%,#ffe8cc24 38%,transparent 53%,#16020ba6);
+  box-shadow:inset 3px 0 5px #150109,inset -3px 0 5px #150109,inset 0 1px 2px #ffe3aa66;
+}
+.scroll-roll.unfurling::before { animation:silk-winding var(--unfurl-duration,2.8s) cubic-bezier(.45,.05,.35,1) both; }
+@keyframes silk-winding { to { background-position:0 176px,0 176px,0 176px,0 0; } }
+.scroll-silk { padding:40px 38px 38px; }
+.scroll-silk::before {
+  background:repeating-linear-gradient(90deg,#ffffff03 0 1px,transparent 1px 4px),
+    linear-gradient(115deg,transparent 15%,#ffcfac0b 35%,transparent 55%),
+    linear-gradient(180deg,#60131f,#440b15 55%,#30070e);
+}
+.scroll-brocade {
+  background-image:url('../assets/patterns/wedding-gold-buta.svg');
+  background-size:84px 108px; background-position:center top;
+  opacity:.38; filter:none; mix-blend-mode:normal; pointer-events:none;
+  mask-image:linear-gradient(90deg,#000 0 22px,#0003 22% 78%,#000 calc(100% - 22px));
+}
+.scroll-frame { inset:10px; border-color:#dab56699; box-shadow:inset 0 0 0 4px #c69e4720; }
+.scroll-frame::before { inset:5px; border:1px dotted #efd39188; }
+.finial-slot { height:140px; filter:drop-shadow(0 3px 2px #090002aa); }
+.s-om {
+  display:grid; place-items:center; width:88px; height:88px; margin:0 auto 20px;
+  font-family:'Noto Serif Tamil',serif; font-size:52px; line-height:1.5;
+  color:#ffe9ab; background:radial-gradient(circle,#d6ad4520,transparent 70%);
+  -webkit-text-fill-color:currentColor; filter:none; text-shadow:0 2px 2px #160004;
+  border:1px solid #dbb76566; border-radius:50%; box-shadow:0 0 0 5px #dbb7650d;
+}
+.s-om::before { content:none; }
+.s-sub { font-size:clamp(18px,2.6vw,25px); font-weight:600; letter-spacing:0; line-height:1.8; margin:0; color:#ffe6b0; }
+.s-tamil { letter-spacing:0; }
+.s-introduction { font-size:clamp(13px,1.5vw,15px); line-height:2.1; color:#f1ddc7; margin:22px auto 28px; max-width:440px; text-wrap:pretty; }
+.s-name { font-size:clamp(34px,5.4vw,53px); line-height:1.3; filter:none; text-shadow:0 2px 3px #23020a; }
+.s-parents { font-size:clamp(15px,1.7vw,18px); color:#f2ddc1; opacity:1; line-height:1.65; margin:6px auto 0; max-width:390px; }
+.s-parents small { font-size:.62em; white-space:nowrap; }
+.s-union { color:#ddbb77; font-style:italic; font-size:20px; margin:13px 0; }
+.s-date-blk { margin:23px 0 18px; font-size:16px; line-height:1.9; }
+.s-date-blk strong { font-size:clamp(19px,2.5vw,24px); }
+.s-venue { font-size:16px; line-height:1.8; }
+.s-div { margin:22px auto; width:66%; }
+.map-link { font-size:14px; min-height:44px; padding:12px 0; }
+.nav-btn { min-height:44px; font-size:14px; letter-spacing:.07em; }
+#enter-prompt-w { animation:none; font-size:14px; letter-spacing:.06em; white-space:normal; text-align:center; margin-bottom:28px; }
+.tie-cord {
+  display:none; left:50%; top:0; width:240px; height:232px; padding:0; border:0;
+  background:none; color:inherit; transform:translateX(-50%); cursor:grab;
+  touch-action:none; user-select:none; -webkit-user-select:none;
+  --pull:0px; filter:drop-shadow(0 3px 3px #0009); transition:opacity .25s;
+}
+.scroll-enhanced .tie-cord { display:block; }
+.tie-cord:active { cursor:grabbing; }
+.tie-cord svg { pointer-events:none; }
+.cord-tail { transition:transform .5s ease-in; }
+.cord-tail .cord-strand { transform:scaleY(calc(1 + var(--tension, 0) * .45)); transform-origin:120px 94px; transition:transform .35s cubic-bezier(.2,.9,.25,1.3); }
+.cord-charm { transform:translateY(var(--pull)); transition:transform .35s cubic-bezier(.2,.9,.25,1.3); }
+.charm-initial { fill:url(#initial-foil); stroke:#fce7a0; stroke-width:.2; paint-order:stroke fill; }
+.charm-shine { opacity:0; animation:charm-gleam 4.5s ease-in-out .25s 1 both; pointer-events:none; }
+.cord-charm:nth-child(3) .charm-shine { animation-delay:.7s; }
+.releasing .charm-shine { animation:none; }
+@keyframes charm-gleam {
+  0%,15% { transform:translateX(-40px); opacity:0; }
+  30% { opacity:.85; }
+  58% { transform:translateX(40px); opacity:0; }
+  100% { transform:translateX(40px); opacity:0; }
+}
+.dragging .cord-strand,.dragging .cord-charm { transition:none; }
+.cord-loop { transform-box:fill-box; transform-origin:90% 80%; transition:transform .45s,opacity .4s; }
+.cord-loop.right { transform-origin:10% 80%; }
+.cord-wrap { stroke-dasharray:240; stroke-dashoffset:0; transition:stroke-dashoffset .6s ease-in,opacity .5s; }
+.tie-cord.releasing .cord-loop { transform:scale(.15,.5) translateY(30px); opacity:0; }
+.tie-cord.releasing .cord-wrap { stroke-dashoffset:240; opacity:0; }
+.tie-cord.releasing .cord-tail { transform:translateY(65px) rotate(6deg); transform-origin:120px 92px; }
+.tie-cord.releasing { pointer-events:none; }
+.tie-cord.gone { opacity:0; visibility:hidden; }
+.scroll-wrap:has(.scroll-body.open) { margin-bottom:52px; }
+.petal { opacity:0; animation:petal-descent var(--duration) cubic-bezier(.3,.05,.65,1) var(--delay) both; }
+.petal i {
+  display:block; width:100%; height:100%; border-radius:80% 12% 70% 25%;
+  background:radial-gradient(ellipse at 30% 20%,#fff1b7,#deb35a 38%,#9b671e 77%,#f4d284);
+  box-shadow:inset 1px 1px 1px #fff2caaa,1px 2px 3px #1f070640;
+  animation:petal-tumble 1.9s ease-in-out var(--delay) 3 alternate;
+}
+.petal i::after { content:''; position:absolute; inset:15% 48%; background:#fff0b366; transform:rotate(25deg); }
+.petal.depth-0 { filter:blur(.6px); }
+.petal.depth-2 i { animation-duration:1.4s; }
+@keyframes petal-descent {
+  0% { opacity:0; transform:translate3d(0,-30px,0) rotate(-20deg); }
+  10% { opacity:.78; }
+  40% { transform:translate3d(calc(var(--drift) * -.3),calc(var(--fall) * .3),0) rotate(35deg); }
+  70% { opacity:.7; transform:translate3d(calc(var(--drift) * .8),calc(var(--fall) * .65),0) rotate(-15deg); }
+  100% { opacity:0; transform:translate3d(var(--drift),var(--fall),0) rotate(var(--spin)); }
+}
+@keyframes petal-tumble { from { transform:perspective(200px) rotateY(-65deg) rotateZ(-20deg); } to { transform:perspective(200px) rotateY(65deg) rotateZ(40deg); } }
+#dust-canvas { display:none; }
+.js-action { display:none; }
+.scroll-enhanced .js-action { display:inline-block; }
+html:not(.scroll-enhanced) #enter-prompt-w, html:not(.scroll-enhanced) .scroll-roll { display:none; }
+@media (max-width:480px) {
+  #scene-scroll { padding:100px 14px 40px; }
+  .scroll-wrap { width:calc(100vw - 66px); }
+  .scroll-silk { padding:32px 23px; }
+  .s-sub { font-size:18px; }
+  .s-om { width:76px; height:76px; font-size:46px; }
+  .s-name { font-size:36px; }
+  .s-parents { font-size:16px; }
+  .s-introduction { font-size:13px; }
+  .s-venue { font-size:15px; }
+}
+@media (prefers-reduced-motion:reduce) {
+  *, *::before, *::after { animation:none !important; transition:none !important; }
+  #petal-layer { display:none; }
+}
+@media print {
+  .wedding-backdrop,#wedding-video-toggle { display:none !important; }
+  html { background:white; }
+  body { background:white; color:#351019; }
+  #scene-scroll { padding:0; display:block; }
+  .scroll-wrap { width:100%; margin:0; }
+  .scroll-body, .scroll-enhanced .scroll-body:not(.open) { grid-template-rows:1fr; overflow:visible; }
+  .scroll-inner, .scroll-enhanced .scroll-body:not(.open) .scroll-inner { visibility:visible; overflow:visible; }
+  .scroll-content * { color:#351019; text-shadow:none; -webkit-text-fill-color:currentColor; }
+  .scroll-silk::before,.scroll-silk::after,.scroll-brocade,.scroll-frame,.rod,.tie-cord,#enter-prompt-w,.nav-links,.back-link,.grand-corner,#damask-layer,.scroll-glow,#petal-layer,.scroll-roll { display:none !important; }
+}

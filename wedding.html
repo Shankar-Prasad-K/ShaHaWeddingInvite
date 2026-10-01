@@ -5,26 +5,32 @@
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>Wedding Ceremony — Shankar & Haripriya</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;500;600&family=Noto+Serif+Tamil:wght@400;500;600&display=swap" rel="stylesheet"/>
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
-html,body{width:100%;font-family:'Cormorant Garamond',Georgia,serif;color:#FFF8E7;-webkit-font-smoothing:antialiased;}
+html,body{width:100%;overflow-x:hidden;font-family:'Cormorant Garamond',Georgia,serif;color:#FFF8E7;-webkit-font-smoothing:antialiased;}
 body{
+  --zari-light:#FFF2C8;
+  --zari-main:#D4AF37;
+  --zari-deep:#8A6518;
+  --silk-top:#65131c;
+  --silk-mid:#4a0d15;
+  --silk-base:#30070e;
   background:
-    radial-gradient(ellipse at 50% 0%, rgba(150,25,35,0.4) 0%, transparent 58%),
-    radial-gradient(ellipse at 8% 92%, rgba(150,25,35,0.28) 0%, transparent 50%),
-    radial-gradient(ellipse at 94% 88%, rgba(150,25,35,0.28) 0%, transparent 50%),
-    linear-gradient(180deg,#1c0709 0%,#0e0304 45%,#0a0203 100%);
+    radial-gradient(ellipse at 50% 0%, rgba(196,46,62,0.28) 0%, transparent 58%),
+    radial-gradient(ellipse at 8% 92%, rgba(150,25,35,0.2) 0%, transparent 54%),
+    radial-gradient(ellipse at 94% 88%, rgba(150,25,35,0.2) 0%, transparent 54%),
+    linear-gradient(180deg,#190608 0%,#0f0305 42%,#0b0203 100%);
   background-attachment:fixed;
   min-height:100vh;
 }
 #damask-layer{
   position:fixed;inset:0;z-index:0;pointer-events:none;
   background-image:url('assets/patterns/damask-red-diamond.jpeg');
-  background-size:280px 280px;
+  background-size:320px 320px;
   background-attachment:fixed;
-  opacity:0.55;
-  mix-blend-mode:screen;
+  opacity:0.3;
+  mix-blend-mode:soft-light;
 }
 .grand-corner{
   position:fixed;width:min(220px,30vw);height:min(220px,30vw);pointer-events:none;z-index:1;opacity:0.68;
@@ -116,17 +122,17 @@ canvas#dust-canvas{position:fixed;inset:0;pointer-events:none;z-index:1;}
 .scroll-silk::before{
   content:'';position:absolute;inset:0;
   background:
-    linear-gradient(128deg, transparent 8%, rgba(255,255,255,0.24) 22%, rgba(255,255,255,0.06) 33%, transparent 44%),
-    linear-gradient(128deg, transparent 55%, rgba(255,255,255,0.12) 66%, transparent 76%),
-    linear-gradient(210deg, transparent 60%, rgba(255,110,120,0.07) 76%, transparent 92%),
-    linear-gradient(180deg,#5c1018 0%,#4a0c14 38%,#33080e 72%,#400c12 100%);
+    linear-gradient(128deg, transparent 8%, rgba(255,255,255,0.18) 22%, rgba(255,255,255,0.05) 33%, transparent 44%),
+    linear-gradient(128deg, transparent 55%, rgba(255,255,255,0.09) 66%, transparent 76%),
+    repeating-linear-gradient(90deg, rgba(255,255,255,0.03) 0 2px, transparent 2px 6px),
+    linear-gradient(180deg,var(--silk-top) 0%,var(--silk-mid) 40%,var(--silk-base) 100%);
 }
 .scroll-brocade{
   position:absolute;inset:0;z-index:0;
   background-image:url('assets/patterns/damask-acanthus.jpg');
-  background-size:220px 220px;
+  background-size:260px 260px;
   mix-blend-mode:soft-light;opacity:0.4;
-  filter:brightness(0.85) saturate(0.75);
+  filter:brightness(0.7) saturate(0.65);
 }
 .scroll-silk::after{
   content:'';position:absolute;inset:0;
@@ -216,6 +222,7 @@ canvas#dust-canvas{position:fixed;inset:0;pointer-events:none;z-index:1;}
   animation:omGlow 3.4s ease-in-out infinite;
 }
 @keyframes omGlow{0%,100%{opacity:0.7;transform:translate(-50%,-50%) scale(0.94);}50%{opacity:1;transform:translate(-50%,-50%) scale(1.06);}}
+.s-tamil{font-family:'Noto Serif Tamil','Cormorant Garamond',serif;font-weight:500;letter-spacing:0.03em;}
 .s-sloka{font-size:clamp(9px,1.2vw,12px);letter-spacing:0.16em;color:rgba(232,205,160,0.7);margin-bottom:18px;}
 .s-div{width:52%;height:1px;background:linear-gradient(90deg,transparent,rgba(212,175,55,0.5),transparent);margin:14px auto;position:relative;}
 .s-div::before{
@@ -224,22 +231,23 @@ canvas#dust-canvas{position:fixed;inset:0;pointer-events:none;z-index:1;}
   background:linear-gradient(135deg,#FFF6D8,#E8C158 45%,#8a6a1e 100%);
   box-shadow:0 0 4px rgba(0,0,0,0.35);
 }
-.s-heading{font-family:'Cinzel',serif;font-weight:500;font-size:clamp(14px,2vw,17px);letter-spacing:0.16em;text-transform:uppercase;color:#F5D078;}
-.s-sub{font-size:clamp(8px,1vw,11px);letter-spacing:0.2em;text-transform:uppercase;color:rgba(232,205,160,0.55);margin-bottom:16px;}
-.s-hosts{font-size:clamp(12px,1.5vw,15px);color:rgba(255,238,215,0.88);line-height:1.75;font-style:italic;}
-.s-body{font-size:clamp(11px,1.35vw,14px);color:rgba(255,228,205,0.78);line-height:1.9;}
+.s-heading{font-family:'Cinzel',serif;font-weight:500;font-size:clamp(14px,2vw,18px);letter-spacing:0.16em;text-transform:uppercase;color:var(--zari-light);}
+.s-sub{font-size:clamp(10px,1.25vw,14px);letter-spacing:0.08em;color:rgba(255,232,194,0.9);margin-bottom:16px;}
+.s-hosts{font-size:clamp(14px,1.8vw,18px);color:rgba(255,238,215,0.93);line-height:1.7;font-style:italic;}
+.s-body{font-size:clamp(12.5px,1.5vw,16px);color:rgba(255,228,205,0.86);line-height:1.9;}
 .s-name{font-family:'Great Vibes',cursive;display:block;line-height:1.05;filter:drop-shadow(0 0 12px rgba(255,200,80,0.5));}
 .s-groom{font-size:clamp(28px,5.2vw,46px);color:#FFE8A0;}
 .s-bride{font-size:clamp(28px,5.2vw,46px);color:#F5D078;}
-.s-role{font-size:clamp(10px,1.2vw,12px);color:rgba(255,220,175,0.72);letter-spacing:0.1em;}
+.s-role{font-size:clamp(10px,1.15vw,12px);color:rgba(255,220,175,0.66);letter-spacing:0.08em;}
+.s-parents{font-size:clamp(12px,1.3vw,14px);opacity:0.9;color:rgba(255,232,198,0.8);}
 .s-date-blk{margin:16px 0;font-size:clamp(13px,1.6vw,16px);color:rgba(255,235,215,0.92);line-height:2;}
 .s-date-blk strong{display:block;font-size:clamp(15px,2vw,21px);color:#FFD875;font-weight:600;}
-.s-venue{font-size:clamp(11px,1.3vw,13px);color:rgba(255,224,195,0.82);line-height:1.75;}
+.s-venue{font-size:clamp(12px,1.42vw,14px);color:rgba(255,224,195,0.86);line-height:1.78;}
 .map-link{
   display:inline-block;margin-top:10px;
-  font-size:clamp(10.5px,1.2vw,12px);letter-spacing:0.08em;
+  font-size:clamp(10.5px,1.2vw,12px);letter-spacing:0.11em;
   color:rgba(255,224,195,0.75);text-decoration:none;
-  border-bottom:1px solid rgba(212,175,55,0.4);
+  border-bottom:1px solid rgba(212,175,55,0.52);
   transition:color 0.3s,border-color 0.3s;
 }
 .map-link:hover{color:#FFD875;border-color:rgba(212,175,55,0.8);}
@@ -282,15 +290,19 @@ a:focus-visible, [tabindex]:focus-visible, button:focus-visible{
 }
 @media (max-width:480px){
   .scroll-silk{padding:26px 16px 30px;}
+  .s-sub{letter-spacing:0.04em;}
 }
 </style>
+<link rel="stylesheet" href="styles/wedding-refinements.css"/>
 </head>
 <body>
 
-<div id="loader"><div class="l-om">ௐ</div><div class="l-names">Shankar &amp; Haripriya</div></div>
-
+<div class="wedding-backdrop" aria-hidden="true">
+  <video id="wedding-background-video" data-src="assets/landing-golden-arches.mp4" poster="assets/landing-golden-arches-poster.jpg" muted loop playsinline preload="none" disablepictureinpicture tabindex="-1" hidden></video>
+</div>
 <div id="damask-layer"></div>
 <a class="back-link" href="index.html">← Home</a>
+<button id="wedding-video-toggle" type="button" aria-controls="wedding-background-video" aria-pressed="false" hidden>Pause background</button>
 <canvas id="dust-canvas"></canvas>
 
 <svg class="grand-corner tl" id="gc-tl" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"></svg>
@@ -300,7 +312,7 @@ a:focus-visible, [tabindex]:focus-visible, button:focus-visible{
 
 <div id="scene-scroll">
   <div class="scroll-glow"></div>
-  <p id="enter-prompt-w">✦ &nbsp;Pull the thread to unfurl&nbsp; ✦</p>
+  <p id="enter-prompt-w">Gently pull the golden tie downwards · or tap to open</p>
 
   <div class="scroll-wrap">
     <div class="rod rod-top"><div class="finial-slot l" id="fin-tl"></div><div class="finial-slot r" id="fin-tr"></div></div>
@@ -362,25 +374,17 @@ a:focus-visible, [tabindex]:focus-visible, button:focus-visible{
             </div>
 
             <div class="scroll-content">
-              <div class="s-om">ௐ</div>
-              <div class="s-sloka">ஸ்ரீ பச்சையம்மன் துணை &nbsp;·&nbsp; ஸ்ரீ முருகன் துணை</div>
-              <div class="s-div"></div>
-              <div class="s-heading">Wedding Invitation</div>
-              <div class="s-sub">திருமண விழா அழைப்பிதழ்</div>
+              <div class="s-om" lang="ta" aria-label="ஓம்">ௐ</div>
+              <h1 class="s-sub s-tamil" id="wedding-heading" lang="ta" tabindex="-1">திருமண விழா அழைப்பிதழ்</h1>
               <div class="s-div"></div>
 
-              <div class="s-hosts">Mrs. Devi Kumaravel &amp; Mr. V. Kumaravel</div>
-              <div class="s-body" style="margin:6px 0 18px;">
-                cordially solicit your esteemed presence<br/>
-                on the auspicious occasion of the marriage of their beloved son
-              </div>
+              <p class="s-introduction s-tamil" lang="ta">அன்பும் அறமும் துணைநிற்க,<br/>இரு மனங்கள் இணையும் இத்திருமண நன்னாளில்,<br/>தாங்கள் குடும்பத்துடன் வருகை தந்து,<br/>மணமக்களை வாழ்த்தி ஆசீர்வதிக்க<br/>அன்புடன் அழைக்கின்றோம்.</p>
 
               <span class="s-name s-groom">Shankar Prasad K</span>
-              <div class="s-role" style="margin:4px 0 6px;">Selvan &nbsp;·&nbsp; Manager, Deloitte Chennai</div>
-              <div class="s-body" style="font-size:clamp(14px,1.8vw,18px);color:rgba(255,225,190,0.75);margin:10px 0;">with</div>
+              <p class="s-parents">S/o Mrs. Devi Kumaravel &amp; Mr. V. Kumaravel</p>
+              <div class="s-union">with</div>
               <span class="s-name s-bride">Haripriya V</span>
-              <div class="s-role" style="margin:4px 0 4px;">Selvi &nbsp;·&nbsp; Senior HR, eClerx, Coimbatore</div>
-              <div class="s-body" style="font-size:0.82em;opacity:0.68;margin-bottom:18px;">D/o Mr. V. Venkatesh (Late) – Mrs. V. Shanthi</div>
+              <p class="s-parents">D/o Mr. V. Venkatesh <small>(Late)</small> – Mrs. V. Shanthi</p>
 
               <div class="s-div"></div>
               <div class="s-date-blk">
@@ -392,7 +396,7 @@ a:focus-visible, [tabindex]:focus-visible, button:focus-visible{
                 Near Vinayagapuram K.G. Bakery Bus Stop<br/>
                 Sivaram Nagar, Coimbatore
               </div>
-              <a class="map-link" data-cfg="wedding.mapLink" href="https://share.google/5LpDdYQeVHZ9qTApS" target="_blank" rel="noopener">📍 Get Directions</a>
+              <a class="map-link" data-cfg="wedding.mapLink" href="https://share.google/5LpDdYQeVHZ9qTApS" target="_blank" rel="noopener">Get Directions</a>
               <div class="s-div" style="margin-top:20px;"></div>
               <div class="s-body" style="font-size:0.9em;font-style:italic;color:rgba(212,175,55,0.7);">
                 With best compliments from Friends &amp; Relatives
@@ -402,7 +406,7 @@ a:focus-visible, [tabindex]:focus-visible, button:focus-visible{
         </div>
       </div>
       <div class="scroll-roll" id="scroll-roll"></div>
-      <div class="tie-cord" id="tie-cord" role="button" tabindex="0" aria-label="Pull the thread to unroll the wedding invitation"></div>
+      <button type="button" class="tie-cord" id="tie-cord" aria-controls="scroll-body" aria-expanded="false" aria-label="Pull the golden tie downwards, or activate to open the wedding invitation"></button>
     </div>
 
     <div class="rod rod-bottom" id="rod-bottom">
@@ -411,9 +415,9 @@ a:focus-visible, [tabindex]:focus-visible, button:focus-visible{
   </div>
 
   <div class="nav-links">
-    <button class="nav-btn" onclick="addWeddingToCalendar()">🗓 Add to Calendar</button>
-    <a class="nav-btn" id="rsvp-btn-w" href="#" target="_blank" rel="noopener">💬 RSVP</a>
-    <button class="nav-btn" onclick="shareInvite()">⤴ Share</button>
+    <button class="nav-btn js-action" onclick="addWeddingToCalendar()">Add to Calendar</button>
+    <a class="nav-btn" id="rsvp-btn-w" href="https://wa.me/919840454710" target="_blank" rel="noopener">RSVP on WhatsApp</a>
+    <button class="nav-btn js-action" onclick="shareInvite()">Share Invite</button>
   </div>
   <div class="nav-links">
     <a class="nav-btn" href="index.html">← Home</a>
@@ -423,28 +427,24 @@ a:focus-visible, [tabindex]:focus-visible, button:focus-visible{
 
 <script src="js/config.js"></script>
 <script src="js/features.js"></script>
+<script src="js/wedding-scroll.js"></script>
 <script>
-initLoader();
 hydrateConfig();
 document.getElementById('rsvp-btn-w').href = rsvpLink();
 
-/* Ornate turned finials with hanging silk tassels that sway gently
-   and independently (SMIL, additive — same technique proven on the
-   landing page's palm fronds). */
+/* Still turned finials and silk tassels frame the brief opening ceremony. */
 function buildFinial(container, idx){
   const NS = 'http://www.w3.org/2000/svg';
   const gid = 'finGrad'+idx;
-  const threads = [-9,-6,-3,0,3,6,9].map((dx,i) => {
-    const len = 34 + Math.random()*8;
-    const baseX = 17+dx*0.5, endX = 17+dx*1.15, endY = 34+len;
-    const dur = (2.6+Math.random()*1.4).toFixed(2);
-    const delay = (-Math.random()*2.6).toFixed(2);
-    return `<g transform="translate(${baseX},34)">
-        <path d="M0,0 Q${(endX-baseX)*0.6},${len*0.55} ${endX-baseX},${len}"
-              stroke="url(#${gid})" stroke-width="1.1" fill="none" stroke-linecap="round"/>
-        <circle cx="${endX-baseX}" cy="${len}" r="1.5" fill="url(#${gid})"/>
-        <animateTransform attributeName="transform" type="rotate" values="-4;4;-4"
-          dur="${dur}s" begin="${delay}s" repeatCount="indefinite" additive="sum"/>
+    const threads = Array.from({length:13}, (_, i) => (i - 6) * 1.5).map(dx => {
+      const len = 44 - Math.abs(dx)*.65;
+      const baseX = 17+dx*.7, endX = 17+dx*1.3;
+      return `<g class="tassel-strand" transform="translate(${baseX},49)">
+      <path d="M0,0 Q${(endX-baseX)*.6},${len*.55} ${endX-baseX},${len}"
+        stroke="url(#${gid})" stroke-width=".85" fill="none" stroke-linecap="round"/>
+      <path d="M0,2 Q${(endX-baseX)*.3},12 ${(endX-baseX)*.5},20" stroke="#fff0be" stroke-width=".3" fill="none"/>
+      <circle cx="${endX-baseX}" cy="${len-4}" r="1" fill="#f8dc91"/>
+      <path d="M${endX-baseX},${len-1} l1.6,2.5 l-1.6,2.5 l-1.6,-2.5Z" fill="url(#${gid})"/>
       </g>`;
   }).join('');
   container.innerHTML = `<svg viewBox="0 0 34 110" xmlns="${NS}" aria-hidden="true">
@@ -457,16 +457,20 @@ function buildFinial(container, idx){
         <stop offset="100%" stop-color="#5c3e0c"/>
       </linearGradient>
     </defs>
-    <ellipse cx="17" cy="4" rx="5" ry="4" fill="url(#${gid})"/>
+    <path d="M17 0L20 4L17 8L14 4Z" fill="url(#${gid})"/>
     <path d="M13,7 L13,11 L21,11 L21,7 Z" fill="url(#${gid})"/>
-    <circle cx="17" cy="19" r="12.5" fill="url(#${gid})"/>
-    <ellipse cx="17" cy="30" rx="10" ry="3.2" fill="url(#${gid})"/>
-    <circle cx="17" cy="30" r="4.2" fill="url(#${gid})"/>
+    <circle cx="17" cy="19" r="11" fill="url(#${gid})" stroke="#a77b30" stroke-width=".6"/>
+    <g class="finial-lotus" stroke="#704315" stroke-width=".7" fill="none">
+      <path d="M17 27C9 22 12 15 17 11C22 15 25 22 17 27ZM17 27C7 25 6 18 8 15C14 16 16 21 17 27ZM17 27C27 25 28 18 26 15C20 16 18 21 17 27Z"/>
+      <path d="M10 28H24M17 13V25" stroke="#fff1b8" stroke-width=".5"/>
+    </g>
+    <ellipse cx="17" cy="30" rx="10" ry="2.5" fill="url(#${gid})"/>
+    <path d="M14 33Q11 36 14 39Q17 42 20 39Q23 36 20 33" fill="none" stroke="url(#${gid})" stroke-width="1.5"/>
+    <path d="M17 37C11 41 10 46 8 49Q17 53 26 49C24 46 23 41 17 37Z" fill="url(#${gid})" stroke="#815719" stroke-width=".5"/>
+    <path d="M17 39V49M14 42L12 49M20 42L22 49M9 49Q17 46 25 49" fill="none" stroke="#704315" stroke-width=".6"/>
+    <path d="M8 50Q17 54 26 50" fill="none" stroke="#ffeab0" stroke-width="1"/>
     ${threads}
   </svg>`;
-  if(prefersReducedMotion){
-    container.querySelectorAll('animateTransform').forEach(a=>a.setAttribute('dur','99999s'));
-  }
 }
 ['fin-tl','fin-tr','fin-bl','fin-br'].forEach((id,i)=>buildFinial(document.getElementById(id), i));
 
@@ -519,163 +523,9 @@ function buildCorner(container){
 }
 ['gc-tl','gc-tr','gc-bl','gc-br'].forEach(id=>buildCorner(document.getElementById(id)));
 
-/* Tie-cord: wraps the roll, ends in two monogram charms (S & H) that
-   swing gently. Pulling it (the seal's replacement) is what releases
-   the roll. */
-function buildCord(container){
-  const NS = 'http://www.w3.org/2000/svg';
-  const rollH = 74;
-  const wrapXs = [35, 108, 182, 318, 392, 465];
-  const knotX = 250, knotY = rollH + 26;
-
-  function wrapThread(x){
-    const d = `M${x-9},0 C${x+5},${rollH*0.33} ${x-5},${rollH*0.67} ${x+9},${rollH}`;
-    return `<path d="${d}" fill="none" stroke="url(#wrapGrad)" stroke-width="2.2" stroke-linecap="round" opacity="0.92"/>`;
-  }
-  function charm(cx, cy, letter, swayVals){
-    return `<g transform="translate(${cx},${cy})">
-      <g>
-        <path d="M0,-16 L12,0 L0,16 L-12,0 Z" fill="url(#charmGold)" stroke="#4a3208" stroke-width="1.1"/>
-        <path d="M0,-11 L8,0 L0,11 L-8,0 Z" fill="none" stroke="#4a3208" stroke-width="0.6" opacity="0.5"/>
-        <text y="6" text-anchor="middle" font-family="'Cinzel',serif" font-weight="600" font-size="19" fill="#3d2705">${letter}</text>
-      </g>
-      <animateTransform attributeName="transform" type="rotate" values="${swayVals}" dur="3.2s" repeatCount="indefinite" additive="sum"/>
-    </g>`;
-  }
-
-  container.innerHTML = `<svg viewBox="0 0 500 190" preserveAspectRatio="none" xmlns="${NS}" aria-hidden="true">
-    <defs>
-      <linearGradient id="wrapGrad" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stop-color="#3a2506"/>
-        <stop offset="16%" stop-color="#a97e1c"/>
-        <stop offset="30%" stop-color="#FFF3C0"/>
-        <stop offset="50%" stop-color="#E8C158"/>
-        <stop offset="72%" stop-color="#a97e1c"/>
-        <stop offset="100%" stop-color="#3a2506"/>
-      </linearGradient>
-      <linearGradient id="threadGrad" x1="0" y1="0" x2="1" y2="0">
-        <stop offset="0%" stop-color="#8a6a1e"/>
-        <stop offset="50%" stop-color="#FFF3C0"/>
-        <stop offset="100%" stop-color="#8a6a1e"/>
-      </linearGradient>
-      <radialGradient id="charmGold" cx="35%" cy="30%" r="75%">
-        <stop offset="0%" stop-color="#FFF6D8"/>
-        <stop offset="45%" stop-color="#E8C158"/>
-        <stop offset="80%" stop-color="#C8960A"/>
-        <stop offset="100%" stop-color="#6b4a10"/>
-      </radialGradient>
-    </defs>
-
-    <g class="cord-wraps">${wrapXs.map(wrapThread).join('')}</g>
-
-    <g class="cord-knot">
-      <path d="M${knotX-9},0 C${knotX+5},${rollH*0.33} ${knotX-5},${rollH*0.75} ${knotX},${knotY-4}" fill="none" stroke="url(#wrapGrad)" stroke-width="2.6" stroke-linecap="round"/>
-      <rect x="${knotX-9}" y="${knotY-4}" width="18" height="9" rx="4.5" fill="url(#threadGrad)" stroke="#3a2506" stroke-width="0.7"/>
-
-      <path d="M${knotX-4},${knotY+4} Q${knotX+26},${knotY+18} ${knotX+24},${knotY+46}" fill="none" stroke="url(#threadGrad)" stroke-width="2.6" stroke-linecap="round"/>
-      <path d="M${knotX+4},${knotY+4} Q${knotX-26},${knotY+14} ${knotX-24},${knotY+40}" fill="none" stroke="url(#threadGrad)" stroke-width="2.6" stroke-linecap="round"/>
-
-      ${charm(knotX+24, knotY+62, 'S', '-4;4;-4')}
-      ${charm(knotX-24, knotY+56, 'H', '4;-4;4')}
-    </g>
-  </svg>`;
-  if(prefersReducedMotion){
-    container.querySelectorAll('animateTransform').forEach(a=>a.setAttribute('dur','99999s'));
-  }
-}
-buildCord(document.getElementById('tie-cord'));
-
-const scrollBody = document.getElementById('scroll-body');
-const scrollRoll = document.getElementById('scroll-roll');
-const tieCord = document.getElementById('tie-cord');
-const enterPrompt = document.getElementById('enter-prompt-w');
-let opened = false;
-
-function spawnPetals(){
-  if(prefersReducedMotion) return;
-  let layer = document.getElementById('petal-layer');
-  if(!layer){
-    layer = document.createElement('div');
-    layer.id = 'petal-layer';
-    document.body.appendChild(layer);
-  }
-  const rect = document.querySelector('.scroll-wrap').getBoundingClientRect();
-  const colors = ['#E8A33D','#F5C34D','#E8C158','#D68A3A','#F0D8A8','#c9784a'];
-  const NS = 'http://www.w3.org/2000/svg';
-  for(let i=0;i<30;i++){
-    const petal = document.createElement('div');
-    petal.className = 'petal';
-    const size = 9 + Math.random()*9;
-    const startX = rect.left + Math.random()*rect.width - size/2;
-    const startY = rect.top - 4 + Math.random()*14;
-    const fall = 560 + Math.random()*320;
-    const drift = Math.random()*180-90;
-    const spin = 160 + Math.random()*340;
-    const dur = (3.6 + Math.random()*2.6).toFixed(2);
-    const delay = (Math.random()*1.1).toFixed(2);
-    const color = colors[Math.floor(Math.random()*colors.length)];
-    petal.style.left = startX+'px';
-    petal.style.top = startY+'px';
-    petal.style.width = size+'px';
-    petal.style.height = size+'px';
-    petal.style.setProperty('--fall', fall+'px');
-    petal.style.setProperty('--drift', drift+'px');
-    petal.style.setProperty('--spin', spin+'deg');
-    petal.style.animation = `petalFall ${dur}s cubic-bezier(.45,0,.6,1) ${delay}s forwards`;
-    petal.innerHTML = `<svg viewBox="0 0 20 20" xmlns="${NS}"><path d="M10,1 C16,4.5 17.5,12 10,19 C2.5,12 4,4.5 10,1 Z" fill="${color}" opacity="0.9"/><path d="M10,5 C13,8 13.5,12 10,16" fill="none" stroke="rgba(255,255,255,0.35)" stroke-width="0.7"/></svg>`;
-    layer.appendChild(petal);
-    petal.addEventListener('animationend', ()=>petal.remove());
-  }
-}
-
-function unfurl(){
-  if(opened) return;
-  opened = true;
-  enterPrompt.style.opacity = '0';
-  tieCord.classList.add('pulled');
-  const delay = prefersReducedMotion ? 0 : 420;
-  setTimeout(()=>{
-    scrollRoll.classList.add('open');
-    scrollBody.classList.add('open');
-    spawnPetals();
-  }, delay);
-}
-
-tieCord.addEventListener('click', unfurl);
-tieCord.addEventListener('keydown', e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); unfurl(); } });
-scrollRoll.addEventListener('click', unfurl);
-
-/* Sparse drifting gold dust motes — subtle ambience, not a busy scene */
-const dc = document.getElementById('dust-canvas');
-const dx = dc.getContext('2d');
-function mkMote(rand){
-  return{
-    x:Math.random(), y:rand?Math.random():1.04,
-    vy:0.00018+Math.random()*0.00032,
-    vx:(Math.random()-0.5)*0.00012,
-    r:0.6+Math.random()*1.4,
-    a:0.15+Math.random()*0.35,
-    ph:Math.random()*Math.PI*2, sp:0.3+Math.random()*0.6
-  };
-}
-const MOTES = Array.from({length:34}, ()=>mkMote(true));
-let dt=0;
-function moteLoop(){
-  dc.width=innerWidth; dc.height=Math.max(innerHeight, document.body.scrollHeight);
-  const W=dc.width,H=dc.height; dt+=0.015;
-  for(const m of MOTES){
-    m.y-=m.vy; m.x+=m.vx;
-    if(m.y<-0.02) Object.assign(m, mkMote(false));
-    const tw = 0.5+0.5*Math.sin(dt*m.sp+m.ph);
-    dx.beginPath();
-    dx.arc(m.x*W, m.y*H, m.r, 0, Math.PI*2);
-    dx.fillStyle=`rgba(232,193,88,${m.a*tw})`;
-    dx.fill();
-  }
-  if(!prefersReducedMotion) requestAnimationFrame(moteLoop);
-}
-if(!prefersReducedMotion) moteLoop();
-else { dc.width=innerWidth; dc.height=innerHeight; }
 </script>
+<script src="js/wedding-effects.js"></script>
+<script src="js/background-video.js"></script>
+<script src="js/wedding-backdrop.js"></script>
 </body>
 </html>

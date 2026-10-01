@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="112" height="144" viewBox="0 0 112 144" fill="none">
+  <defs>
+    <linearGradient id="zari" x1="30" y1="16" x2="80" y2="118" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#fff0b4"/><stop offset=".45" stop-color="#dab66c"/><stop offset="1" stop-color="#9b702a"/>
+    </linearGradient>
+  </defs>
+  <!-- Original mango-buta and flowering sprig, inspired by woven zari. -->
+  <g stroke="url(#zari)" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M56 19C76 28 82 48 70 61C58 74 34 67 34 49C34 38 43 34 49 37C55 40 52 49 47 47C63 49 69 31 56 19Z"/>
+    <path d="M58 29C68 37 71 49 63 56C54 65 41 58 41 49" stroke-width=".7"/>
+    <path d="M45 58Q62 56 65 42M51 56L48 51M57 53L56 47M62 48L60 43" stroke-width=".7"/>
+    <path d="M56 77V117M56 94C40 93 40 81 43 80C52 81 56 87 56 94ZM56 104C73 102 74 91 70 90C61 92 57 98 56 104Z"/>
+    <path d="M56 86C44 77 49 71 56 67C63 71 68 77 56 86Z"/>
+    <path d="M56 85C39 80 39 74 40 70C48 71 53 76 56 85ZM56 85C73 80 73 74 72 70C64 71 59 76 56 85Z" stroke-width=".8"/>
+    <path d="M50 116Q56 111 62 116M52 121H60"/>
+    <path d="M8 67L12 72L8 77L4 72ZM104 67L108 72L104 77L100 72Z" fill="#dab66c" fill-opacity=".3"/>
+    <circle cx="56" cy="9" r="1.5" fill="#f6d58b"/>
+    <circle cx="56" cy="132" r="1.5" fill="#f6d58b"/>
+    <circle cx="8" cy="25" r=".8"/><circle cx="104" cy="119" r=".8"/>
+  </g>
+</svg>

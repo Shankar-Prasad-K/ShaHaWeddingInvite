@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 64" fill="none">
+  <defs>
+    <linearGradient id="foil" x1="0" y1="0" x2="280" y2="64" gradientUnits="userSpaceOnUse"><stop stop-color="#a2854e" stop-opacity=".25"/><stop offset=".4" stop-color="#b09051"/><stop offset=".6" stop-color="#b09051"/><stop offset="1" stop-color="#a2854e" stop-opacity=".25"/></linearGradient>
+    <g id="branch" stroke="url(#foil)" stroke-width=".85" stroke-linecap="round">
+      <path d="M10 39C53 40 83 49 123 32M47 41Q46 29 34 23M68 42Q65 25 56 19M88 40Q92 25 83 16M106 36Q110 25 107 21"/>
+      <path d="M46 38Q33 37 32 25Q46 25 46 38ZM63 35Q50 29 55 18Q67 23 63 35ZM87 33Q77 24 84 15Q96 23 87 33ZM105 33Q101 23 108 19Q116 28 105 33ZM60 42Q47 55 38 48Q45 37 60 42ZM83 42Q74 55 65 50Q69 40 83 42ZM105 37Q102 51 92 48Q92 36 105 37Z" fill="#c7b383" fill-opacity=".12"/>
+      <path d="M116 35Q124 42 126 46"/><circle cx="126" cy="46" r="1.4" fill="#ab8e53"/>
+    </g>
+  </defs>
+  <use href="#branch"/><use href="#branch" transform="translate(280 0) scale(-1 1)"/>
+  <path d="m140 20 4 10 10 4-10 4-4 10-4-10-10-4 10-4Z" stroke="#a78a4f" stroke-width=".9"/>
+  <path d="m140 28 2 6-2 6-2-6Z" fill="#b49a65"/>
+  <circle cx="140" cy="11" r="1" fill="#b49a65"/><circle cx="140" cy="56" r="1" fill="#b49a65"/>
+</svg>

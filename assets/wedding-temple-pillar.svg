@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="190" height="800" viewBox="0 0 190 800" fill="none">
+  <title>Temple-inspired carved pillar with a seated Ganesha relief</title>
+  <defs>
+    <linearGradient id="stone" x1="20" y1="0" x2="170" y2="0" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#38200e"/><stop offset=".13" stop-color="#95652e"/><stop offset=".3" stop-color="#d6af68"/><stop offset=".47" stop-color="#ae803d"/><stop offset=".67" stop-color="#c59b54"/><stop offset=".87" stop-color="#72481f"/><stop offset="1" stop-color="#321c0c"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2=".8" y2="1">
+      <stop stop-color="#fff0bd"/><stop offset=".25" stop-color="#e5c584"/><stop offset=".58" stop-color="#bd924c"/><stop offset=".84" stop-color="#8f602b"/><stop offset="1" stop-color="#d9b46d"/>
+    </linearGradient>
+    <linearGradient id="moulding" x1="0" y1="0" x2="0" y2="1">
+      <stop stop-color="#f9dda2"/><stop offset=".16" stop-color="#c29851"/><stop offset=".45" stop-color="#9a6b31"/><stop offset=".75" stop-color="#cba562"/><stop offset="1" stop-color="#38200e"/>
+    </linearGradient>
+    <radialGradient id="recess"><stop stop-color="#6a441f"/><stop offset=".7" stop-color="#3e2412"/><stop offset="1" stop-color="#24150b"/></radialGradient>
+    <filter id="relief" x="-20%" y="-20%" width="140%" height="145%"><feDropShadow dx="1.3" dy="2" stdDeviation=".85" flood-color="#160c05" flood-opacity=".9"/></filter>
+    <pattern id="beads" width="10" height="10" patternUnits="userSpaceOnUse"><circle cx="5" cy="5" r="2.6" fill="#6b451e"/><circle cx="4.6" cy="4.1" r="2" fill="url(#gold)"/></pattern>
+    <pattern id="vine" width="18" height="52" patternUnits="userSpaceOnUse">
+      <path d="M9 0C-2 13 20 30 9 52" stroke="#41290f" stroke-width="2"/>
+      <path d="M8 0C-3 13 19 30 8 52M8 16C0 17 0 7 3 7C9 8 11 12 8 16ZM10 34C18 33 18 23 15 23C9 24 7 29 10 34Z" stroke="#d1ad6a" stroke-width=".8" fill="#b18443"/>
+    </pattern>
+    <g id="petal" fill="url(#gold)" stroke="#694519" stroke-width=".7"><path d="M0 0C-10 -9 -10 -23 0 -34C10 -23 10 -9 0 0Z"/><path d="M0 -5V-28" stroke="#f1d598" stroke-width=".7"/></g>
+    <g id="lotus" filter="url(#relief)">
+      <use href="#petal" transform="rotate(-65)"/><use href="#petal" transform="rotate(65)"/>
+      <use href="#petal" transform="rotate(-34)"/><use href="#petal" transform="rotate(34)"/><use href="#petal"/>
+      <path d="M-32 0Q0 19 32 0Q0 6 -32 0Z" fill="url(#gold)" stroke="#6c461f"/>
+      <path d="M-27 4Q0 18 27 4" stroke="#e3c384"/>
+    </g>
+    <g id="rosette" fill="url(#gold)" stroke="#68421b" stroke-width=".65">
+      <use href="#petal" transform="scale(.38)"/><use href="#petal" transform="rotate(45) scale(.38)"/>
+      <use href="#petal" transform="rotate(90) scale(.38)"/><use href="#petal" transform="rotate(135) scale(.38)"/>
+      <use href="#petal" transform="rotate(180) scale(.38)"/><use href="#petal" transform="rotate(225) scale(.38)"/>
+      <use href="#petal" transform="rotate(270) scale(.38)"/><use href="#petal" transform="rotate(315) scale(.38)"/>
+      <circle r="4"/><circle r="1.6" fill="#f7dda0"/>
+    </g>
+    <g id="band">
+      <rect x="32" width="126" height="24" rx="2" fill="url(#moulding)" stroke="#3d260f"/>
+      <path d="M34 3H156M34 21H156" stroke="#f0d293" stroke-width=".8"/>
+      <path d="M38 12L45 5L52 12L45 19ZM58 12L65 5L72 12L65 19ZM78 12L85 5L92 12L85 19ZM98 12L105 5L112 12L105 19ZM118 12L125 5L132 12L125 19ZM138 12L145 5L152 12L145 19Z" fill="#6b451e" stroke="#d2ad66" stroke-width=".8"/>
+      <path d="M42 12H48M62 12H68M82 12H88M102 12H108M122 12H128M142 12H148" stroke="#e8c987" stroke-width="1.6"/>
+    </g>
+    <!-- Original stylised bas-relief, not a reproduction of a temple sculpture. -->
+    <g id="ganesha" stroke="#654019" stroke-width="1.1" stroke-linejoin="round" filter="url(#relief)">
+      <circle cy="-16" r="43" fill="none" stroke="#ae8443" stroke-width="3"/>
+      <circle cy="-16" r="38" fill="none" stroke="#e1be78" stroke-width=".8" stroke-dasharray="1 3"/>
+      <!-- Four arms and held lotus ornaments. -->
+      <path d="M-18 8Q-40 9 -38 -10Q-46 -22 -40 -26Q-32 -28 -31 -13L-17 -3M18 8Q40 9 38 -10Q46 -22 40 -26Q32 -28 31 -13L17 -3" fill="url(#gold)"/>
+      <path d="M-40 -23V-35M40 -23V-35" stroke="#d8b56f" stroke-width="2"/>
+      <use href="#lotus" transform="translate(-40 -35) scale(.24)"/><use href="#lotus" transform="translate(40 -35) scale(.24)"/>
+      <!-- Seated legs and rounded torso. -->
+      <path d="M-14 35C-38 31 -54 45 -43 55C-33 63 -9 55 0 52C9 55 33 63 43 55C54 45 38 31 14 35Z" fill="url(#gold)"/>
+      <path d="M-25 0Q-31 15 -24 35Q-13 53 0 49Q13 53 24 35Q31 15 25 0Z" fill="url(#gold)"/>
+      <path d="M-16 14Q0 24 16 14M-20 33Q0 43 20 33M-31 46Q-19 40 -9 47M31 46Q19 40 9 47" fill="none"/>
+      <path d="M-20 28Q0 36 20 28" stroke="#f0d497" stroke-width="2"/>
+      <circle cy="30" r="2.5" fill="#795022"/>
+      <!-- Lower hands: blessing palm and a bowl of sweets. -->
+      <path d="M-22 2Q-34 7 -30 21L-35 28Q-43 25 -40 15L-37 8Q-33 1 -31 -1Z" fill="url(#gold)"/>
+      <path d="M-37 12L-37 23M-34 12L-34 20" fill="none" stroke-width=".6"/>
+      <path d="M22 2Q35 9 31 21L38 25Q43 31 34 32Q21 32 22 19Z" fill="url(#gold)"/>
+      <path d="M28 24Q36 36 44 24Z" fill="url(#gold)"/><path d="M32 24Q36 14 40 24Z" fill="#f1ce83"/>
+      <!-- Elephant ears, head and curled trunk. -->
+      <path d="M-15 -33C-48 -49 -48 -7 -21 0L-13 -13M15 -33C48 -49 48 -7 21 0L13 -13" fill="url(#gold)"/>
+      <path d="M-24 -30Q-39 -33 -33 -17L-24 -9M24 -30Q39 -33 33 -17L24 -9" fill="none" stroke="#e5c382"/>
+      <path d="M0 -45C-23 -45 -26 -27 -20 -10Q-15 2 -6 2C-8 13 -4 25 9 25C22 25 23 13 17 10Q11 8 11 15Q2 18 5 3C24 -2 26 -28 17 -38Q9 -45 0 -45Z" fill="url(#gold)"/>
+      <path d="M-17 -11L-13 0L-10 -9M13 -10L17 -3L18 -13" fill="#f5d99c"/>
+      <path d="M-15 -22Q-11 -25 -7 -22M7 -22Q11 -25 15 -22" fill="none" stroke="#513214" stroke-width="1.7"/>
+      <path d="M-3 -12Q-6 5 -1 13" stroke="#f4d79c" fill="none"/>
+      <path d="M-3 -31H3M-3 -28H3M0 -35V-25" stroke="#6b441e" stroke-width=".8"/>
+      <!-- Tiered crown and necklace with individually cut beads. -->
+      <path d="M-19 -39L-14 -49H14L19 -39Z M-14 -49L-9 -58H9L14 -49Z M-9 -58L0 -69L9 -58Z" fill="url(#gold)"/>
+      <path d="M-17 -42H17M-11 -52H11M-6 -60H6" stroke="#ffe5ad" stroke-width=".8"/>
+      <circle cy="-65" r="1.8" fill="#f9de9e"/>
+      <path d="M-18 0Q0 14 18 0" stroke="#edcc88" stroke-width="3" stroke-dasharray="1 3" fill="none"/>
+      <path d="M-4 10L0 15L4 10L0 7Z" fill="#f5d799"/>
+      <path d="M-43 58Q0 64 43 58L38 66H-38Z" fill="url(#moulding)"/>
+    </g>
+  </defs>
+  <!-- Broad carved capital, a single solid shaft, and a stepped stone base. -->
+  <path d="M37 19H153L172 49L157 72H33L18 49Z" fill="url(#stone)" stroke="#ddba75" stroke-width=".7"/>
+  <path d="M24 46Q45 48 49 64M40 35Q61 42 62 66M58 29Q75 40 77 66M166 46Q145 48 141 64M150 35Q129 42 128 66M132 29Q115 40 113 66" stroke="#3e260f" stroke-width="3"/>
+  <path d="M24 44Q45 46 49 62M40 33Q61 40 62 64M58 27Q75 38 77 64M166 44Q145 46 141 62M150 33Q129 40 128 64M132 27Q115 38 113 64" stroke="#e3be79" stroke-width="1.1"/>
+  <use href="#rosette" transform="translate(95 44) scale(1.3)"/>
+  <rect x="17" y="12" width="156" height="10" rx="2" fill="url(#moulding)"/>
+  <rect x="24" y="72" width="142" height="12" rx="2" fill="url(#moulding)"/>
+  <rect x="35" y="84" width="120" height="10" fill="url(#beads)"/>
+  <path d="M39 94H151L144 699H46Z" fill="url(#stone)" stroke="#d2ae6b" stroke-width="1"/>
+  <path d="M48 103H142V691H48Z" fill="#815827" stroke="#4c2e12" stroke-width="2"/>
+  <rect x="49" y="105" width="18" height="578" fill="url(#vine)"/>
+  <rect x="123" y="105" width="18" height="578" fill="url(#vine)"/>
+  <path d="M43 103L49 692M147 103L141 692M69 104V687M121 104V687" stroke="#edcc88" stroke-width=".6"/>
+  <rect x="70" y="103" width="50" height="106" rx="23" fill="url(#recess)" stroke="#d2aa61"/>
+  <use href="#lotus" transform="translate(95 172) scale(.63)"/>
+  <path d="M95 180V196M85 187Q95 182 105 187" stroke="#cfaa67"/>
+  <use href="#band" transform="translate(0 218)"/>
+  <!-- Deeply recessed principal deity panel, framed by bead and leaf carving. -->
+  <path d="M41 274Q43 256 64 253Q95 224 126 253Q147 256 149 274V431H41Z" fill="url(#moulding)" stroke="#e3c283"/>
+  <path d="M47 278Q50 263 68 261Q95 237 122 261Q140 263 143 278V421H47Z" fill="url(#recess)" stroke="#4c2d11" stroke-width="2"/>
+  <path d="M48 413V279Q49 262 68 261Q95 237 122 261Q141 262 142 279V413" stroke="#d8b775" stroke-width="3" stroke-dasharray="1 4"/>
+  <use href="#ganesha" transform="translate(95 342) scale(.9)"/>
+  <use href="#band" transform="translate(0 431)"/>
+  <!-- Interlaced floral medallion and leaf-cut shaft panels. -->
+  <rect x="70" y="467" width="50" height="108" rx="23" fill="url(#recess)" stroke="#d5b06e"/>
+  <path d="M95 473C61 493 126 531 95 568C126 548 61 510 95 473Z" fill="none" stroke="#cea761" stroke-width="1.5"/>
+  <use href="#rosette" transform="translate(95 521) scale(1.1)"/>
+  <use href="#band" transform="translate(0 586)"/>
+  <rect x="70" y="620" width="50" height="64" fill="url(#recess)" stroke="#cfaa65"/>
+  <use href="#lotus" transform="translate(95 661) scale(.62)"/>
+  <path d="M40 693H150L160 709H30Z" fill="url(#moulding)" stroke="#d1ac66"/>
+  <rect x="26" y="709" width="138" height="13" fill="url(#beads)" stroke="#795021"/>
+  <rect x="21" y="724" width="148" height="30" fill="url(#stone)" stroke="#d1aa65"/>
+  <use href="#rosette" transform="translate(43 739) scale(.65)"/><use href="#rosette" transform="translate(69 739) scale(.65)"/>
+  <use href="#rosette" transform="translate(95 739) scale(.65)"/><use href="#rosette" transform="translate(121 739) scale(.65)"/><use href="#rosette" transform="translate(147 739) scale(.65)"/>
+  <path d="M17 756H173V767H17ZM10 770H180V783H10Z" fill="url(#moulding)" stroke="#e0bb77" stroke-width=".7"/>
+  <path d="M12 787H178" stroke="#563312" stroke-width="4"/>
+</svg>

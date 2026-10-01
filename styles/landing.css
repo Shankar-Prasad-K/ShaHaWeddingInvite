@@ -1,0 +1,251 @@
+:root {
+  color-scheme: dark;
+  --ivory: #fff1d9;
+  --gold: #d8b475;
+  --motion-state: paused;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  color: var(--ivory);
+  background: #211518;
+  -webkit-font-smoothing: antialiased;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; min-width: 280px; }
+button, a { -webkit-tap-highlight-color: transparent; }
+button { font: inherit; }
+a { color: inherit; }
+img { display: block; max-width: 100%; height: auto; }
+[hidden] { display: none !important; }
+::selection { color: #211518; background: #e4c28b; }
+:focus-visible { outline: 2px solid #ffe1a0; outline-offset: 7px; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
+.skip-link { position: fixed; top: 12px; left: 12px; z-index: 20; padding: 12px 18px; color: #211518; background: #fff1d9; transform: translateY(-180%); }
+.skip-link:focus { transform: none; }
+
+/* Decorative golden-arches video, not a representation of the ceremony venue. */
+.courtyard { position: fixed; inset: 0; overflow: hidden; pointer-events: none; z-index: -2; }
+.courtyard-photo {
+  position: absolute; inset: 0;
+}
+/* Fill the viewport without stretching; portrait footage is cropped on desktop. */
+.courtyard-photo img, .courtyard-photo video { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; object-fit: cover; object-position: center; }
+.courtyard-shade {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 36% 65% at 50% 48%, #271719b8, #27171970 85%, transparent),
+    linear-gradient(180deg, #20142140, #24151660 36%, #1e111a80 75%, #170e17a6);
+}
+.courtyard-grain { position: absolute; inset: 0; opacity: .16; background: repeating-linear-gradient(0deg, #ffdf9e0d 0 1px, transparent 1px 3px); }
+@keyframes courtyard-breathe { to { transform: scale(1.035); } }
+
+.ceremonial-frame { position: absolute; inset: 0 0 auto; height: 100svh; min-height: 760px; pointer-events: none; }
+.ceremonial-frame::before, .ceremonial-frame::after { content: ''; position: absolute; top: 20px; bottom: 20px; width: 1px; background: linear-gradient(#cba26780, #cba26726 20%, #cba26726 80%, #cba26780); }
+.ceremonial-frame::before { left: 22px; }
+.ceremonial-frame::after { right: 22px; }
+.frame-corner { position: absolute; width: 86px; height: 86px; border: solid #ddb675a6; border-width: 1px 0 0 1px; }
+.frame-corner::before { content: ''; position: absolute; inset: 6px; border: inherit; border-color: #d2a45f5e; }
+.frame-corner::after { content: '✧'; position: absolute; top: 10px; left: 12px; color: #e8c384; font-size: 26px; }
+.corner-tl { top: 20px; left: 22px; }
+.corner-tr { top: 20px; right: 22px; transform: scaleX(-1); }
+.corner-bl { bottom: 20px; left: 22px; transform: scaleY(-1); }
+.corner-br { bottom: 20px; right: 22px; transform: scale(-1); }
+
+.temple-lamp { --breeze-duration: 16s; --breeze-delay: -1s; position: absolute; top: -60px; width: clamp(108px, 10vw, 132px); transform-origin: 50% 0; animation: lamp-sway var(--breeze-duration) ease-in-out var(--breeze-delay) infinite; animation-play-state: var(--motion-state); filter: drop-shadow(0 5px 9px #13090550); }
+.temple-lamp img { width: 100%; }
+.lamp-left { left: clamp(24px, 6vw, 100px); }
+.lamp-right { --breeze-delay: -2s; right: clamp(24px, 6vw, 100px); }
+.lamp-flame {
+  position: absolute; left: 45.625%; bottom: 18.2%; width: 8.75%; height: 5.25%;
+}
+.flame-body {
+  display: block; width: 100%; height: 100%; overflow: visible; transform-origin: 50% 100%;
+  filter: drop-shadow(0 0 3px #ffca6380);
+  animation: flame-wind 9s ease-in-out var(--breeze-delay) infinite;
+  animation-play-state: var(--motion-state);
+}
+.flame-outer { fill: #efc56d; }
+.flame-core { fill: #fff3cc; }
+/* Mostly still, with one brief breeze; the curved flame stays rooted at its wick. */
+@keyframes lamp-sway { 0%, 30%, 70%, 100% { transform: rotate(0); } 45% { transform: rotate(.3deg); } 57% { transform: rotate(-.2deg); } }
+@keyframes flame-wind {
+  0%, 30%, 75%, 100% { transform: skewX(0) scale(1); }
+  43% { transform: skewX(7deg) scale(1, .96); }
+  53% { transform: skewX(-4deg) scale(.98, 1.02); }
+  63% { transform: skewX(2deg) scale(1); }
+}
+
+.landing { position: relative; max-width: 1160px; min-height: 100svh; margin: 0 auto; padding: 54px 48px 26px; text-align: center; }
+.welcome { position: relative; }
+.blessing-mark { display: grid; place-items: center; width: 64px; height: 64px; margin: 0 auto 17px; position: relative; color: #f4d69c; }
+.blessing-mark::before, .blessing-mark::after { content: ''; position: absolute; inset: 0; border: 1px solid #d6b4778c; border-radius: 50% 50% 38% 38%; }
+.blessing-mark::after { inset: 5px; border-color: #d6b4774d; }
+.blessing-mark span { font: 34px/1 Georgia, serif; padding-bottom: 3px; text-shadow: 0 0 20px #ffd98f40; }
+.eyebrow, .landing-date, .landing-place, .portal-kicker, .portal-action, .countdown h2, .cd-label, .utility-actions { font-family: 'Cinzel', Georgia, serif; font-weight: 400; }
+.eyebrow { margin: 0 0 20px; font-size: 10px; letter-spacing: .28em; color: #f1d6aa; }
+.couple-names { display: flex; justify-content: center; align-items: center; gap: 19px; margin: 0; font: 400 clamp(48px, 6vw, 80px)/1.2 'Great Vibes', cursive; color: #ffe8b9; text-shadow: 0 2px 18px #1b0d18a8; }
+.couple-names .amp { font: italic 400 .49em/1 'Cormorant Garamond', Georgia, serif; color: #e1ba77; }
+.welcome-message { margin: 18px auto 0; font-size: 19px; line-height: 1.45; color: #f6e7d1; font-style: italic; text-shadow: 0 1px 7px #1e1218; }
+.welcome-kolam { width: 180px; height: auto; margin: 13px auto 10px; }
+.landing-date { margin: 0; font-size: 12px; line-height: 1.7; letter-spacing: .16em; color: #fff0d4; }
+.landing-place { display: flex; align-items: center; justify-content: center; gap: 12px; margin: 7px 0 0; font-size: 10px; letter-spacing: .25em; color: #ebcfa4; }
+.landing-place span { width: 21px; height: 1px; background: #e3bd7980; }
+
+.celebrations { margin: 34px auto 0; scroll-margin-top: 22px; }
+.section-heading { display: flex; justify-content: center; align-items: center; gap: 18px; margin-bottom: 23px; }
+.section-heading h2 { margin: 0; color: #f4e0bd; font-size: 17px; line-height: 1.4; font-weight: 400; font-style: italic; letter-spacing: .04em; }
+.section-heading > span { height: 1px; width: 52px; background: linear-gradient(90deg, transparent, #d0a56a99); }
+.section-heading > span:last-child { transform: scaleX(-1); }
+.portal-row { display: flex; justify-content: center; align-items: center; gap: 24px; }
+.portal-card {
+  position: relative; isolation: isolate; display: flex; flex-direction: column; align-items: center;
+  width: 300px; min-height: 302px; padding: 27px 18px 23px;
+  text-decoration: none; border: 1px solid #c7a16d99; border-radius: 145px 145px 6px 6px;
+  background: radial-gradient(ellipse at 50% 0, #85423254, transparent 70%), linear-gradient(160deg, #452426f5, #24161cee);
+  box-shadow: 0 18px 35px #0d080d57, inset 0 0 35px #e4b47108;
+  transition: transform .3s ease, border-color .3s ease, box-shadow .3s ease;
+}
+.portal-inlay { position: absolute; inset: 7px; border: 1px solid #d2ad7147; border-radius: 138px 138px 3px 3px; pointer-events: none; }
+.portal-inlay::before, .portal-inlay::after { content: ''; position: absolute; bottom: 6px; width: 17px; height: 17px; border: solid #d2ad7180; border-width: 0 0 1px 1px; }
+.portal-inlay::before { left: 6px; }
+.portal-inlay::after { right: 6px; transform: scaleX(-1); }
+.reception-portal { background: radial-gradient(ellipse at 50% 0, #45686a4a, transparent 70%), linear-gradient(160deg, #202f3bf5, #141c2aee); border-color: #c6b69288; }
+.portal-art { width: 92px; height: 80px; margin-bottom: 12px; }
+.portal-kicker { font-size: 10px; line-height: 1.6; letter-spacing: .12em; color: #e9c998; }
+.portal-card h3 { font: 500 24px/1.25 'Cormorant Garamond', Georgia, serif; margin: 7px 0 5px; color: #fff1d9; }
+.portal-time { margin: 0; font-size: 16px; line-height: 1.5; color: #e6d7c0; }
+.portal-venue { max-width: 230px; min-height: 38px; margin: 8px 0 0; font-size: 14px; line-height: 1.35; color: #ddcdb5; }
+.portal-card::before { content: '◆'; position: absolute; top: 7px; left: calc(50% - 4px); font-size: 8px; color: #eac991; }
+.portal-rule { display: flex; align-items: center; justify-content: center; gap: 9px; color: #c9a971; font-size: 6px; margin: 14px 0; }
+.portal-rule::before, .portal-rule::after { content: ''; width: 35px; height: 1px; background: #ccb37e66; }
+.portal-action { font-size: 10px; letter-spacing: .06em; line-height: 1.6; color: #f1d3a0; }
+.portal-action > span { display: inline-block; padding-left: 7px; font: 17px/1 Georgia, serif; transition: transform .3s ease; }
+.portal-join { color: #f2d59e; font-style: italic; font-size: 25px; }
+.portal-card:focus-visible { border-color: #ffe1a0; box-shadow: 0 18px 48px #130b10b0, 0 0 25px #e6be6d26; }
+@media (hover: hover) {
+  .portal-card:hover { transform: translateY(-5px); border-color: #f3cd8e; box-shadow: 0 24px 45px #0d080d85, 0 0 25px #e6be6d21; }
+  .portal-card:hover .portal-action > span { transform: translate(2px, -2px); }
+}
+.portal-card:active { transform: translateY(-1px); }
+
+.countdown { width: max-content; max-width: 100%; margin: 20px auto 28px; padding: 15px 25px 17px; border-block: 1px solid #d5b07670; background: linear-gradient(90deg, transparent, #27182070 15%, #27182070 85%, transparent); position: relative; }
+.countdown::before, .countdown::after { content: '◆'; position: absolute; top: -5px; color: #d9b777; font-size: 8px; }
+.countdown::before { left: -3px; }
+.countdown::after { right: -3px; }
+.countdown h2 { margin: 0 0 13px; font-size: 10px; line-height: 1.5; letter-spacing: .16em; color: #f0d7af; }
+.countdown-values { display: flex; align-items: flex-start; justify-content: center; gap: 16px; }
+.cd-unit { display: flex; flex-direction: column; align-items: center; min-width: 45px; }
+.cd-num { font-size: 35px; line-height: 1; color: #ffe4b0; font-variant-numeric: tabular-nums; }
+.cd-label { font-size: 8px; letter-spacing: .06em; color: #e6cfac; margin-top: 7px; }
+.cd-sep { color: #cbb181; line-height: 32px; font-size: 16px; }
+.landing-footer { margin-top: 25px; }
+.landing-footer > p { font-size: 16px; line-height: 1.5; font-style: italic; color: #e1cdb1; margin: 0 0 9px; }
+.utility-actions { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
+.utility-actions button { padding: 10px 12px; min-height: 44px; border: 1px solid transparent; background: transparent; color: #e7cba1; font-size: 10px; letter-spacing: .07em; cursor: pointer; border-radius: 3px; }
+.utility-actions button:hover, .utility-actions button:focus-visible { background: #e2bb7612; border-color: #d5b37e66; }
+.utility-actions button:disabled { color: #c9bba7; cursor: default; }
+.footer-ornament { display: block; color: #c6a270; font-size: 8px; margin-top: 10px; }
+#wed-toast { position: fixed; bottom: 22px; left: 50%; transform: translate(-50%, 10px); max-width: calc(100% - 32px); width: max-content; overflow-wrap: anywhere; z-index: 15; background: #22191d; border: 1px solid #d8b475; color: #fff1d9; padding: 12px 18px; opacity: 0; pointer-events: none; transition: opacity .3s ease, transform .3s ease; }
+
+.sky-lights { position: absolute; inset: 0; }
+.sky-lights i { position: absolute; left: var(--x); top: var(--y); width: 3px; height: 3px; background: #f9d99b; border-radius: 50%; box-shadow: 0 0 7px 2px #ffd68a55; opacity: 0; animation: light-drift 16s linear infinite; animation-delay: var(--delay); animation-play-state: var(--motion-state); }
+.sky-lights i:nth-child(1) { --x: 7%; --y: 66%; --delay: -2s; }
+.sky-lights i:nth-child(2) { --x: 19%; --y: 84%; --delay: -9s; }
+.sky-lights i:nth-child(3) { --x: 31%; --y: 64%; --delay: -6s; }
+.sky-lights i:nth-child(4) { --x: 46%; --y: 94%; --delay: -12s; }
+.sky-lights i:nth-child(5) { --x: 62%; --y: 76%; --delay: -4s; }
+.sky-lights i:nth-child(6) { --x: 83%; --y: 63%; --delay: -14s; }
+.sky-lights i:nth-child(7) { --x: 94%; --y: 90%; --delay: -7s; }
+.sky-lights i:nth-child(8) { --x: 15%; --y: 44%; --delay: -13s; }
+.sky-lights i:nth-child(9) { --x: 72%; --y: 91%; --delay: -10s; }
+.sky-lights i:nth-child(10) { --x: 89%; --y: 42%; --delay: -5s; }
+.sky-lights i:nth-child(11) { --x: 38%; --y: 86%; --delay: -15s; }
+.sky-lights i:nth-child(12) { --x: 68%; --y: 53%; --delay: -1s; }
+@keyframes light-drift { 0%, 100% { opacity: 0; } 20%, 70% { opacity: .6; } to { transform: translate(18px, -100px); } }
+.sky-birds { position: absolute; top: 11%; left: -120px; width: 65px; height: 30px; opacity: .42; animation: birds-crossing 85s linear infinite; animation-delay: -28s; animation-play-state: var(--motion-state); }
+.sky-bird { --flap-duration: 1.8s; --flap-delay: -.3s; position: absolute; width: 22px; height: 19px; fill: #392e37; overflow: visible; }
+.bird-first { left: 0; top: 0; }
+.bird-second { left: 36px; top: 9px; width: 18px; height: 16px; }
+.bird-wing { transform-box: view-box; transform-origin: 24px 22px; animation-duration: var(--flap-duration); animation-delay: var(--flap-delay); animation-timing-function: ease-in-out; animation-iteration-count: infinite; animation-play-state: var(--motion-state); }
+.bird-wing-left { animation-name: wing-left; }
+.bird-wing-right { animation-name: wing-right; }
+@keyframes wing-left { 0%, 100% { transform: rotate(16deg) scaleY(1); } 45% { transform: rotate(-12deg) scaleY(-.68); } 70% { transform: rotate(4deg) scaleY(.25); } }
+@keyframes wing-right { 0%, 100% { transform: rotate(-16deg) scaleY(1); } 45% { transform: rotate(12deg) scaleY(-.68); } 70% { transform: rotate(-4deg) scaleY(.25); } }
+@keyframes birds-crossing { to { transform: translateX(calc(100vw + 180px)) translateY(-35px); } }
+
+@media (min-width: 1450px) {
+  .landing { padding-top: 66px; }
+  .celebrations { margin-top: 40px; }
+  .portal-card { width: 325px; }
+}
+@media (max-width: 1000px) {
+  .landing { padding: 42px 38px 26px; }
+  .couple-names { font-size: clamp(44px, 6.2vw, 66px); gap: 12px; }
+  .lamp-left { left: 28px; }
+  .lamp-right { right: 28px; }
+  .temple-lamp { top: -75px; width: 100px; }
+}
+@media (max-width: 600px) {
+  .landing { padding: 32px 25px 24px; }
+  /* Widen the decorative frame on phones to leave room between its pillars. */
+  .courtyard-shade { background: radial-gradient(ellipse 48% 70% at 50% 48%, #271719bf, #27171980 85%, transparent), linear-gradient(180deg, #24151950, #24151960 65%, #170e1780); }
+  .ceremonial-frame { min-height: 600px; }
+  .ceremonial-frame::before { left: 10px; }
+  .ceremonial-frame::after { right: 10px; }
+  .frame-corner { width: 45px; height: 45px; }
+  .corner-tl, .corner-bl { left: 10px; }
+  .corner-tr, .corner-br { right: 10px; }
+  .corner-bl, .corner-br { display: none; }
+  .frame-corner::after { font-size: 20px; top: 8px; left: 9px; }
+  .temple-lamp { top: -80px; width: 70px; }
+  .lamp-left { left: 7px; }
+  .lamp-right { right: 7px; }
+  .blessing-mark { width: 55px; height: 55px; margin-bottom: 18px; }
+  .blessing-mark span { font-size: 29px; }
+  .eyebrow { font-size: 8px; letter-spacing: .16em; margin-bottom: 14px; }
+  .couple-names { flex-direction: column; font-size: clamp(40px, 11vw, 60px); line-height: 1.15; gap: 3px; }
+  .couple-names .amp { font-size: 25px; line-height: 1.1; margin: 0; }
+  .welcome-message { font-size: 18px; max-width: 310px; margin-top: 14px; }
+  .desktop-break { display: none; }
+  .welcome-kolam { width: 162px; margin: 12px auto; }
+  .landing-date { font-size: 10px; letter-spacing: .1em; }
+  .landing-place { font-size: 9px; margin-top: 10px; }
+  .celebrations { margin-top: 25px; }
+  .section-heading { gap: 10px; margin-bottom: 22px; }
+  .section-heading h2 { font-size: 16px; }
+  .section-heading > span { width: 24px; }
+  .portal-row { flex-direction: column; gap: 18px; }
+  .portal-card { width: min(100%, 310px); min-height: 292px; padding-top: 24px; }
+  .portal-join { font-size: 22px; line-height: 1; }
+  .portal-kicker { font-size: 9px; }
+  .portal-action { font-size: 10px; }
+  .countdown { margin: 12px auto 18px; padding: 10px 8px 12px; }
+  .countdown h2 { font-size: 9px; letter-spacing: .1em; }
+  .countdown-values { gap: 8px; }
+  .cd-unit { min-width: 43px; }
+  .cd-num { font-size: 31px; }
+  .sky-birds { top: 10%; }
+  .landing-footer > p { max-width: 270px; margin-inline: auto; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .sky-lights, .sky-birds { display: none; }
+  .portal-card:hover, .portal-card:active { transform: none; }
+}
+@media (forced-colors: active) {
+  .courtyard, .ceremonial-frame, .blessing-mark::before, .blessing-mark::after, .welcome-kolam, .portal-art, .portal-inlay { display: none; }
+  .portal-card { background: Canvas; border: 1px solid LinkText; box-shadow: none; }
+  .landing, .landing * { color: CanvasText; text-shadow: none; }
+  a.portal-card, a.portal-card * { color: LinkText; }
+  .utility-actions button { border: 1px solid ButtonText; color: ButtonText; }
+  :focus-visible { outline-color: Highlight; }
+}
+@media print {
+  :root { color-scheme: light; background: white; }
+  .courtyard, .ceremonial-frame, .utility-actions, .skip-link, .countdown, #wed-toast { display: none !important; }
+  .landing { padding: 20px; min-height: auto; }
+  .landing, .landing * { color: #33251c; text-shadow: none; }
+  .portal-row { flex-direction: row; }
+  .portal-card { background: white; box-shadow: none; break-inside: avoid; }
+  .portal-action { text-decoration: underline; }
+  *, *::before, *::after { animation: none !important; }
+}

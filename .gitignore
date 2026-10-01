@@ -1,0 +1,7 @@
+# Private fingerprint source photographs: never publish these originals.
+/Image (58).jpeg
+/Image (59).jpeg
+/Image (60).jpeg
+
+# Local development artifacts
+node_modules/

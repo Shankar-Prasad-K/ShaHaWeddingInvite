@@ -1,6 +1,11 @@
 # Prompt: Interactive Wedding Invitation Website
 
-Copy everything below into a fresh agent session to recreate this project from scratch.
+> Historical design brief: the current wedding page uses an unfurling scroll,
+> and the October 2026 reception redesign uses a midnight garden, gold-sealed
+> envelope and ivory letter. See README.md and the current source for the
+> implemented experience. Do not restore the old doors when editing the site.
+
+The original recreation prompt follows for reference.
 
 ---
 

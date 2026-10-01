@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 130" fill="none">
+  <!-- Two botanical stems trace S and H, crossing once like two stories becoming one. -->
+  <defs>
+    <linearGradient id="goldStem" x1="20" y1="15" x2="100" y2="120" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#b49a61"/><stop offset=".5" stop-color="#856837"/><stop offset="1" stop-color="#b49a61"/>
+    </linearGradient>
+    <radialGradient id="wineBud" cx=".3" cy=".2" r=".85"><stop stop-color="#f4d4df"/><stop offset=".3" stop-color="#bd839b"/><stop offset=".65" stop-color="#8d4563"/><stop offset="1" stop-color="#632d46"/></radialGradient>
+    <radialGradient id="lavenderBud" cx=".3" cy=".2" r=".85"><stop stop-color="#fffaf5"/><stop offset=".3" stop-color="#e8d9f2"/><stop offset=".65" stop-color="#c2a8da"/><stop offset="1" stop-color="#9675b0"/></radialGradient>
+  </defs>
+  <g stroke="url(#goldStem)" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M52 38C37 21 16 31 19 48C22 62 48 59 51 77C55 98 24 107 15 89"/>
+    <path d="M65 30C69 52 57 79 61 101M99 29C103 55 89 81 94 102M64 66C75 60 85 61 97 64"/>
+    <path d="M30 99C42 111 67 117 86 123M61 100C64 111 78 118 95 118" stroke-width=".8"/>
+    <path d="M21 47Q8 47 7 36Q18 36 21 47ZM46 85Q57 87 58 77Q48 77 46 85ZM65 48Q78 43 77 34Q66 35 65 48ZM94 85Q106 82 108 70Q98 73 94 85" fill="#a49b7224" stroke-width=".7"/>
+    <path d="M52 38Q57 26 52 18M99 29Q96 19 100 12" stroke-width=".8"/>
+  </g>
+  <path d="M52 21C40 18 41 7 47 3C57 4 62 13 52 21Z" fill="url(#wineBud)"/>
+  <path d="M100 16C90 9 94 1 101 1C111 6 109 14 100 16Z" fill="url(#lavenderBud)"/>
+  <!-- Small pearl reflections give the buds a satin shine without animated glitter. -->
+  <path d="M46 10Q45 7 48 6M97 7Q97 4 100 4" stroke="#fff8eb" stroke-opacity=".8" stroke-width="1.2" stroke-linecap="round"/>
+  <path d="m48 19 4 5 6-7M96 14l4 5 6-6" stroke="#7a8862" stroke-width="1"/>
+  <circle cx="76" cy="113" r="1.5" fill="#b49a61"/>
+</svg>

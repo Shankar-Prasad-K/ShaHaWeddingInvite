@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 260" fill="none">
+  <!-- Original, fine-line magnolia engraving for the invitation margins. -->
+  <g stroke="#927640" stroke-width=".85" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M39 258C73 226 65 190 95 150S126 91 119 32M71 215C44 193 31 165 24 134M96 150C126 159 150 139 164 115M113 112C86 103 64 82 57 54"/>
+    <path d="M59 234C24 225 14 201 15 184C40 189 59 209 59 234ZM66 207C94 203 115 181 116 164C85 168 71 182 66 207ZM82 173C55 175 36 153 37 135C57 138 74 153 82 173ZM115 116C140 103 145 82 140 61C123 70 112 91 115 116ZM112 89C91 78 82 55 88 35C108 46 117 66 112 89Z" fill="#b9a574" fill-opacity=".08"/>
+    <path d="M18 189Q43 216 59 234M66 207 110 172M42 142 82 173M115 116 138 68M91 42 112 89" stroke-opacity=".55"/>
+    <g transform="translate(117 49)">
+      <path d="M0 7C-23-2-27-27-19-36C-7-35 1-18 0 7ZM0 7C-4-15 0-41 11-45C23-32 20-11 0 7ZM0 7C13-16 34-22 41-13C37 4 20 12 0 7ZM0 7C23 5 31 22 24 32C5 34-2 22 0 7ZM0 7C-8 27-28 32-36 20C-32 5-14-3 0 7Z" fill="#d9c99e" fill-opacity=".09"/>
+      <path d="M-2 3-16-28M2 1 11-35M6 4 31-10M4 12 20 25M-7 10-27 19" stroke-opacity=".4"/>
+      <circle cy="7" r="5" fill="#a08854" fill-opacity=".25"/>
+      <path d="M0 7-6-1M0 7 3-3M0 7 9 3M0 7 8 13M0 7-3 17M0 7-10 10"/>
+      <g fill="#927640"><circle cx="-6" cy="-1" r="1"/><circle cx="3" cy="-3" r="1"/><circle cx="9" cy="3" r="1"/><circle cx="8" cy="13" r="1"/><circle cx="-3" cy="17" r="1"/><circle cx="-10" cy="10" r="1"/></g>
+    </g>
+    <path d="M24 135C13 127 12 113 19 102C30 108 33 124 24 135Z" fill="#784058" fill-opacity=".55"/>
+    <path d="M163 116C156 101 160 87 171 81C179 94 175 108 163 116Z" fill="#ae95c6" fill-opacity=".7"/>
+    <path d="M57 55C43 51 38 40 42 29C56 31 63 41 57 55Z" fill="#b9a574" fill-opacity=".12"/>
+    <path d="M79 178Q131 195 145 170M124 186 129 164M107 187 113 208"/>
+    <g fill="#927640" stroke="none"><ellipse cx="146" cy="169" rx="2" ry="3"/><ellipse cx="130" cy="162" rx="1.6" ry="3"/><ellipse cx="114" cy="209" rx="1.8" ry="3"/></g>
+  </g>
+</svg>

@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="160" height="460" viewBox="0 0 160 460" fill="none">
+  <defs>
+    <linearGradient id="brass" x1="25" y1="0" x2="130" y2="10" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#755022"/><stop offset=".24" stop-color="#c99b4c"/><stop offset=".45" stop-color="#ffdfa0"/><stop offset=".64" stop-color="#c49141"/><stop offset="1" stop-color="#765020"/>
+    </linearGradient>
+    <linearGradient id="bowl" x1="80" y1="376" x2="80" y2="427" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#ffe2a3"/><stop offset=".2" stop-color="#bc8b3e"/><stop offset=".48" stop-color="#614022"/><stop offset=".72" stop-color="#d9b064"/><stop offset="1" stop-color="#805525"/>
+    </linearGradient>
+    <pattern id="chain" width="12" height="18" patternUnits="userSpaceOnUse">
+      <ellipse cx="6" cy="6" rx="3.2" ry="5.5" stroke="#d9b367" stroke-width="1.4"/>
+      <path d="M6 10v7" stroke="#f5d18d" stroke-width="1.5"/>
+    </pattern>
+  </defs>
+  <path d="M74 0h12v239H74z" fill="url(#chain)"/>
+  <ellipse cx="80" cy="244" rx="6" ry="9" stroke="#dbb369" stroke-width="2"/>
+  <path d="M79 251 37 374m44-123 42 123M80 254v117" stroke="#9e7338" stroke-width="3"/>
+  <path d="M79 251 37 374m44-123 42 123M80 254v117" stroke="#f3cc83" stroke-width="1" stroke-dasharray="3 5"/>
+  <path d="M71 265q-14-9-12-18 10 0 16 9-2-16 5-23 7 7 5 23 6-9 16-9 2 9-12 18Z" fill="url(#brass)"/>
+  <path d="M60 270Q80 282 100 270M65 275Q80 286 95 275" stroke="url(#brass)" stroke-width="2"/>
+  <path d="M80 277v18m-15-22-7 17m37-17 7 17" stroke="#e4bd77" stroke-width="1.2"/>
+  <g fill="url(#brass)" stroke="#deb56c" stroke-width=".7">
+    <path d="M75 295q5-8 10 0l2 6H73Z"/><path d="M53 290q5-8 10 0l2 6H51Z"/><path d="M97 290q5-8 10 0l2 6H95Z"/>
+    <circle cx="80" cy="304" r="2"/><circle cx="58" cy="299" r="2"/><circle cx="102" cy="299" r="2"/>
+  </g>
+  <path d="M26 379q54-15 108 0l-11 15H37Z" fill="url(#brass)" stroke="#e9c784"/>
+  <ellipse cx="80" cy="379" rx="54" ry="8" fill="#4e3420" stroke="#e4bf77" stroke-width="2"/>
+  <path d="M29 385q8 27 42 30l-5 9h28l-5-9q34-3 42-30Z" fill="url(#bowl)" stroke="#b48744"/>
+  <path d="M38 392q42 12 84 0M45 402q35 9 70 0" stroke="#e7bd73" stroke-width="1"/>
+  <path d="M57 398q3 9 8 12m9-10 1 13m10-13-1 13m17-15q-3 9-8 12" stroke="#795023"/>
+  <path d="M40 390q5 10 10 2 5 13 10 3 5 14 10 2 5 15 10 2 5 13 10-2 5 12 10-2 5 10 10-3 5 8 10-2" stroke="#ffe1a1" stroke-width=".85"/>
+  <path d="M40 402v12m14-5v12m52-12v12m14-19v12" stroke="#d9ab60"/>
+  <g fill="url(#brass)" stroke="#f3d18e" stroke-width=".6">
+    <path d="M40 414q-6 7 0 11 6-4 0-11Zm14 7q-6 7 0 11 6-4 0-11Zm52 0q-6 7 0 11 6-4 0-11Zm14-7q-6 7 0 11 6-4 0-11Z"/>
+  </g>
+  <path d="M64 425h32l-7 6H71z" fill="url(#brass)"/>
+  <path d="M80 430v7" stroke="#d1a65b" stroke-width="2"/>
+  <path d="M80 437q-10 9 0 16 10-7 0-16" fill="url(#brass)"/>
+  <path d="M77 377h6" stroke="#f9dea4" stroke-width="2" stroke-linecap="round"/>
+</svg>

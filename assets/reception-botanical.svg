@@ -1,0 +1,147 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 640" fill="none">
+  <defs>
+    <linearGradient id="leaf" x1="-36" y1="-80" x2="28" y2="-5" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#80968b"/><stop offset=".45" stop-color="#456a64"/><stop offset="1" stop-color="#173d3e"/>
+    </linearGradient>
+    <linearGradient id="backLeaf" x1="-24" y1="-75" x2="20" y2="-5" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#496f76"/><stop offset=".6" stop-color="#244c53"/><stop offset="1" stop-color="#102c38"/>
+    </linearGradient>
+    <radialGradient id="petal" cx=".28" cy=".17" r=".92">
+      <stop stop-color="#fffbed"/><stop offset=".35" stop-color="#e8e8d9"/><stop offset=".72" stop-color="#bccbbf"/><stop offset="1" stop-color="#637e76"/>
+    </radialGradient>
+    <radialGradient id="petalWarm" cx=".38" cy=".1" r=".92">
+      <stop stop-color="#fffae7"/><stop offset=".43" stop-color="#ece3c9"/><stop offset=".79" stop-color="#b5b9a0"/><stop offset="1" stop-color="#6f8478"/>
+    </radialGradient>
+    <radialGradient id="petalBlue" cx=".25" cy=".18" r=".9">
+      <stop stop-color="#c2d6db"/><stop offset=".42" stop-color="#86aab9"/><stop offset=".8" stop-color="#486e82"/><stop offset="1" stop-color="#25475b"/>
+    </radialGradient>
+    <radialGradient id="petalLavender" cx=".25" cy=".18" r=".9">
+      <stop stop-color="#f1ecee"/><stop offset=".35" stop-color="#d3cbd7"/><stop offset=".73" stop-color="#a29aaf"/><stop offset="1" stop-color="#686477"/>
+    </radialGradient>
+    <radialGradient id="petalWine" cx=".25" cy=".18" r=".9">
+      <stop stop-color="#b18c91"/><stop offset=".32" stop-color="#805762"/><stop offset=".72" stop-color="#50333e"/><stop offset="1" stop-color="#2c202a"/>
+    </radialGradient>
+    <radialGradient id="pollen" cx=".35" cy=".3" r=".7">
+      <stop stop-color="#f8e5b0"/><stop offset=".45" stop-color="#c9aa66"/><stop offset="1" stop-color="#695630"/>
+    </radialGradient>
+    <g id="blade">
+      <path d="M0 0C-39-21-46-66-23-104C-22-78 17-49 0 0Z" fill="url(#leaf)" stroke="#a4bba1" stroke-opacity=".22" stroke-width=".7"/>
+      <path d="M0 0C-16-32-26-66-23-101M-7-22-29-34M-12-36-36-52M-18-51-36-68M-21-66-32-80M-10-31 0-48M-16-48-7-64M-21-65-16-78" stroke="#c1c5a2" stroke-opacity=".25" stroke-width=".65"/>
+    </g>
+    <g id="blueBlade">
+      <path d="M0 0C-34-22-43-58-15-92C-17-66 18-43 0 0Z" fill="url(#backLeaf)" stroke="#8ca3a2" stroke-opacity=".2" stroke-width=".6"/>
+      <path d="M0 0C-13-28-25-60-15-88M-8-24-29-39M-15-44-32-58M-12-36 0-52M-18-56-10-72" stroke="#a1bbb3" stroke-opacity=".2" stroke-width=".7"/>
+    </g>
+    <g id="bud">
+      <path d="M0 12C-17-1-13-25 0-38C14-25 15 0 0 12Z" fill="url(#petalWarm)"/>
+      <path d="M0 11C-14 3-17-5-14-13C-8-6-2-3 0 11ZM0 11C11 3 15-5 13-12C5-6 2 0 0 11Z" fill="#3f6357"/>
+      <path d="M0 10C-5-7-2-24 0-34" stroke="#a7b29b" stroke-width=".7"/>
+    </g>
+    <path id="petalShape" d="M0 8C-17-5-36-25-34-45C-33-64-18-79-5-76C13-83 32-67 31-48C30-27 12-5 0 8Z"/>
+    <g id="magnolia">
+      <g fill="url(#petal)" stroke="#e2e6d1" stroke-opacity=".28" stroke-width=".7">
+        <use href="#petalShape" transform="rotate(-16) scale(1.06 1.03)"/>
+        <use href="#petalShape" transform="rotate(53) scale(.98 .94)"/>
+        <use href="#petalShape" transform="rotate(126) scale(1.03 .98)"/>
+        <use href="#petalShape" transform="rotate(199) scale(.98 1.03)"/>
+        <use href="#petalShape" transform="rotate(270) scale(1 .95)"/>
+      </g>
+      <g fill="url(#petalWarm)" stroke="#e9e5ce" stroke-opacity=".35" stroke-width=".6">
+        <use href="#petalShape" transform="rotate(18) scale(.56 .63)"/>
+        <use href="#petalShape" transform="rotate(91) scale(.57 .6)"/>
+        <use href="#petalShape" transform="rotate(163) scale(.6 .64)"/>
+        <use href="#petalShape" transform="rotate(235) scale(.57 .62)"/>
+        <use href="#petalShape" transform="rotate(306) scale(.58 .63)"/>
+      </g>
+      <g stroke="#7e9987" stroke-opacity=".27" stroke-width=".7">
+        <path d="M-4-13Q-19-39-15-63M12-9Q32-30 45-33M15 6Q39 12 52 29M2 18Q0 44-17 55M-16 4Q-39 12-56 0"/>
+      </g>
+      <circle r="13" fill="#6a7950"/>
+      <g stroke="#d8bd7d" stroke-width="1.2" stroke-linecap="round">
+        <path d="M0 0-4-17M0 0 5-16M0 0 14-9M0 0 18 0M0 0 13 10M0 0 3 17M0 0-7 15M0 0-15 6M0 0-16-5"/>
+      </g>
+      <g fill="url(#pollen)">
+        <ellipse cx="-4" cy="-16" rx="2.5" ry="4"/><ellipse cx="5" cy="-15" rx="2.4" ry="3.5"/>
+        <circle cx="14" cy="-9" r="3"/><circle cx="17" r="3"/><circle cx="13" cy="10" r="3"/>
+        <circle cx="3" cy="16" r="3"/><circle cx="-7" cy="14" r="3"/><circle cx="-14" cy="6" r="3"/><circle cx="-15" cy="-5" r="3"/>
+        <circle r="8"/>
+      </g>
+      <g fill="#efe1ae"><circle cx="-3" cy="-3" r="1.5"/><circle cx="3" cy="-1" r="1.4"/><circle cx="0" cy="4" r="1.3"/></g>
+    </g>
+    <g id="blueFlower">
+      <g fill="var(--bloom-paint, url(#petalBlue))" stroke="#d5c2d5" stroke-opacity=".25" stroke-width=".6">
+        <use href="#petalShape" transform="rotate(5) scale(.63 .68)"/>
+        <use href="#petalShape" transform="rotate(77) scale(.63 .62)"/>
+        <use href="#petalShape" transform="rotate(148) scale(.65 .7)"/>
+        <use href="#petalShape" transform="rotate(220) scale(.63 .67)"/>
+        <use href="#petalShape" transform="rotate(292) scale(.63 .68)"/>
+      </g>
+      <circle r="9" fill="url(#pollen)"/>
+      <g fill="#efe0b3"><circle cx="-3" cy="-2" r="1.2"/><circle cx="3" cy="-3" r="1.2"/><circle cx="0" cy="3" r="1.2"/><circle cx="5" cy="3" r="1"/></g>
+    </g>
+  </defs>
+
+  <!-- Ivory magnolias remain dominant; lavender and wine blooms quietly echo the couple's attire. -->
+  <g opacity=".6">
+    <path d="M242 633C159 485 73 323 101 167M207 571C299 479 318 335 302 239M149 428C54 396 27 334 24 272" stroke="#46696c" stroke-width="2"/>
+    <use href="#blueBlade" transform="translate(192 546) rotate(-49) scale(1.15)"/>
+    <use href="#blueBlade" transform="translate(163 487) rotate(38) scale(1.18)"/>
+    <use href="#blueBlade" transform="translate(134 425) rotate(-54) scale(1.16)"/>
+    <use href="#blueBlade" transform="translate(108 356) rotate(23)"/>
+    <use href="#blueBlade" transform="translate(96 295) rotate(-43) scale(.93)"/>
+    <use href="#blueBlade" transform="translate(96 232) rotate(24) scale(.68)"/>
+    <use href="#blueBlade" transform="translate(255 502) rotate(56) scale(1.1)"/>
+    <use href="#blueBlade" transform="translate(281 445) rotate(-32) scale(.98)"/>
+    <use href="#blueBlade" transform="translate(300 375) rotate(60) scale(.92)"/>
+    <use href="#blueBlade" transform="translate(307 310) rotate(14) scale(.7)"/>
+    <use href="#blueBlade" transform="translate(56 359) rotate(-67) scale(.75)"/>
+  </g>
+
+  <g stroke="#839278" stroke-width="1.4" stroke-linecap="round">
+    <path d="M244 630C229 521 195 424 165 346C139 274 160 191 211 98"/>
+    <path d="M225 565C183 515 107 497 71 410M200 474C216 417 251 374 300 348M164 340C128 309 98 256 104 208M174 240C201 211 251 194 275 164"/>
+  </g>
+  <g>
+    <use href="#blade" transform="translate(233 589) rotate(-36) scale(1.05)"/>
+    <use href="#blade" transform="translate(225 557) rotate(53) scale(1.13)"/>
+    <use href="#blade" transform="translate(212 506) rotate(-54) scale(1.05)"/>
+    <use href="#blade" transform="translate(197 462) rotate(33) scale(.94)"/>
+    <use href="#blade" transform="translate(178 401) rotate(-60) scale(1.02)"/>
+    <use href="#blade" transform="translate(151 298) rotate(-27) scale(.85)"/>
+    <use href="#blade" transform="translate(160 252) rotate(53) scale(.79)"/>
+    <use href="#blade" transform="translate(178 191) rotate(-24) scale(.61)"/>
+    <use href="#blade" transform="translate(186 162) rotate(47) scale(.57)"/>
+    <use href="#blade" transform="translate(151 509) rotate(-65) scale(.81)"/>
+    <use href="#blade" transform="translate(111 477) rotate(7) scale(.74)"/>
+    <use href="#blade" transform="translate(237 405) rotate(83) scale(.85)"/>
+    <use href="#blade" transform="translate(264 374) rotate(21) scale(.69)"/>
+    <use href="#blade" transform="translate(113 265) rotate(-19) scale(.64)"/>
+    <use href="#blade" transform="translate(235 193) rotate(57) scale(.59)"/>
+  </g>
+
+  <g stroke="#c7b47a" stroke-opacity=".65" stroke-width=".9">
+    <path d="M199 511Q283 544 342 506M261 526Q281 505 289 478M292 523Q319 532 335 522M320 516Q344 490 345 470M157 388Q65 390 36 346M86 381Q58 365 65 341M67 374Q46 380 29 365M169 273Q231 269 262 244M214 264Q234 240 232 221"/>
+  </g>
+  <g fill="#d9c48f">
+    <ellipse cx="290" cy="477" rx="3" ry="5" transform="rotate(20 290 477)"/><ellipse cx="343" cy="505" rx="4" ry="2.5"/>
+    <ellipse cx="336" cy="522" rx="4" ry="2.5"/><ellipse cx="346" cy="469" rx="2.5" ry="4"/>
+    <ellipse cx="36" cy="346" rx="2.5" ry="4" transform="rotate(-30 36 346)"/><ellipse cx="65" cy="340" rx="2.5" ry="4"/>
+    <ellipse cx="28" cy="365" rx="4" ry="2.5"/><ellipse cx="263" cy="243" rx="3.5" ry="2.5"/><ellipse cx="232" cy="220" rx="2.5" ry="4"/>
+  </g>
+
+  <use href="#bud" transform="translate(213 99) rotate(25) scale(.69)"/>
+  <use href="#bud" transform="translate(104 210) rotate(-20) scale(.8)"/>
+  <use href="#bud" transform="translate(276 166) rotate(35) scale(.67)"/>
+  <use href="#blueFlower" style="--bloom-paint: url(#petalLavender)" transform="translate(114 281) rotate(-16) scale(.55)"/>
+  <use href="#blueFlower" style="--bloom-paint: url(#petalWine)" transform="translate(293 352) rotate(24) scale(.58)"/>
+  <use href="#magnolia" transform="translate(192 190) rotate(14) scale(.66)"/>
+  <use href="#magnolia" transform="translate(170 339) rotate(-22) scale(.91)"/>
+  <use href="#magnolia" transform="translate(86 426) rotate(17) scale(.6)"/>
+  <use href="#magnolia" transform="translate(214 493) rotate(-15) scale(.49)"/>
+
+  <g opacity=".55">
+    <use href="#blade" transform="translate(243 631) rotate(48) scale(.85)"/>
+    <use href="#blueBlade" transform="translate(248 633) rotate(88) scale(.95)"/>
+    <use href="#blade" transform="translate(239 629) rotate(-61) scale(.84)"/>
+  </g>
+</svg>
