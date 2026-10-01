@@ -34,7 +34,7 @@ Wedding ceremony (Subha Muhurtham):
   Friday, 20th November 2026, 6:00 AM – 7:30 AM
   Venue: Sri Aadhi Sivalayam · Murugan Sannidhanam
   Address: Near Vinayagapuram K.G. Bakery Bus Stop, Sivaram Nagar, Coimbatore
-  Map: https://share.google/n43wNhqH8ZwYTdRaE
+  Map: https://share.google/5LpDdYQeVHZ9qTApS
 
 Reception:
   Friday, 20th November 2026, 6:00 PM – 9:00 PM

@@ -27,7 +27,7 @@ const WEDDING_CONFIG = {
     label: "Subha Muhurtham",
     venueName: "Sri Aadhi Sivalayam · Murugan Sannidhanam",
     venueAddress: "Near Vinayagapuram K.G. Bakery Bus Stop, Sivaram Nagar, Coimbatore",
-    mapLink: "https://share.google/n43wNhqH8ZwYTdRaE",
+    mapLink: "https://share.google/5LpDdYQeVHZ9qTApS",
     icsStartUTC: "20261120T003000Z",
     icsEndUTC:   "20261120T020000Z"
   },

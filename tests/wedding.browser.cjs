@@ -16,7 +16,7 @@ async function assertWeddingSummary(page) {
   const links = page.locator('[data-cfg="wedding.mapLink"]');
   assert.equal(await links.count(), 2);
   for (const link of await links.all()) {
-    assert.equal(await link.getAttribute('href'), 'https://share.google/n43wNhqH8ZwYTdRaE');
+    assert.equal(await link.getAttribute('href'), 'https://share.google/5LpDdYQeVHZ9qTApS');
     assert.equal(await link.getAttribute('target'), '_blank');
     assert.match(await link.getAttribute('rel'), /noopener/);
   }

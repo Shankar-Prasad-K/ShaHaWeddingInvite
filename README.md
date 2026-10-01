@@ -25,8 +25,8 @@ The bride's line reads “D/o Mrs. V. Shanthi & Mr. V. Venkatesh (Late)”, with
    the date, Subha Muhurtham time, temple address and directions without requiring
    the scroll to open. A “With love and blessings” footer includes the couple's
    names and reception link. Details stack on mobile and are hidden in print to
-   avoid duplicating the invitation. Both temple links use the owner-supplied
-   [updated location](https://share.google/n43wNhqH8ZwYTdRaE).
+   avoid duplicating the invitation. Both temple links use the owner-confirmed
+   [original location](https://share.google/5LpDdYQeVHZ9qTApS).
 3. **[reception.html](reception.html)** — A floral garden video under midnight-blue shading,
    with original botanical SVG artwork, champagne-gold accents and drifting fireflies. Open the sealed
    envelope to reveal an ivory invitation letter. Date, time, venue and
