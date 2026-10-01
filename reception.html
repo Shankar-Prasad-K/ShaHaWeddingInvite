@@ -287,19 +287,10 @@ initLoader();
 hydrateConfig();
 document.getElementById('rsvp-btn-r').href = rsvpLink();
 
-/* ── Procedural petal + leaf helpers, reused for every corner spray ── */
-function petalCluster(cx, cy, r, gradId){
-  let out = '';
-  for(let i=0;i<5;i++){
-    const ang = (i/5)*Math.PI*2 - Math.PI/2;
-    const px = cx + Math.cos(ang)*r*0.55;
-    const py = cy + Math.sin(ang)*r*0.55;
-    const deg = ang*180/Math.PI + 90;
-    out += `<ellipse cx="${px.toFixed(1)}" cy="${py.toFixed(1)}" rx="${(r*0.5).toFixed(1)}" ry="${(r*0.32).toFixed(1)}" transform="rotate(${deg.toFixed(1)} ${px.toFixed(1)} ${py.toFixed(1)})" fill="url(#${gradId})" opacity="0.94"/>`;
-  }
-  out += `<circle cx="${cx}" cy="${cy}" r="${(r*0.22).toFixed(1)}" fill="#C9915F" opacity="0.9"/>`;
-  return out;
-}
+/* ── Procedural rose + leaf helpers, reused for every corner spray.
+   The rose is layered — a loose outer ring of six petals plus a
+   tighter inner ring of three — rather than one flat ring, which is
+   what makes it read as a bloom instead of a pinwheel. ── */
 function leafShape(x1,y1,x2,y2,width,color){
   const mx=(x1+x2)/2, my=(y1+y2)/2;
   const dx=x2-x1, dy=y2-y1, len=Math.hypot(dx,dy)||1;
@@ -307,20 +298,37 @@ function leafShape(x1,y1,x2,y2,width,color){
   return `<path d="M${x1},${y1} Q${(mx+nx).toFixed(1)},${(my+ny).toFixed(1)} ${x2},${y2} Q${(mx-nx).toFixed(1)},${(my-ny).toFixed(1)} ${x1},${y1} Z" fill="${color}" opacity="0.88"/>
     <path d="M${x1},${y1} Q${mx.toFixed(1)},${my.toFixed(1)} ${x2},${y2}" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="0.6"/>`;
 }
+function rosePetal(cx,cy,len,wid,rot,fill){
+  return `<ellipse cx="${cx.toFixed(1)}" cy="${(cy-len*0.3).toFixed(1)}" rx="${wid}" ry="${len}" transform="rotate(${rot.toFixed(1)} ${cx.toFixed(1)} ${cy.toFixed(1)})" fill="${fill}"/>`;
+}
+function rose(cx,cy,scale){
+  let outer = '', inner = '';
+  for(let i=0;i<6;i++){
+    const ang = (i/6)*360 + 12;
+    const px = cx + Math.cos(ang*Math.PI/180)*2*scale;
+    const py = cy + Math.sin(ang*Math.PI/180)*2*scale;
+    outer += rosePetal(px,py,9*scale,5*scale,ang,'url(#roseOuter)');
+  }
+  for(let i=0;i<3;i++){
+    const ang = (i/3)*360;
+    const px = cx + Math.cos(ang*Math.PI/180)*scale;
+    const py = cy + Math.sin(ang*Math.PI/180)*scale;
+    inner += rosePetal(px,py,5.5*scale,3.4*scale,ang,'url(#roseInner)');
+  }
+  return `<g>${outer}</g><g>${inner}</g><circle cx="${cx}" cy="${cy}" r="${(1.6*scale).toFixed(1)}" fill="#C9915F"/>`;
+}
 
-/* ── Watercolour-style floral spray, one per card corner ── */
+/* ── A single well-formed rose with a gold filigree curl and a
+   sage-leaf backing, one per card corner. ── */
 function buildFloralCorner(container){
   const NS = 'http://www.w3.org/2000/svg';
   container.innerHTML = `<svg viewBox="0 0 90 90" xmlns="${NS}" aria-hidden="true">
     <defs>
-      <radialGradient id="bloomRose" cx="35%" cy="30%" r="75%">
-        <stop offset="0%" stop-color="#FBE0DE"/><stop offset="55%" stop-color="#E29AA0"/><stop offset="100%" stop-color="#B5657A"/>
+      <radialGradient id="roseOuter" cx="35%" cy="30%" r="75%">
+        <stop offset="0%" stop-color="#F8DCDA"/><stop offset="60%" stop-color="#DE8FA0"/><stop offset="100%" stop-color="#B15C74"/>
       </radialGradient>
-      <radialGradient id="bloomMauve" cx="35%" cy="30%" r="75%">
-        <stop offset="0%" stop-color="#F1E1EC"/><stop offset="55%" stop-color="#C9A0BB"/><stop offset="100%" stop-color="#9C7099"/>
-      </radialGradient>
-      <radialGradient id="bloomBlush" cx="35%" cy="30%" r="75%">
-        <stop offset="0%" stop-color="#FFF3EE"/><stop offset="55%" stop-color="#F0C4C8"/><stop offset="100%" stop-color="#D998A0"/>
+      <radialGradient id="roseInner" cx="35%" cy="30%" r="75%">
+        <stop offset="0%" stop-color="#FBEDEA"/><stop offset="70%" stop-color="#EFC0C6"/><stop offset="100%" stop-color="#D89AA4"/>
       </radialGradient>
       <linearGradient id="filigreeGold" x1="0" y1="0" x2="1" y2="1">
         <stop offset="0%" stop-color="#F3D9C8"/><stop offset="50%" stop-color="#C88A6E"/><stop offset="100%" stop-color="#8B5A45"/>
@@ -330,12 +338,10 @@ function buildFloralCorner(container){
     <path d="M1,38 Q4,10 38,1" fill="none" stroke="url(#filigreeGold)" stroke-width="1" opacity="0.55"/>
     <circle cx="1.5" cy="1.5" r="3" fill="url(#filigreeGold)"/>
     <circle cx="1.5" cy="1.5" r="1.2" fill="#FFF6EE"/>
-    ${leafShape(3,3, 46,14, 6, '#8FA184')}
-    ${leafShape(3,3, 14,46, 6, '#7C9271')}
-    ${leafShape(5,5, 30,28, 4, '#A8B79A')}
-    ${petalCluster(42,19,15,'bloomRose')}
-    ${petalCluster(19,42,11,'bloomMauve')}
-    ${petalCluster(9,11,7,'bloomBlush')}
+    ${leafShape(6,38, 30,50, 4.8, '#8FA184')}
+    ${leafShape(38,6, 50,30, 4.8, '#7C9271')}
+    ${leafShape(10,20, 28,34, 3.6, '#A8B79A')}
+    ${rose(40,42,1.9)}
   </svg>`;
 }
 ['rc-tl','rc-tr','rc-bl','rc-br'].forEach(id=>buildFloralCorner(document.getElementById(id)));
