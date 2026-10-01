@@ -3,6 +3,8 @@
 ## Completed locally — 1 October 2026
 
 - Preserved the blossom landing, bronze-maroon wedding scroll and midnight floral reception.
+- Added the wedding's below-scroll date, time, temple/address and closing section;
+  both wedding directions links use the newly supplied temple location. Ceremony times are unchanged.
 - Removed WhatsApp RSVP, its unused contact configuration and redundant guest-detail links.
 - Consistent SVG action arrows; no mobile emoji substitution.
 - Closed reception entrance fits the tested mobile viewports, including 320 × 568.

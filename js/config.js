@@ -15,7 +15,7 @@ const WEDDING_CONFIG = {
 
   couple: {
     groom: { honorific: "Selvan", name: "Shankar Prasad K", role: "Manager, Deloitte Chennai" },
-    bride: { honorific: "Selvi", name: "Haripriya V", role: "Senior HR, eClerx, Coimbatore", parents: "D/o Mr. V. Venkatesh (Late) – Mrs. V. Shanthi" }
+    bride: { honorific: "Selvi", name: "Haripriya V", role: "Senior HR, eClerx, Coimbatore", parents: "D/o Mrs. V. Shanthi & Mr. V. Venkatesh (Late)" }
   },
 
   hosts: "Mrs. Devi Kumaravel & Mr. V. Kumaravel",
@@ -27,7 +27,7 @@ const WEDDING_CONFIG = {
     label: "Subha Muhurtham",
     venueName: "Sri Aadhi Sivalayam · Murugan Sannidhanam",
     venueAddress: "Near Vinayagapuram K.G. Bakery Bus Stop, Sivaram Nagar, Coimbatore",
-    mapLink: "https://share.google/5LpDdYQeVHZ9qTApS",
+    mapLink: "https://share.google/n43wNhqH8ZwYTdRaE",
     icsStartUTC: "20261120T003000Z",
     icsEndUTC:   "20261120T020000Z"
   },

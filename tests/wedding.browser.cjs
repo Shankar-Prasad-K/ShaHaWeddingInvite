@@ -5,6 +5,25 @@ const { chromium } = require(process.env.PLAYWRIGHT_MODULE || 'playwright');
 const { assertSecondaryNavigation } = require('./invitation-browser-helpers.cjs');
 const url = pathToFileURL(path.resolve(__dirname, '../wedding.html')).href;
 
+async function assertWeddingSummary(page) {
+  const summary = page.locator('#wedding-celebration');
+  assert.equal(await summary.count(), 1, 'One wedding summary outside the scroll');
+  assert.equal(await summary.isVisible(), true, 'Details available without opening the scroll');
+  for (const [key, value] of Object.entries({
+    dateDisplay:'Friday, 20th November 2026', timeDisplay:'6:00 AM – 7:30 AM',
+    venueName:'Sri Aadhi Sivalayam · Murugan Sannidhanam'
+  })) assert.equal(await summary.locator(`[data-cfg="wedding.${key}"]`).textContent(), value);
+  const links = page.locator('[data-cfg="wedding.mapLink"]');
+  assert.equal(await links.count(), 2);
+  for (const link of await links.all()) {
+    assert.equal(await link.getAttribute('href'), 'https://share.google/n43wNhqH8ZwYTdRaE');
+    assert.equal(await link.getAttribute('target'), '_blank');
+    assert.match(await link.getAttribute('rel'), /noopener/);
+  }
+  assert.ok(await summary.evaluate(el => !el.closest('#scroll-body') && el.scrollWidth <= el.clientWidth));
+  assert.equal(await page.locator('.wedding-footer .invitation-navigation a').getAttribute('href'), 'reception.html');
+}
+
 (async () => {
   const browser = await chromium.launch({ headless:true });
   const errors = [];
@@ -18,6 +37,7 @@ const url = pathToFileURL(path.resolve(__dirname, '../wedding.html')).href;
     for (const width of [320, 390, 768, 1440]) {
       const page = await openPage({ viewport:{ width, height:900 } });
       await assertSecondaryNavigation(page);
+      await assertWeddingSummary(page);
       const cord = page.locator('#tie-cord');
       assert.equal(await page.locator('.royal-side-frame').count(), 0, 'Video architecture replaces separate pillar overlays');
       const video = page.locator('#wedding-background-video');
@@ -62,6 +82,8 @@ const url = pathToFileURL(path.resolve(__dirname, '../wedding.html')).href;
       });
       assert.equal(await page.locator('#scroll-body').evaluate(el => el.inert), true);
       assert.ok((await page.locator('#scroll-body').boundingBox()).height < 1, 'Starts fully closed, without an initial collapse animation');
+      // The motion control now lives below the guest details; return to the tie before dragging.
+      await cord.scrollIntoViewIfNeeded();
       if (width === 390 || width === 1440) await page.screenshot({ path:`/tmp/wedding-tie-closed-${width}.png`, fullPage:true });
       const box = await cord.boundingBox();
       const x = box.x + box.width / 2, y = box.y + 140;
@@ -122,10 +144,10 @@ const url = pathToFileURL(path.resolve(__dirname, '../wedding.html')).href;
       const content = await page.locator('.scroll-content').innerText();
       for (const removed of ['ஸ்ரீ பச்சையம்மன்', 'Wedding Invitation', 'cordially solicit', 'Selvan', 'Selvi', 'Deloitte', 'eClerx']) assert.ok(!content.includes(removed));
       assert.match(content, /S\/o Mrs\. Devi Kumaravel & Mr\. V\. Kumaravel/);
-      assert.match(content, /D\/o Mr\. V\. Venkatesh \(Late\) – Mrs\. V\. Shanthi/);
+      assert.match(content, /D\/o Mrs\. V\. Shanthi & Mr\. V\. Venkatesh \(Late\)/);
       assert.match(content, /6:00 AM – 7:30 AM/);
       assert.match(content, /Friday, 20th November 2026/);
-      assert.equal(await page.locator('.map-link').getAttribute('href'), 'https://share.google/5LpDdYQeVHZ9qTApS');
+      await assertWeddingSummary(page);
       assert.ok(await page.locator('.s-parents small').evaluate(el => parseFloat(getComputedStyle(el).fontSize) < parseFloat(getComputedStyle(el.parentElement).fontSize) * .7));
       assert.notEqual(await page.locator('.s-om').evaluate(el => getComputedStyle(el).color), 'rgba(0, 0, 0, 0)');
       assert.ok(await page.locator('.scroll-content').evaluate(el => el.scrollWidth <= el.clientWidth), 'Content must fit without clipping');
@@ -192,8 +214,11 @@ const url = pathToFileURL(path.resolve(__dirname, '../wedding.html')).href;
     assert.equal(await print.locator('.wedding-backdrop').isVisible(), false);
     assert.equal(await print.locator('#wedding-video-toggle').isVisible(), false);
     assert.equal(await print.locator('.s-venue').isVisible(), true);
+    assert.equal(await print.locator('#wedding-celebration').isVisible(), false);
+    assert.equal(await print.locator('.wedding-footer').isVisible(), false);
     await print.close();
     const nojs = await openPage({ javaScriptEnabled:false, viewport:{ width:390, height:844 } });
+    await assertWeddingSummary(nojs);
     assert.equal(await nojs.locator('.s-venue').isVisible(), true);
     assert.equal(await nojs.locator('#tie-cord').isVisible(), false);
     assert.equal(await nojs.locator('.js-action').count(), 0);

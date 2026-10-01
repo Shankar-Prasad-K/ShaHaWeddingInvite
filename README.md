@@ -6,6 +6,10 @@ external actions (maps and sharing) may require internet access.
 
 ## The experience
 
+Both wedding parent lines use mother-first wording joined with an ampersand.
+The bride's line reads “D/o Mrs. V. Shanthi & Mr. V. Venkatesh (Late)”, with
+“(Late)” retained beside her father's name.
+
 1. **[index.html](index.html)** — A full-screen blossom-window video with a
    small botanical S/H crest, ivory calligraphy, a fine floral engraving
    and two arches leading to the wedding and reception. Hanging lamps and
@@ -17,6 +21,12 @@ external actions (maps and sharing) may require internet access.
    a clear Tamil Om and Tamil invitation wording. Drag the braided bronze-champagne
    bow downwards (or tap / press Enter or Space): the knot tensions, the loops
    release, and the scroll unfurls before a single gold-petal cascade.
+   Below the scroll, a bronze-maroon “For a sacred beginning” section presents
+   the date, Subha Muhurtham time, temple address and directions without requiring
+   the scroll to open. A “With love and blessings” footer includes the couple's
+   names and reception link. Details stack on mobile and are hidden in print to
+   avoid duplicating the invitation. Both temple links use the owner-supplied
+   [updated location](https://share.google/n43wNhqH8ZwYTdRaE).
 3. **[reception.html](reception.html)** — A floral garden video under midnight-blue shading,
    with original botanical SVG artwork, champagne-gold accents and drifting fireflies. Open the sealed
    envelope to reveal an ivory invitation letter. Date, time, venue and
@@ -36,6 +46,23 @@ keyboard focus, narrow-screen, forced-colors and print treatment. Colors remain
 theme-specific. Sharing and calendar controls are revealed only after initialization. Action listeners are
 removed when the landing controller is cleaned up. Event facts and media are unchanged.
 No build step, backend, environment variables or new runtime dependencies are required.
+
+### Subtle invitation transparency trial
+
+The opened wedding silk uses an 86% opaque maroon base and the reception letter
+an 84% opaque ivory base, allowing a little of the video (or fallback poster)
+to show through. Only background paint changes: text, borders, artwork, the
+closed envelope and bronze rods retain their original opacity. No backdrop blur
+is added. Reduced-transparency preferences restore solid materials; print remains
+opaque. The landing page and reveal behavior are unchanged.
+
+The wedding's below-scroll details and footer have fully transparent backgrounds,
+with no additional fill over the temple video. Their text and decorative borders
+remain fully opaque; forced-colors mode retains its system-color fallback.
+
+The optional [translucency browser regression](tests/translucent-invitations.browser.cjs)
+checks mobile/desktop layout, background alpha, unchanged text opacity, reduced
+transparency and print. This visual trial still needs owner review on real devices.
 
 ### Final reliability pass
 

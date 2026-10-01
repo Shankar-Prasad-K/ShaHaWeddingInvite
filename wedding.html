@@ -399,7 +399,7 @@ a:focus-visible, [tabindex]:focus-visible, button:focus-visible{
               <p class="s-parents">S/o Mrs. Devi Kumaravel &amp; Mr. V. Kumaravel</p>
               <div class="s-union">with</div>
               <span class="s-name s-bride">Haripriya V</span>
-              <p class="s-parents">D/o Mr. V. Venkatesh <small>(Late)</small> – Mrs. V. Shanthi</p>
+              <p class="s-parents">D/o Mrs. V. Shanthi &amp; Mr. V. Venkatesh <small>(Late)</small></p>
 
               <div class="s-div"></div>
               <div class="s-date-blk">
@@ -411,7 +411,7 @@ a:focus-visible, [tabindex]:focus-visible, button:focus-visible{
                 Near Vinayagapuram K.G. Bakery Bus Stop<br/>
                 Sivaram Nagar, Coimbatore
               </div>
-              <a class="map-link" data-cfg="wedding.mapLink" href="https://share.google/5LpDdYQeVHZ9qTApS" target="_blank" rel="noopener">Get Directions</a>
+              <a class="map-link" data-cfg="wedding.mapLink" href="https://share.google/n43wNhqH8ZwYTdRaE" target="_blank" rel="noopener noreferrer" aria-label="Get temple directions (opens in a new tab)">Get Directions</a>
               <div class="s-div" style="margin-top:20px;"></div>
               <div class="s-body s-blessing">
                 With best compliments from Friends &amp; Relatives
@@ -429,10 +429,43 @@ a:focus-visible, [tabindex]:focus-visible, button:focus-visible{
     </div>
   </div>
 
-  <nav class="invitation-navigation" aria-label="Invitation pages">
-    <a href="reception.html">The reception <svg class="direction-arrow" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M4 16 16 4M5 4h11v11"/></svg></a>
-  </nav>
-  <button class="ambient-control" id="wedding-video-toggle" type="button" aria-controls="wedding-background-video" aria-pressed="false" hidden>Pause background</button>
+  <section class="wedding-celebration" id="wedding-celebration" aria-labelledby="wedding-celebration-heading">
+    <div class="wedding-summary-intro">
+      <img src="assets/patterns/wedding-lotus-divider.svg" alt="" width="260" height="28" aria-hidden="true"/>
+      <p class="wedding-eyebrow">A morning of love and blessings</p>
+      <h2 id="wedding-celebration-heading">For a sacred <em>beginning.</em></h2>
+      <p>Join us with your family as we begin our life together.</p>
+    </div>
+    <div class="wedding-details">
+      <div class="wedding-detail">
+        <svg class="wedding-detail-icon" viewBox="0 0 32 32" fill="none" aria-hidden="true" focusable="false"><rect x="6" y="8" width="20" height="20" rx="2"/><path d="M6 14h20M11 4v8M21 4v8M12 20h2m4 0h2m-8 4h2"/></svg>
+        <h3>The date</h3>
+        <p data-cfg="wedding.dateDisplay">Friday, 20th November 2026</p>
+        <span>A new chapter begins</span>
+      </div>
+      <div class="wedding-detail">
+        <svg class="wedding-detail-icon" viewBox="0 0 32 32" fill="none" aria-hidden="true" focusable="false"><path d="M3 23h26M8 23a8 8 0 0 1 16 0M16 4v5M4 12l4 4M28 12l-4 4M6 28h20"/></svg>
+        <h3>The time</h3>
+        <p data-cfg="wedding.timeDisplay">6:00 AM – 7:30 AM</p>
+        <span data-cfg="wedding.label">Subha Muhurtham</span>
+      </div>
+      <div class="wedding-detail">
+        <svg class="wedding-detail-icon" viewBox="0 0 32 32" fill="none" aria-hidden="true" focusable="false"><path d="M25 13c0 7-9 15-9 15S7 20 7 13a9 9 0 1 1 18 0Z"/><circle cx="16" cy="13" r="3"/></svg>
+        <h3>The place</h3>
+        <p data-cfg="wedding.venueName">Sri Aadhi Sivalayam · Murugan Sannidhanam</p>
+        <span data-cfg="wedding.venueAddress">Near Vinayagapuram K.G. Bakery Bus Stop, Sivaram Nagar, Coimbatore</span>
+        <a data-cfg="wedding.mapLink" href="https://share.google/n43wNhqH8ZwYTdRaE" target="_blank" rel="noopener noreferrer" aria-label="Get temple directions (opens in a new tab)">Get directions <svg class="direction-arrow" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M4 16 16 4M5 4h11v11"/></svg></a>
+      </div>
+    </div>
+  </section>
+  <footer class="wedding-footer">
+    <div class="wedding-signature">With love and blessings.</div>
+    <p><span data-cfg="couple.groom.name">Shankar Prasad K</span> <span class="wedding-footer-amp">&amp;</span> <span data-cfg="couple.bride.name">Haripriya V</span></p>
+    <nav class="invitation-navigation" aria-label="Invitation pages">
+      <a href="reception.html">The reception <svg class="direction-arrow" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M4 16 16 4M5 4h11v11"/></svg></a>
+    </nav>
+    <button class="ambient-control" id="wedding-video-toggle" type="button" aria-controls="wedding-background-video" aria-pressed="false" hidden>Pause background</button>
+  </footer>
 </div>
 
 <script src="js/config.js"></script>

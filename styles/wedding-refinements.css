@@ -76,12 +76,12 @@ body {
 }
 .scroll-roll.unfurling::before { animation:silk-winding var(--unfurl-duration,2.8s) cubic-bezier(.45,.05,.35,1) both; }
 @keyframes silk-winding { to { background-position:0 176px,0 176px,0 176px,0 0; } }
-.scroll-silk { padding:40px 38px 38px; }
+.scroll-silk { padding:40px 38px 38px; --silk-opacity:.86; }
 .scroll-silk::before {
   background:repeating-linear-gradient(90deg,#ffffff03 0 1px,transparent 1px 4px),
     radial-gradient(ellipse at 50% 5%,#be825418,transparent 44%),
     linear-gradient(115deg,transparent 15%,#ffcfac0b 35%,transparent 55%),
-    linear-gradient(180deg,#551923,#3e1019 55%,#290a11);
+    linear-gradient(180deg,rgba(85,25,35,var(--silk-opacity)),rgba(62,16,25,var(--silk-opacity)) 55%,rgba(41,10,17,var(--silk-opacity)));
 }
 .scroll-silk::after {
   inset:18px; opacity:.7; pointer-events:none;
@@ -164,6 +164,41 @@ body {
 .tie-cord.releasing { pointer-events:none; }
 .tie-cord.gone { opacity:0; visibility:hidden; }
 .scroll-wrap:has(.scroll-body.open) { margin-bottom:52px; }
+/* Guest details stay outside the reveal, readable over the temple video. */
+.wedding-celebration, .wedding-footer {
+  width:min(1080px,100%); text-align:center; color:var(--invite-text);
+  background:transparent;
+}
+.wedding-celebration { margin-top:36px; padding:48px 32px 0; border-top:1px solid var(--invite-line); }
+.wedding-summary-intro img { display:block; width:min(260px,90%); height:auto; margin:0 auto 22px; }
+.wedding-eyebrow, .wedding-detail h3 { font:10px/1.8 var(--invite-ui); letter-spacing:.18em; text-transform:uppercase; color:var(--invite-accent); }
+.wedding-summary-intro h2 { margin:14px 0; font-size:clamp(35px,4vw,49px); font-weight:400; line-height:1.15; }
+.wedding-summary-intro h2 em { color:var(--invite-accent); font-weight:400; }
+.wedding-summary-intro > p:last-child { font:12px/1.9 var(--invite-ui); }
+.wedding-details { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); margin-top:48px; padding-bottom:42px; }
+.wedding-detail { min-width:0; padding:0 20px; }
+.wedding-detail + .wedding-detail { border-left:1px solid var(--invite-line); }
+.wedding-detail-icon { width:29px; height:29px; stroke:var(--invite-accent); stroke-width:1; stroke-linecap:round; stroke-linejoin:round; }
+.wedding-detail h3 { margin:18px 0 12px; }
+.wedding-detail p { font-size:24px; line-height:1.35; margin:0 0 12px; text-wrap:balance; }
+.wedding-detail > span { display:block; font:11px/1.9 var(--invite-ui); }
+.wedding-detail > a { display:inline-flex; align-items:center; min-height:44px; margin-top:8px; color:var(--invite-text); font:11px/1.8 var(--invite-ui); text-decoration:underline; text-underline-offset:5px; }
+.wedding-detail > a:hover { color:var(--invite-accent); }
+.wedding-detail > a:focus-visible { outline:2px solid var(--invite-accent); outline-offset:5px; }
+.wedding-footer { padding:38px 24px 26px; border-top:1px solid var(--invite-line); }
+.wedding-signature { font:clamp(32px,4vw,40px)/1.4 'Great Vibes',cursive; color:var(--invite-accent); }
+.wedding-footer > p { margin:12px 0 24px; font-size:18px; line-height:1.7; }
+.wedding-footer-amp { color:var(--invite-accent); font-style:italic; margin:0 5px; }
+@media (max-width:760px) {
+  .wedding-celebration { padding:38px 20px 0; }
+  .wedding-details { grid-template-columns:minmax(0,1fr); margin-top:36px; padding-bottom:12px; }
+  .wedding-detail { padding:28px 8px; }
+  .wedding-detail + .wedding-detail { border-left:0; border-top:1px solid var(--invite-line); }
+}
+@media (forced-colors:active) {
+  .wedding-celebration, .wedding-footer { background:Canvas; color:CanvasText; }
+  .wedding-detail > a { color:LinkText; }
+}
 .petal { opacity:0; animation:petal-descent var(--duration) cubic-bezier(.3,.05,.65,1) var(--delay) both; }
 .petal i {
   display:block; width:100%; height:100%; border-radius:80% 12% 70% 25%;
@@ -202,10 +237,15 @@ html:not(.scroll-enhanced) #enter-prompt-w, html:not(.scroll-enhanced) .scroll-r
   *, *::before, *::after { animation:none !important; transition:none !important; }
   #petal-layer { display:none; }
 }
+@media (prefers-reduced-transparency:reduce) {
+  .scroll-silk { --silk-opacity:1; }
+}
 @media print {
+  .wedding-celebration, .wedding-footer { display:none !important; }
   .wedding-backdrop,#wedding-video-toggle { display:none !important; }
   html { background:white; }
   body { background:white; color:#351019; }
+  .scroll-silk { background:white; }
   #scene-scroll { padding:0; display:block; }
   .scroll-wrap { width:100%; margin:0; }
   .scroll-body, .scroll-enhanced .scroll-body:not(.open) { grid-template-rows:1fr; overflow:visible; }

@@ -26,7 +26,7 @@ The two "worlds" (temple vs. modern event) should look and feel deliberately dif
 ```
 Groom:  Shankar Prasad K  (Selvan · Manager, Deloitte Chennai)
 Bride:  Haripriya V       (Selvi · Senior HR, eClerx, Coimbatore)
-        D/o Mr. V. Venkatesh (Late) – Mrs. V. Shanthi
+        D/o Mrs. V. Shanthi & Mr. V. Venkatesh (Late)
 
 Hosts:  Mrs. Devi Kumaravel & Mr. V. Kumaravel
 
@@ -34,7 +34,7 @@ Wedding ceremony (Subha Muhurtham):
   Friday, 20th November 2026, 6:00 AM – 7:30 AM
   Venue: Sri Aadhi Sivalayam · Murugan Sannidhanam
   Address: Near Vinayagapuram K.G. Bakery Bus Stop, Sivaram Nagar, Coimbatore
-  Map: https://share.google/5LpDdYQeVHZ9qTApS
+  Map: https://share.google/n43wNhqH8ZwYTdRaE
 
 Reception:
   Friday, 20th November 2026, 6:00 PM – 9:00 PM
