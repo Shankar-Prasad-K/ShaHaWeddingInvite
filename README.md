@@ -64,6 +64,46 @@ The optional [translucency browser regression](tests/translucent-invitations.bro
 checks mobile/desktop layout, background alpha, unchanged text opacity, reduced
 transparency and print. This visual trial still needs owner review on real devices.
 
+### Continuous invitation music
+
+The supplied Neethanae excerpt is bundled as [assets/invitation-music.mp3](assets/invitation-music.mp3).
+It is approximately 25.23 seconds long. Audio was copied without recompression;
+embedded cover artwork and metadata were removed. The source in Documents is unchanged.
+The original clip boundary is retained, so an audible join in the recording is
+not removed by looping. Confirm publication/reuse rights before hosting this track.
+
+On HTTP/HTTPS, [js/music-entry.js](js/music-entry.js) routes each direct invitation
+entry into [invite.html](invite.html). This persistent outer page owns **one** looping
+audio element; a same-origin iframe displays the existing landing, wedding and
+reception documents. Ordinary internal links and browser Back/Forward replace only
+the frame, never pause the music or reset its playback position. The address bar
+keeps the original page URLs, and those documents retain their static social metadata.
+Modified clicks/new tabs, external navigation and a full reload are separate page
+lifetimes and cannot preserve the same player.
+
+The fixed bottom bar provides **Play music / Turn music off**, a polite status and
+a **Print view** link. The bar reserves space rather than covering invitation text.
+Mute is remembered in local storage where available. Autoplay is attempted; when
+blocked, a trusted click or Enter/Space interaction inside the invitation can start
+the music. An explicit mute is never overridden by those interactions. The intended
+initial volume is 30%; some mobile browsers require device volume controls instead.
+Background-video motion controls remain independent of music.
+
+Use an HTTP/HTTPS preview to test continuous playback. Direct local-file previews
+keep the original standalone pages without music because same-origin frame access
+is not portable under `file:`. JavaScript-disabled pages remain readable. Adding
+`?standalone=1` opens an original page without music; **Print view** uses this route
+in a new tab so existing full-invitation print styling works without iframe clipping.
+OS interruptions, power saving, leaving the site and browser media policies may stop
+audio; cross-page continuity is not a promise of uninterrupted device-level playback.
+
+[tests/music.test.cjs](tests/music.test.cjs) covers the isolated controller and route
+allowlist. [tests/music.browser.cjs](tests/music.browser.cjs) uses a temporary HTTP
+server restricted to public invitation files and checks real playback across all
+three pages, Back/Forward, looping, remembered mute, simulated autoplay rejection,
+audio errors, standalone print entry and no-JavaScript fallback. Its autoplay-enabled
+Chromium run tests continuity, not a claim that every browser permits autoplay.
+
 ### Final reliability pass
 
 Each page includes static canonical and Open Graph metadata for social previews,

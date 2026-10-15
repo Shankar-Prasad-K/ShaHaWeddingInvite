@@ -17,8 +17,28 @@
 - Five Chromium suites pass: landing, wedding, reception, mobile reception and sharing fallbacks.
 - Unit-test CI with an 80% line-coverage gate is configured. It does not deploy the site.
 
+## Continuous music — 15 October 2026
+
+- Added one persistent player for the supplied 25.23-second Neethanae excerpt,
+  looping across internal page navigation without replacing or pausing the audio element.
+- Bottom music control remembers mute; blocked autoplay waits for a trusted interaction.
+- Source file remains unchanged; the bundled MP3 is audio-only, about 830 KB.
+- 60 unit tests pass; measured loaded JS/tool line coverage is 98.65%.
+  The isolated music controller has 98.04% line coverage. Browser-only shell/entry scripts,
+  HTML and CSS are not included in that Node coverage figure.
+- Seven Chromium suites pass: existing landing, wedding, reception, mobile reception,
+  sharing and translucency, plus HTTP music navigation/loop/fallback checks.
+- Music checks include unchanged player identity and zero pause events across internal
+  links and Back/Forward; framed calendar download and mocked sharing also pass.
+- No real-device certification or deployment has been performed.
+
 ## Owner sign-off still needed before publishing
 
+- [ ] Confirm permission to publish the supplied Neethanae music excerpt. It is downloadable
+  when hosted; the source filename alone does not establish licensing rights.
+- [ ] Review the new persistent bottom music bar on real iPhone/Safari and Android/Chrome:
+  first-tap audio, mute, internal navigation, Back/Forward, and the 25-second loop join.
+  Test using HTTP/HTTPS; direct local-file previews do not enable the music shell.
 - [ ] Confirm Tamil invitation wording, names, family details, venues and times with the family.
 - [ ] Resolve the legacy reception schedule discrepancy: the unused schedule says 6:00 PM;
   displayed reception text and calendar start use 6:30 PM. No facts were silently changed.
@@ -38,7 +58,8 @@
 ## Publication boundary
 
 Nothing has been committed, pushed or deployed by this finishing pass. Publish only the
-reviewed three HTML pages, styles, JavaScript and approved assets. Do not upload the entire
+reviewed three invitation HTML pages plus the new invite.html music shell, styles,
+JavaScript and approved assets (including the music only after rights approval). Do not upload the entire
 workspace indiscriminately, and do not include private source images or tooling outputs.
 
 No further visual redesign is recommended before this review; preserve the approved design.

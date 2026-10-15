@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="theme-color" content="#21171c"/>
+  <meta name="robots" content="noindex"/>
+  <title>Shankar Prasad &amp; Haripriya — Invitation</title>
+  <link rel="stylesheet" href="styles/music-shell.css"/>
+  <script src="js/music.js" defer></script>
+  <script src="js/music-shell.js" defer></script>
+</head>
+<body>
+  <iframe id="invitation-frame" title="Wedding and reception invitation" allow="autoplay; web-share; clipboard-write" hidden></iframe>
+  <audio id="invitation-music" src="assets/invitation-music.mp3" loop preload="none"></audio>
+  <footer class="music-bar" hidden>
+    <button id="music-toggle" type="button" aria-controls="invitation-music" aria-pressed="false">Play music</button>
+    <span id="music-status" role="status" aria-live="polite">Tap to start the music</span>
+    <a id="print-invitation" href="index.html?standalone=1" target="_blank" rel="noopener">Print view<span class="sr-only"> (opens in a new tab)</span></a>
+  </footer>
+  <noscript><p><a href="index.html">Open the invitation</a> — music requires JavaScript.</p></noscript>
+</body>
+</html>
