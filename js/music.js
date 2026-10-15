@@ -22,6 +22,13 @@
     audio.addEventListener('play', update);
     audio.addEventListener('pause', update);
     audio.addEventListener('error', onError);
+    // Only one open tab of the invitation should ever be audible at a time.
+    const tabId = Math.random().toString(36).slice(2);
+    const claim = () => { try { storage?.setItem('invitation-music-owner', tabId); } catch { /* Storage is optional. */ } };
+    const onStorage = event => {
+      if (event.key === 'invitation-music-owner' && event.newValue !== tabId && !audio.paused) audio.pause();
+    };
+    if (typeof root.addEventListener === 'function') root.addEventListener('storage', onStorage);
     update();
     async function start() {
       if (disabled || failed || pending || !audio.paused) return;
@@ -29,6 +36,7 @@
       try {
         await audio.play();
         if (disabled) audio.pause();
+        else claim();
       } catch { /* Autoplay denial is expected; the next gesture can retry. */ }
       finally { pending = false; update(); }
     }
@@ -43,6 +51,7 @@
       audio.removeEventListener('play', update);
       audio.removeEventListener('pause', update);
       audio.removeEventListener('error', onError);
+      if (typeof root.removeEventListener === 'function') root.removeEventListener('storage', onStorage);
     } };
   }
   const api = { createMusic, invitationRoute };

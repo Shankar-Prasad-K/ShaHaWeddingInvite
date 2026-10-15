@@ -107,6 +107,23 @@ const server = http.createServer((req, res) => {
     await blocked.waitForFunction(() => !document.querySelector('audio').paused);
     await blocked.close();
     console.log('PASS blocked autoplay: trusted frame tap starts music');
+    const musicContext = await browser.newContext();
+    async function musicTab() {
+      const tab = await musicContext.newPage();
+      tab.on('pageerror', error => errors.push(error.message));
+      await tab.route(/^https:\/\//, route => route.abort());
+      return tab;
+    }
+    const tabA = await musicTab();
+    await tabA.goto(base); await ready(tabA);
+    await tabA.waitForFunction(() => document.getElementById('invitation-music')?.currentTime > .2);
+    const tabB = await musicTab();
+    await tabB.goto(base); await ready(tabB);
+    await tabB.waitForFunction(() => document.getElementById('invitation-music')?.currentTime > .2);
+    await tabA.waitForFunction(() => document.getElementById('invitation-music').paused);
+    assert.equal(await tabA.locator('#music-toggle').getAttribute('aria-label'), 'Play music', 'Older tab yields when a newer tab starts playing');
+    await musicContext.close();
+    console.log('PASS cross-tab: starting playback in a new tab silences the previous tab');
     const missing = await newPage();
     await missing.route('**/invitation-music.mp3', route => route.abort());
     await missing.goto(base); await ready(missing);
