@@ -102,7 +102,7 @@ const server = http.createServer((req, res) => {
       };
     });
     await blocked.goto(base + 'reception.html'); await ready(blocked);
-    assert.equal(await blocked.locator('#music-toggle').textContent(), 'Play music');
+    assert.equal(await blocked.locator('#music-toggle').getAttribute('aria-label'), 'Play music');
     await blocked.frameLocator('#invitation-frame').locator('#open-invitation').click();
     await blocked.waitForFunction(() => !document.querySelector('audio').paused);
     await blocked.close();

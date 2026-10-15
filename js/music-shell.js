@@ -6,14 +6,14 @@
   const audio = document.getElementById('invitation-music');
   const button = document.getElementById('music-toggle');
   const status = document.getElementById('music-status');
-  const printLink = document.getElementById('print-invitation');
   let storage;
   try { storage = window.localStorage; } catch { /* Optional preference storage. */ }
   const music = createMusic({ audio, storage, render(state) {
     const playing = state === 'playing';
-    button.textContent = playing ? 'Turn music off' : state === 'unavailable' ? 'Music unavailable' : 'Play music';
+    const unavailable = state === 'unavailable';
     button.setAttribute('aria-pressed', String(playing));
-    button.disabled = state === 'unavailable';
+    button.disabled = unavailable;
+    button.setAttribute('aria-label', unavailable ? 'Music unavailable' : playing ? 'Turn music off' : 'Play music');
     status.textContent = ({ playing:'Music is playing', off:'Music is off', ready:'Tap to start the music', unavailable:'You can still enjoy the invitation without music' })[state];
   } });
   button.addEventListener('click', () => music.toggle());
@@ -36,7 +36,6 @@
     if (!doc || doc.location.href === 'about:blank') return;
     document.title = doc.title;
     frame.title = doc.title;
-    printLink.href = new URL(current + '?standalone=1', base).href;
     // Same-origin frame gestures call play synchronously to retain user activation.
     doc.addEventListener('click', event => {
       if (event.isTrusted) music.start();
