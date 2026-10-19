@@ -64,6 +64,62 @@ The optional [translucency browser regression](tests/translucent-invitations.bro
 checks mobile/desktop layout, background alpha, unchanged text opacity, reduced
 transparency and print. This visual trial still needs owner review on real devices.
 
+### Visitor analytics (GA4)
+
+The music shell loads [js/analytics.js](js/analytics.js) and
+[js/analytics-shell.js](js/analytics-shell.js), using public Measurement ID
+`G-78D63NNW7R`. No API secret, backend, or new runtime dependency is needed.
+Only the outer shell loads Google, after **Accept analytics**. Decline and Close
+do not load Google or send cookieless pings. **Privacy** reopens the choice;
+withdrawal disables collection, removes this integration's GA cookies and reloads
+to unload the tag. The consent preference is stored locally; cookies expire after
+90 days. Unavailable storage leaves consent session-only. Cross-tab preference
+changes reload other open invitations. No-JS, local-file and `?standalone=1` pages
+remain untracked.
+
+**Required GA4 console setup:** Admin → Data streams → this web stream →
+**Enhanced measurement → turn OFF**. This integration sends page views and
+interactions explicitly; automatic history, outbound-link, scroll, form and
+download events can duplicate them or collect URL/text values outside the fixed
+event vocabulary. Do not add a second Google tag to the three framed pages.
+Keep Google Signals, advertising personalization and user-provided data collection
+disabled. Choose a short event-data retention period (for example, 2 months) under
+Admin → Data retention. This console configuration cannot be changed by the site.
+
+| Event | Meaning / parameters |
+| --- | --- |
+| `page_view` | Once per logical page change; `invitation_page`: landing, wedding, reception |
+| `navigation_click` | Invitation link activation; `destination` |
+| `map_click` | Wedding/reception directions link activation; `destination` |
+| `calendar_click` | Save-date button activation, not proof of successful calendar import; `destination` |
+| `share_click` | Share button activation, not proof of completed sharing |
+| `invitation_open`, `invitation_close` | Reveal control's expanded state changes, including the wedding cord |
+| `scroll_depth` | 25/50/75/90% of scrollable travel, once per loaded page; `percent_scrolled` |
+| `music_toggle`, `motion_toggle` | Control activations; `action` (on/off intent or toggle) |
+
+All custom events include `invitation_page`. No names, typed inputs, raw IPs,
+arbitrary click text, or full outbound URLs are sent as custom parameters. Page
+URLs/titles are fixed and query/hash values excluded; the initial referrer is
+reduced to its origin. Consequently query-based UTM campaign attribution is not
+supported. Google still receives connection/device data to provide approximate
+country/city, device/browser, traffic and engagement reports. These statistics
+are incomplete when guests decline, block tracking or use private browsing;
+location can be inaccurate and visits do **not** measure attending guests.
+
+Reports are stored in your GA4 property, not in this public repository. Use
+**Realtime** for a first consented visit (normally minutes), then Reports for
+users, sessions, geography, technology and events (often 24–48 hours). Under
+Admin → Custom definitions, create event-scoped dimensions for `invitation_page`,
+`destination` and `action`, and an event-scoped custom metric for
+`percent_scrolled` if needed in Explorations. GA4 may threshold small audiences.
+Data collected before installation or without consent cannot be recovered.
+
+Validation: `node --test tests/analytics.test.cjs` checks the pure controller;
+`PLAYWRIGHT_MODULE=/path/to/playwright node tests/analytics.browser.cjs` runs a
+focused, fully intercepted browser check. Google is stubbed, so test visits do not
+pollute real reports. Test actual collection after deployment by accepting once
+in a fresh browser and checking Realtime. An ad blocker can prevent the tag loading.
+
 ### Continuous invitation music
 
 The supplied Neethanae excerpt is bundled as [assets/invitation-music.mp3](assets/invitation-music.mp3).

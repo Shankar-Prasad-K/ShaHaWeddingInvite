@@ -1,5 +1,23 @@
 # Final invitation review
 
+## Consent-based analytics — 19 October 2026
+
+- Added GA4 `G-78D63NNW7R` only to the persistent shell; no Google requests before acceptance.
+- Privacy control allows decline/withdrawal without affecting invitation functionality.
+- Fixed-label events cover logical pages, navigation, maps, calendar/share clicks,
+  invitation reveals, scroll milestones and music/motion controls. No RSVP or guest count inference.
+- Query/hash values, arbitrary click text, form contents and raw IP custom fields are excluded.
+- Validation: all 67 unit tests pass; analytics controller line coverage is 98.44%.
+  Focused intercepted Chromium checks pass for consent, withdrawal/cookie cleanup,
+  saved choices, all custom event types, navigation/history deduplication, mobile width
+  and URL redaction. Analytics browser adapter executed-byte coverage is 95.28%.
+  Google is stubbed in these checks; report ingestion still requires the Realtime check below.
+- [ ] In GA4, turn **Enhanced measurement OFF** to prevent duplicate automatic events.
+- [ ] Keep Google Signals/user-provided data/advertising features off; review retention settings.
+- [ ] After deployment, accept analytics in a fresh browser and confirm one visit in Realtime.
+- [ ] Verify the privacy choice and invitation still work on the intended mobile browsers.
+- The earlier sections below are historical validation/publication notes, not current deployment status.
+
 ## Completed locally — 1 October 2026
 
 - Preserved the blossom landing, bronze-maroon wedding scroll and midnight floral reception.
