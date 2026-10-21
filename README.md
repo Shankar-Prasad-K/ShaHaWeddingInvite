@@ -70,21 +70,18 @@ The music shell loads [js/analytics.js](js/analytics.js) and
 [js/analytics-shell.js](js/analytics-shell.js), using public Measurement ID
 `G-78D63NNW7R`. No API secret, backend, or new runtime dependency is needed.
 Only the outer shell loads Google. **Analytics starts automatically on a new
-visit, with no opening prompt.** A small **Privacy** control opens an explanatory
-panel with **Turn analytics off/on**. Existing saved declines remain respected;
-automatic tracking is not stored as explicit acceptance. Opting out disables
-collection, removes this integration's GA cookies and reloads to unload the tag
-when the preference can be saved. Without storage, the disable flag remains active
-for the current page session instead of reloading and losing the opt-out.
-Preferences are stored locally; cookies expire after 90 days. Cross-tab preference
-changes reload other open invitations. No-JS, local-file and `?standalone=1` pages
-remain untracked. Ad blockers can prevent tracking.
+visit, with no opening prompt, Privacy button, or analytics settings panel.**
+Existing saved declines remain respected; automatic tracking is not stored as
+explicit acceptance. Legacy preference changes from older open tabs reload the
+invitation, disabling collection and removing this integration's cookies when
+appropriate. GA cookies expire after 90 days. No-JS, local-file and
+`?standalone=1` pages remain untracked. Ad blockers can prevent tracking.
 
-**Privacy/legal limitation:** this is cookie-based GA4 with an opt-out default,
+**Privacy/legal limitation:** this is cookie-based GA4 with automatic collection,
 not anonymous or cookieless analytics. Prior consent may be required depending on
 visitors' jurisdictions and applicable law. The host is responsible for confirming
-that automatic collection is appropriate; the Privacy control alone does not
-establish compliance where prior consent is required.
+that automatic collection and the required privacy disclosures are appropriate.
+Removing guest-facing controls does not remove consent or disclosure obligations.
 
 **Required GA4 console setup:** Admin → Data streams → this web stream →
 **Enhanced measurement → turn OFF**. This integration sends page views and

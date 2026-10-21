@@ -4,8 +4,6 @@
   const measurementId = 'G-78D63NNW7R';
   const base = new URL('./', location.href);
   const frame = document.getElementById('invitation-frame');
-  const panel = document.getElementById('analytics-consent');
-  const settings = document.getElementById('analytics-settings');
   const titles = { landing: 'Invitation — Welcome', wedding: 'Invitation — Wedding', reception: 'Invitation — Reception' };
   const files = { landing: 'index.html', wedding: 'wedding.html', reception: 'reception.html' };
   let storage, cleanup = () => {};
@@ -52,31 +50,13 @@
       tag('event', name, { ...context, ...params, send_to: measurementId });
     }
   });
-  function choose(accept) {
-    const wasEnabled = tracker.choice() !== 'declined';
-    tracker.consent(accept);
-    panel.hidden = true; settings.focus();
-    // Only reload if the opt-out was saved; otherwise retain the in-memory disable flag.
-    if (wasEnabled && !accept) {
-      try { if (storage?.getItem(preferenceKey) === 'declined') location.reload(); } catch { /* Session-only opt-out. */ }
-    }
-  }
-  settings.addEventListener('click', () => {
-    const enabled = tracker.choice() !== 'declined';
-    document.getElementById('analytics-status').textContent = enabled ? 'Visit analytics is on.' : 'Visit analytics is off.';
-    panel.hidden = false;
-    document.getElementById(enabled ? 'analytics-decline' : 'analytics-accept').focus();
-  });
-  document.getElementById('analytics-accept').addEventListener('click', () => choose(true));
-  document.getElementById('analytics-decline').addEventListener('click', () => choose(false));
-  document.getElementById('analytics-close').addEventListener('click', () => { panel.hidden = true; settings.focus(); });
+  // Respect preference changes from older tabs that still offer analytics controls.
   window.addEventListener('storage', event => {
     if (event.key === preferenceKey && event.newValue !== tracker.choice()) {
       if (event.newValue !== 'accepted') revoke();
       location.reload();
     }
   });
-  panel.hidden = true;
 
   function attach() {
     const doc = frame.contentDocument;

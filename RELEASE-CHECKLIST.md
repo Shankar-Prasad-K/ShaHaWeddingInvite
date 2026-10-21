@@ -1,5 +1,13 @@
 # Final invitation review
 
+## Analytics UI removed — 21 October 2026
+
+- Removed the Privacy button, analytics settings panel, stylesheet and UI handlers.
+- Automatic tracking remains; previous saved declines are still respected.
+- No invitation or music controls were changed. Cookie-based GA4 and the host's
+  applicable consent/disclosure obligations remain unchanged.
+- This supersedes the on-demand Privacy panel described in earlier entries below.
+
 ## Automatic analytics — 21 October 2026
 
 - Removed the opening analytics prompt. New visits are tracked automatically through the shell.
