@@ -69,13 +69,22 @@ transparency and print. This visual trial still needs owner review on real devic
 The music shell loads [js/analytics.js](js/analytics.js) and
 [js/analytics-shell.js](js/analytics-shell.js), using public Measurement ID
 `G-78D63NNW7R`. No API secret, backend, or new runtime dependency is needed.
-Only the outer shell loads Google, after **Accept analytics**. Decline and Close
-do not load Google or send cookieless pings. **Privacy** reopens the choice;
-withdrawal disables collection, removes this integration's GA cookies and reloads
-to unload the tag. The consent preference is stored locally; cookies expire after
-90 days. Unavailable storage leaves consent session-only. Cross-tab preference
+Only the outer shell loads Google. **Analytics starts automatically on a new
+visit, with no opening prompt.** A small **Privacy** control opens an explanatory
+panel with **Turn analytics off/on**. Existing saved declines remain respected;
+automatic tracking is not stored as explicit acceptance. Opting out disables
+collection, removes this integration's GA cookies and reloads to unload the tag
+when the preference can be saved. Without storage, the disable flag remains active
+for the current page session instead of reloading and losing the opt-out.
+Preferences are stored locally; cookies expire after 90 days. Cross-tab preference
 changes reload other open invitations. No-JS, local-file and `?standalone=1` pages
-remain untracked.
+remain untracked. Ad blockers can prevent tracking.
+
+**Privacy/legal limitation:** this is cookie-based GA4 with an opt-out default,
+not anonymous or cookieless analytics. Prior consent may be required depending on
+visitors' jurisdictions and applicable law. The host is responsible for confirming
+that automatic collection is appropriate; the Privacy control alone does not
+establish compliance where prior consent is required.
 
 **Required GA4 console setup:** Admin → Data streams → this web stream →
 **Enhanced measurement → turn OFF**. This integration sends page views and
@@ -103,22 +112,22 @@ URLs/titles are fixed and query/hash values excluded; the initial referrer is
 reduced to its origin. Consequently query-based UTM campaign attribution is not
 supported. Google still receives connection/device data to provide approximate
 country/city, device/browser, traffic and engagement reports. These statistics
-are incomplete when guests decline, block tracking or use private browsing;
+are incomplete when guests opt out, block tracking or use private browsing;
 location can be inaccurate and visits do **not** measure attending guests.
 
 Reports are stored in your GA4 property, not in this public repository. Use
-**Realtime** for a first consented visit (normally minutes), then Reports for
+**Realtime** for a new visit without an opt-out (normally minutes), then Reports for
 users, sessions, geography, technology and events (often 24–48 hours). Under
 Admin → Custom definitions, create event-scoped dimensions for `invitation_page`,
 `destination` and `action`, and an event-scoped custom metric for
 `percent_scrolled` if needed in Explorations. GA4 may threshold small audiences.
-Data collected before installation or without consent cannot be recovered.
+Visits before installation or while analytics was disabled cannot be recovered.
 
 Validation: `node --test tests/analytics.test.cjs` checks the pure controller;
 `PLAYWRIGHT_MODULE=/path/to/playwright node tests/analytics.browser.cjs` runs a
 focused, fully intercepted browser check. Google is stubbed, so test visits do not
-pollute real reports. Test actual collection after deployment by accepting once
-in a fresh browser and checking Realtime. An ad blocker can prevent the tag loading.
+pollute real reports. Test actual collection after deployment by opening the site
+in a fresh browser and checking Realtime; no acceptance step is needed.
 
 ### Continuous invitation music
 

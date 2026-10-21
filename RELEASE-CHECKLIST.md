@@ -1,5 +1,21 @@
 # Final invitation review
 
+## Automatic analytics — 21 October 2026
+
+- Removed the opening analytics prompt. New visits are tracked automatically through the shell.
+- The on-demand Privacy panel explains collection and provides on/off controls.
+  Previous saved declines are preserved; automatic mode is not recorded as explicit acceptance.
+- Storage-unavailable opt-outs stay disabled for the current session without a reload.
+- Validation: 68 unit tests pass; analytics controller line coverage is 98.46%.
+  Focused mobile-sized Chromium checks verify automatic page views without a prompt,
+  existing opt-outs, disable/re-enable, cookie cleanup and all custom events.
+  Browser adapter executed-byte coverage is 95.71%; Google is stubbed in tests.
+- This remains cookie-based GA4, not anonymous or cookieless tracking. The host must
+  assess applicable prior-consent requirements; opt-out alone does not satisfy all jurisdictions.
+- [ ] Keep GA4 Enhanced measurement OFF to avoid duplicate page/event tracking.
+- [ ] Open the site in a fresh browser and check Realtime; no acceptance is required.
+- The consent-first behavior in the 19 October section below is historical and superseded.
+
 ## Consent-based analytics — 19 October 2026
 
 - Added GA4 `G-78D63NNW7R` only to the persistent shell; no Google requests before acceptance.

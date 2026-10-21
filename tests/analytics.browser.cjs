@@ -39,13 +39,19 @@ const mime = { '.html':'text/html', '.js':'text/javascript', '.css':'text/css', 
   try {
     const p = await newPage();
     await p.goto(base); await ready(p);
-    assert.equal(googleLoads, 0); assert.deepEqual(await events(p), []);
-    assert.equal(await p.locator('#analytics-consent').isVisible(), true);
-    await p.locator('#analytics-decline').click();
-    await p.frameLocator('iframe').locator('a[href="wedding.html"]').first().click(); await ready(p);
-    assert.equal(googleLoads, 0);
+    await p.waitForFunction(() => document.querySelector('script[src*="googletagmanager"]'));
+    assert.equal(await p.locator('#analytics-consent').isVisible(), false);
+    assert.equal((await events(p)).filter(e=>e.name==='page_view').length, 1);
+    assert.equal((await events(p))[0].params.invitation_page, 'landing');
+    assert.equal(await p.evaluate(()=>localStorage.getItem('invitation-analytics-consent-v1')),null);
     await p.locator('#analytics-settings').click(); await p.locator('#analytics-close').click();
     assert.equal(await p.locator('#analytics-consent').isVisible(), false);
+    await p.locator('#analytics-settings').click(); await p.locator('#analytics-decline').click();
+    await p.waitForFunction(() => !window.dataLayer && document.querySelector('#analytics-settings'));
+    await ready(p);
+    const optedOutLoads = googleLoads;
+    await p.frameLocator('iframe').locator('a[href="wedding.html"]').first().click(); await ready(p);
+    assert.equal(googleLoads, optedOutLoads); assert.deepEqual(await events(p), []);
     await p.locator('#analytics-settings').click(); await p.locator('#analytics-accept').click();
     await p.waitForFunction(() => document.querySelector('script[src*="googletagmanager"]'));
     assert.equal((await events(p)).filter(e=>e.name==='page_view').length, 1);
@@ -90,17 +96,33 @@ const mime = { '.html':'text/html', '.js':'text/javascript', '.css':'text/css', 
     await p.reload(); await ready(p); assert.equal(googleLoads,before);
     assert.ok(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
     await close(p);
-    console.log('PASS consent, withdrawal/cookies, saved preference, all event types, navigation/history deduplication and mobile width');
+    console.log('PASS automatic tracking without prompt, opt-out/cookies, saved preference, all events, history deduplication and mobile width');
 
     const q = await newPage();
     await q.addInitScript(() => {
       Object.defineProperty(window,'localStorage',{ get(){throw Error('Unavailable');} });
     });
     await q.goto(base+'reception.html?email=private@example.test#private'); await ready(q);
-    await q.locator('#analytics-accept').click();
+    assert.equal(await q.locator('#analytics-consent').isVisible(),false);
     assert.ok((await events(q)).every(e=>!JSON.stringify(e).includes('private')));
     assert.equal((await events(q))[0].params.page_location,base+'reception.html');
+    await q.locator('#analytics-settings').click(); await q.locator('#analytics-decline').click();
+    assert.equal(await q.evaluate(()=>window['ga-disable-G-78D63NNW7R']),true);
+    const eventCount=(await events(q)).length;
+    await q.frameLocator('iframe').locator('a[href="index.html"]').first().click(); await ready(q);
+    assert.equal((await events(q)).length,eventCount);
+    await q.locator('#analytics-settings').click(); await q.locator('#analytics-accept').click();
+    assert.equal(await q.evaluate(()=>window['ga-disable-G-78D63NNW7R']),false);
+    assert.equal(await q.locator('#invitation-google-tag').count(),1);
     await close(q);
+
+    const prior = await newPage();
+    await prior.addInitScript(() => localStorage.setItem('invitation-analytics-consent-v1','declined'));
+    const priorLoads = googleLoads;
+    await prior.goto(base); await ready(prior);
+    assert.equal(googleLoads,priorLoads); assert.deepEqual(await events(prior),[]);
+    assert.equal(await prior.locator('#analytics-consent').isVisible(),false);
+    await close(prior);
     console.log('PASS storage unavailable and query/hash redaction; no actual Google requests');
     assert.deepEqual(errors, []);
     // Browser adapters are not included in Node coverage; measure this adapter separately.

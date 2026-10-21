@@ -9,7 +9,7 @@
   const titles = { landing: 'Invitation — Welcome', wedding: 'Invitation — Wedding', reception: 'Invitation — Reception' };
   const files = { landing: 'index.html', wedding: 'wedding.html', reception: 'reception.html' };
   let storage, cleanup = () => {};
-  try { storage = window.localStorage; } catch { /* Consent can remain in memory. */ }
+  try { storage = window.localStorage; } catch { /* Preferences can remain in memory. */ }
   function tag() { window.dataLayer.push(arguments); }
   function revoke() {
     window['ga-disable-' + measurementId] = true;
@@ -25,8 +25,11 @@
   }
   const tracker = createAnalytics({ storage, revoke,
     load() {
+      window['ga-disable-' + measurementId] = false;
       window.dataLayer = window.dataLayer || [];
-      tag('consent', 'default', { analytics_storage: 'granted', ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' });
+      tag('consent', document.getElementById('invitation-google-tag') ? 'update' : 'default', {
+        analytics_storage: 'granted', ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied'
+      });
       tag('js', new Date());
       let referrer = '';
       try { referrer = document.referrer ? new URL(document.referrer).origin : ''; } catch { /* No referrer. */ }
@@ -35,9 +38,12 @@
         cookie_domain: location.hostname, cookie_path: base.pathname, cookie_expires: 60 * 60 * 24 * 90,
         page_location: new URL('index.html', base).href, page_title: titles.landing, page_referrer: referrer
       });
-      const script = document.createElement('script');
-      script.async = true; script.src = 'https://www.googletagmanager.com/gtag/js?id=' + measurementId;
-      document.head.appendChild(script);
+      if (!document.getElementById('invitation-google-tag')) {
+        const script = document.createElement('script');
+        script.id = 'invitation-google-tag';
+        script.async = true; script.src = 'https://www.googletagmanager.com/gtag/js?id=' + measurementId;
+        document.head.appendChild(script);
+      }
     },
     send(name, params) {
       const context = { page_location: new URL(files[params.invitation_page], base).href, page_title: titles[params.invitation_page] };
@@ -47,13 +53,20 @@
     }
   });
   function choose(accept) {
-    const wasAccepted = tracker.choice() === 'accepted';
+    const wasEnabled = tracker.choice() !== 'declined';
     tracker.consent(accept);
     panel.hidden = true; settings.focus();
-    // Unload the Google runtime on withdrawal; a later acceptance starts fresh.
-    if (wasAccepted && !accept) location.reload();
+    // Only reload if the opt-out was saved; otherwise retain the in-memory disable flag.
+    if (wasEnabled && !accept) {
+      try { if (storage?.getItem(preferenceKey) === 'declined') location.reload(); } catch { /* Session-only opt-out. */ }
+    }
   }
-  settings.addEventListener('click', () => { panel.hidden = false; document.getElementById('analytics-accept').focus(); });
+  settings.addEventListener('click', () => {
+    const enabled = tracker.choice() !== 'declined';
+    document.getElementById('analytics-status').textContent = enabled ? 'Visit analytics is on.' : 'Visit analytics is off.';
+    panel.hidden = false;
+    document.getElementById(enabled ? 'analytics-decline' : 'analytics-accept').focus();
+  });
   document.getElementById('analytics-accept').addEventListener('click', () => choose(true));
   document.getElementById('analytics-decline').addEventListener('click', () => choose(false));
   document.getElementById('analytics-close').addEventListener('click', () => { panel.hidden = true; settings.focus(); });
@@ -63,7 +76,7 @@
       location.reload();
     }
   });
-  panel.hidden = tracker.choice() !== null;
+  panel.hidden = true;
 
   function attach() {
     const doc = frame.contentDocument;
@@ -79,7 +92,7 @@
       if (action) tracker.event(action.name, action.params);
     };
     const scroll = () => {
-      if (tracker.choice() !== 'accepted') return;
+      if (tracker.choice() === 'declined') return;
       const el = doc.scrollingElement;
       for (const percent of scrollMilestones(el.scrollTop, el.clientHeight, el.scrollHeight, seen)) tracker.event('scroll_depth', { percent_scrolled: percent });
     };

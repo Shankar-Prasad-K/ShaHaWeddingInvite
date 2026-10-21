@@ -11,14 +11,24 @@ function fixture(saved = null) {
   });
   return { tracker, calls, events, preferences };
 }
-test('no collection before consent; accepting sends only the current page', () => {
+test('new visitors are tracked automatically without recording explicit acceptance', () => {
   const f = fixture();
-  f.tracker.page('index.html'); f.tracker.event('share_click'); f.tracker.page('wedding.html');
-  assert.deepEqual(f.calls, []); assert.deepEqual(f.events, []);
-  f.tracker.consent(true);
+  assert.equal(f.tracker.choice(), 'automatic');
+  assert.deepEqual(f.calls, []);
+  f.tracker.page('index.html'); f.tracker.page('index.html');
   assert.deepEqual(f.calls, ['load']);
-  assert.deepEqual(f.events, [{ name: 'page_view', params: { invitation_page: 'wedding' } }]);
+  assert.deepEqual(f.events, [{ name: 'page_view', params: { invitation_page: 'landing' } }]);
+  assert.deepEqual(f.preferences, []);
   f.tracker.consent(true); assert.equal(f.events.length, 1);
+});
+test('automatic tracking can be disabled and prior declines remain respected', () => {
+  const f = fixture(); f.tracker.page('index.html'); f.tracker.consent(false);
+  f.tracker.page('wedding.html'); f.tracker.event('share_click');
+  assert.equal(f.events.length, 1);
+  assert.deepEqual(f.calls, ['load', 'revoke']);
+  assert.deepEqual(f.preferences, ['declined']);
+  const optedOut = fixture('declined'); optedOut.tracker.page('index.html');
+  assert.deepEqual(optedOut.calls, []); assert.deepEqual(optedOut.events, []);
 });
 test('saved consent tracks navigation once and history revisits again', () => {
   const f = fixture('accepted');
@@ -39,7 +49,7 @@ test('declining and withdrawing block all later collection', () => {
 });
 test('storage failures do not prevent consent or break invitations', () => {
   const tracker = createAnalytics({ storage: { getItem() { throw Error(); }, setItem() { throw Error(); } }, load() {}, send() {}, revoke() {} });
-  assert.equal(tracker.choice(), null); tracker.consent(true); tracker.consent(false);
+  assert.equal(tracker.choice(), 'automatic'); tracker.consent(true); tracker.consent(false);
 });
 test('unknown pages, event names and arbitrary parameters are discarded', () => {
   const f = fixture('accepted');

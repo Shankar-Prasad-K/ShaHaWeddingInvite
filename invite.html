@@ -32,12 +32,13 @@
   </div>
   <button id="analytics-settings" class="analytics-settings" type="button" aria-controls="analytics-consent">Privacy</button>
   <section id="analytics-consent" class="analytics-consent" aria-labelledby="analytics-heading" hidden>
-    <h2 id="analytics-heading">A little help for our hosts</h2>
-    <p>May we use Google Analytics to understand visits and invitation interactions? If you accept, Google receives usage data and uses cookies, your IP address to estimate location, and device/browser information. We do not receive raw IP addresses or collect names or form contents through analytics.</p>
-    <p>Declining will not affect the invitation. Change your choice anytime using Privacy. <a href="https://policies.google.com/technologies/partner-sites" target="_blank" rel="noopener noreferrer">How Google uses this data</a>.</p>
+    <h2 id="analytics-heading">Privacy settings</h2>
+    <p id="analytics-status" role="status"></p>
+    <p>This invitation uses Google Analytics automatically to understand visits and invitation interactions. Google receives usage data and uses cookies, your IP address to estimate location, and device/browser information. We do not receive raw IP addresses or collect names or form contents through analytics.</p>
+    <p>You can turn analytics off without affecting the invitation. Previous opt-outs are respected. <a href="https://policies.google.com/technologies/partner-sites" target="_blank" rel="noopener noreferrer">How Google uses this data</a>.</p>
     <div class="analytics-actions">
-      <button id="analytics-accept" type="button">Accept analytics</button>
-      <button id="analytics-decline" type="button">Decline analytics</button>
+      <button id="analytics-accept" type="button">Turn analytics on</button>
+      <button id="analytics-decline" type="button">Turn analytics off</button>
       <button id="analytics-close" type="button">Close</button>
     </div>
   </section>
